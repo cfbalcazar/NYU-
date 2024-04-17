@@ -1,0 +1,300 @@
+IHDS round,Mean,Median,Min,Max,N
+,confidence stategovt,confidence stategovt,confidence stategovt,confidence stategovt,confidence stategovt
+2005,0.8,1.0,0.0,1.0,"39,426.0"
+2012,0.8,1.0,0.0,1.0,"39,742.0"
+Total,0.8,1.0,0.0,1.0,"79,168.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence villagegovt,confidence villagegovt,confidence villagegovt,confidence villagegovt,confidence villagegovt
+2005,0.8,1.0,0.0,1.0,"39,362.0"
+2012,0.8,1.0,0.0,1.0,"39,818.0"
+Total,0.8,1.0,0.0,1.0,"79,180.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence politicians,confidence politicians,confidence politicians,confidence politicians,confidence politicians
+2005,0.4,0.0,0.0,1.0,"39,710.0"
+2012,0.5,0.0,0.0,1.0,"39,852.0"
+Total,0.5,0.0,0.0,1.0,"79,562.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,conflict community,conflict community,conflict community,conflict community,conflict community
+2005,0.1,0.0,0.0,1.0,"39,794.0"
+2012,0.1,0.0,0.0,1.0,"39,873.0"
+Total,0.1,0.0,0.0,1.0,"79,667.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,conflict amount,conflict amount,conflict amount,conflict amount,conflict amount
+2005,0.0,0.0,0.0,1.0,"39,818.0"
+2012,0.1,0.0,0.0,1.0,"39,844.0"
+Total,0.1,0.0,0.0,1.0,"79,662.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,cooperation water,cooperation water,cooperation water,cooperation water,cooperation water
+2005,0.6,1.0,0.0,1.0,"39,858.0"
+2012,0.7,1.0,0.0,1.0,"39,866.0"
+Total,0.7,1.0,0.0,1.0,"79,724.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,irrigation,irrigation,irrigation,irrigation,irrigation
+2005,0.2,0.0,0.0,1.0,"40,018.0"
+2012,0.2,0.0,0.0,1.0,"39,934.0"
+Total,0.2,0.0,0.0,1.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,avg light,avg light,avg light,avg light,avg light
+2005,6.7,4.4,0.1,62.5,"39,742.0"
+2012,9.0,6.0,0.1,62.9,"39,656.0"
+Total,7.8,5.1,0.1,62.9,"79,398.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,head sex,head sex,head sex,head sex,head sex
+2005,1.1,1.0,1.0,2.0,"40,018.0"
+2012,1.1,1.0,1.0,2.0,"39,934.0"
+Total,1.1,1.0,1.0,2.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,hh urban,hh urban,hh urban,hh urban,hh urban
+2005,0.7,1.0,0.0,1.0,"40,018.0"
+2012,0.7,1.0,0.0,1.0,"39,934.0"
+Total,0.7,1.0,0.0,1.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence stategovt,confidence stategovt,confidence stategovt,confidence stategovt,confidence stategovt
+2005,0.8,1.0,0.0,1.0,"39,426.0"
+2012,0.8,1.0,0.0,1.0,"39,742.0"
+Total,0.8,1.0,0.0,1.0,"79,168.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence villagegovt,confidence villagegovt,confidence villagegovt,confidence villagegovt,confidence villagegovt
+2005,0.8,1.0,0.0,1.0,"39,362.0"
+2012,0.8,1.0,0.0,1.0,"39,818.0"
+Total,0.8,1.0,0.0,1.0,"79,180.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence politicians,confidence politicians,confidence politicians,confidence politicians,confidence politicians
+2005,0.4,0.0,0.0,1.0,"39,710.0"
+2012,0.5,0.0,0.0,1.0,"39,852.0"
+Total,0.5,0.0,0.0,1.0,"79,562.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,conflict community,conflict community,conflict community,conflict community,conflict community
+2005,0.1,0.0,0.0,1.0,"39,794.0"
+2012,0.1,0.0,0.0,1.0,"39,873.0"
+Total,0.1,0.0,0.0,1.0,"79,667.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,conflict amount,conflict amount,conflict amount,conflict amount,conflict amount
+2005,0.0,0.0,0.0,1.0,"39,818.0"
+2012,0.1,0.0,0.0,1.0,"39,844.0"
+Total,0.1,0.0,0.0,1.0,"79,662.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,cooperation water,cooperation water,cooperation water,cooperation water,cooperation water
+2005,0.6,1.0,0.0,1.0,"39,858.0"
+2012,0.7,1.0,0.0,1.0,"39,866.0"
+Total,0.7,1.0,0.0,1.0,"79,724.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,irrigation,irrigation,irrigation,irrigation,irrigation
+2005,0.2,0.0,0.0,1.0,"40,018.0"
+2012,0.2,0.0,0.0,1.0,"39,934.0"
+Total,0.2,0.0,0.0,1.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,avg light,avg light,avg light,avg light,avg light
+2005,6.7,4.4,0.1,62.5,"39,742.0"
+2012,9.0,6.0,0.1,62.9,"39,656.0"
+Total,7.8,5.1,0.1,62.9,"79,398.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,head sex,head sex,head sex,head sex,head sex
+2005,1.1,1.0,1.0,2.0,"40,018.0"
+2012,1.1,1.0,1.0,2.0,"39,934.0"
+Total,1.1,1.0,1.0,2.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,hh urban,hh urban,hh urban,hh urban,hh urban
+2005,0.7,1.0,0.0,1.0,"40,018.0"
+2012,0.7,1.0,0.0,1.0,"39,934.0"
+Total,0.7,1.0,0.0,1.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence stategovt,confidence stategovt,confidence stategovt,confidence stategovt,confidence stategovt
+2005,0.8,1.0,0.0,1.0,"39,426.0"
+2012,0.8,1.0,0.0,1.0,"39,742.0"
+Total,0.8,1.0,0.0,1.0,"79,168.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence villagegovt,confidence villagegovt,confidence villagegovt,confidence villagegovt,confidence villagegovt
+2005,0.8,1.0,0.0,1.0,"39,362.0"
+2012,0.8,1.0,0.0,1.0,"39,818.0"
+Total,0.8,1.0,0.0,1.0,"79,180.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence politicians,confidence politicians,confidence politicians,confidence politicians,confidence politicians
+2005,0.4,0.0,0.0,1.0,"39,710.0"
+2012,0.5,0.0,0.0,1.0,"39,852.0"
+Total,0.5,0.0,0.0,1.0,"79,562.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,conflict community,conflict community,conflict community,conflict community,conflict community
+2005,0.1,0.0,0.0,1.0,"39,794.0"
+2012,0.1,0.0,0.0,1.0,"39,873.0"
+Total,0.1,0.0,0.0,1.0,"79,667.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,conflict amount,conflict amount,conflict amount,conflict amount,conflict amount
+2005,0.0,0.0,0.0,1.0,"39,818.0"
+2012,0.1,0.0,0.0,1.0,"39,844.0"
+Total,0.1,0.0,0.0,1.0,"79,662.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,cooperation water,cooperation water,cooperation water,cooperation water,cooperation water
+2005,0.6,1.0,0.0,1.0,"39,858.0"
+2012,0.7,1.0,0.0,1.0,"39,866.0"
+Total,0.7,1.0,0.0,1.0,"79,724.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,irrigation,irrigation,irrigation,irrigation,irrigation
+2005,0.2,0.0,0.0,1.0,"40,018.0"
+2012,0.2,0.0,0.0,1.0,"39,934.0"
+Total,0.2,0.0,0.0,1.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,avg light,avg light,avg light,avg light,avg light
+2005,6.7,4.4,0.1,62.5,"39,742.0"
+2012,9.0,6.0,0.1,62.9,"39,656.0"
+Total,7.8,5.1,0.1,62.9,"79,398.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,head sex,head sex,head sex,head sex,head sex
+2005,1.1,1.0,1.0,2.0,"40,018.0"
+2012,1.1,1.0,1.0,2.0,"39,934.0"
+Total,1.1,1.0,1.0,2.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,hh urban,hh urban,hh urban,hh urban,hh urban
+2005,0.7,1.0,0.0,1.0,"40,018.0"
+2012,0.7,1.0,0.0,1.0,"39,934.0"
+Total,0.7,1.0,0.0,1.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence stategovt,confidence stategovt,confidence stategovt,confidence stategovt,confidence stategovt
+2005,0.8,1.0,0.0,1.0,"39,426.0"
+2012,0.8,1.0,0.0,1.0,"39,742.0"
+Total,0.8,1.0,0.0,1.0,"79,168.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence villagegovt,confidence villagegovt,confidence villagegovt,confidence villagegovt,confidence villagegovt
+2005,0.8,1.0,0.0,1.0,"39,362.0"
+2012,0.8,1.0,0.0,1.0,"39,818.0"
+Total,0.8,1.0,0.0,1.0,"79,180.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence politicians,confidence politicians,confidence politicians,confidence politicians,confidence politicians
+2005,0.4,0.0,0.0,1.0,"39,710.0"
+2012,0.5,0.0,0.0,1.0,"39,852.0"
+Total,0.5,0.0,0.0,1.0,"79,562.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,conflict community,conflict community,conflict community,conflict community,conflict community
+2005,0.1,0.0,0.0,1.0,"39,794.0"
+2012,0.1,0.0,0.0,1.0,"39,873.0"
+Total,0.1,0.0,0.0,1.0,"79,667.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,conflict amount,conflict amount,conflict amount,conflict amount,conflict amount
+2005,0.0,0.0,0.0,1.0,"39,818.0"
+2012,0.1,0.0,0.0,1.0,"39,844.0"
+Total,0.1,0.0,0.0,1.0,"79,662.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,cooperation water,cooperation water,cooperation water,cooperation water,cooperation water
+2005,0.6,1.0,0.0,1.0,"39,858.0"
+2012,0.7,1.0,0.0,1.0,"39,866.0"
+Total,0.7,1.0,0.0,1.0,"79,724.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,irrigation,irrigation,irrigation,irrigation,irrigation
+2005,0.2,0.0,0.0,1.0,"40,018.0"
+2012,0.2,0.0,0.0,1.0,"39,934.0"
+Total,0.2,0.0,0.0,1.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,avg light,avg light,avg light,avg light,avg light
+2005,6.7,4.4,0.1,62.5,"39,742.0"
+2012,9.0,6.0,0.1,62.9,"39,656.0"
+Total,7.8,5.1,0.1,62.9,"79,398.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,head sex,head sex,head sex,head sex,head sex
+2005,1.1,1.0,1.0,2.0,"40,018.0"
+2012,1.1,1.0,1.0,2.0,"39,934.0"
+Total,1.1,1.0,1.0,2.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,hh urban,hh urban,hh urban,hh urban,hh urban
+2005,0.7,1.0,0.0,1.0,"40,018.0"
+2012,0.7,1.0,0.0,1.0,"39,934.0"
+Total,0.7,1.0,0.0,1.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence stategovt,confidence stategovt,confidence stategovt,confidence stategovt,confidence stategovt
+2005,0.8,1.0,0.0,1.0,"39,426.0"
+2012,0.8,1.0,0.0,1.0,"39,742.0"
+Total,0.8,1.0,0.0,1.0,"79,168.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence villagegovt,confidence villagegovt,confidence villagegovt,confidence villagegovt,confidence villagegovt
+2005,0.8,1.0,0.0,1.0,"39,362.0"
+2012,0.8,1.0,0.0,1.0,"39,818.0"
+Total,0.8,1.0,0.0,1.0,"79,180.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,confidence politicians,confidence politicians,confidence politicians,confidence politicians,confidence politicians
+2005,0.4,0.0,0.0,1.0,"39,710.0"
+2012,0.5,0.0,0.0,1.0,"39,852.0"
+Total,0.5,0.0,0.0,1.0,"79,562.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,conflict community,conflict community,conflict community,conflict community,conflict community
+2005,0.1,0.0,0.0,1.0,"39,794.0"
+2012,0.1,0.0,0.0,1.0,"39,873.0"
+Total,0.1,0.0,0.0,1.0,"79,667.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,conflict amount,conflict amount,conflict amount,conflict amount,conflict amount
+2005,0.0,0.0,0.0,1.0,"39,818.0"
+2012,0.1,0.0,0.0,1.0,"39,844.0"
+Total,0.1,0.0,0.0,1.0,"79,662.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,cooperation water,cooperation water,cooperation water,cooperation water,cooperation water
+2005,0.6,1.0,0.0,1.0,"39,858.0"
+2012,0.7,1.0,0.0,1.0,"39,866.0"
+Total,0.7,1.0,0.0,1.0,"79,724.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,irrigation,irrigation,irrigation,irrigation,irrigation
+2005,0.2,0.0,0.0,1.0,"40,018.0"
+2012,0.2,0.0,0.0,1.0,"39,934.0"
+Total,0.2,0.0,0.0,1.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,avg light,avg light,avg light,avg light,avg light
+2005,6.7,4.4,0.1,62.5,"39,742.0"
+2012,9.0,6.0,0.1,62.9,"39,656.0"
+Total,7.8,5.1,0.1,62.9,"79,398.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,head sex,head sex,head sex,head sex,head sex
+2005,1.1,1.0,1.0,2.0,"40,018.0"
+2012,1.1,1.0,1.0,2.0,"39,934.0"
+Total,1.1,1.0,1.0,2.0,"79,952.0"
+
+IHDS round,Mean,Median,Min,Max,N
+,hh urban,hh urban,hh urban,hh urban,hh urban
+2005,0.7,1.0,0.0,1.0,"40,018.0"
+2012,0.7,1.0,0.0,1.0,"39,934.0"
+Total,0.7,1.0,0.0,1.0,"79,952.0"
+

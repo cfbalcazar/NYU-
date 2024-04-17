@@ -1,0 +1,191 @@
+name,country,year,regime,gdppc,investment,growth,hinst,agehinst,ginig,britcol,oil,ethnic,openk,majgov,govsh
+Algeria,1,1995,Autocracy,2632,12.01,1.62,Military dictatorships,31,,Not British colony,Oil-produced,83,58.740002,,
+Angola,2,1995,Autocracy,636,9.46,6.5300002,Civilian dictatorships,21,,Not British colony,Oil-produced,37,148.03,,
+Benin,3,1995,Democracy,1200,7.8200002,1.27,Presidential democracies,5,,Not British colony,Not oil-producer,59,58.400002,Minority govt,.30000001
+Botswana,4,1995,Autocracy,3359,16.76,2.3499999,Civilian dictatorships,30,,British colony,Not oil-producer,34,84.400002,,
+Burkina Faso,5,1995,Autocracy,754,9.2600002,1.48,Military dictatorships,30,,Not British colony,Not oil-producer,54,38,,
+Burundi,6,1995,Democracy,639,3.1099999,-.93000001,Presidential democracies,3,,Not British colony,Not oil-producer,83,40,,
+Cameroon,7,1995,Autocracy,988,4.77,1.02,Civilian dictatorships,36,,Not British colony,Not oil-producer,21,41.32,,
+Cape Verde,8,1995,Democracy,1318,20.91,6.1999998,Parliamentary democracies,5,,Not British colony,Not oil-producer,70,77.900002,Majority govt,.69
+Central African Republic,9,1995,Democracy,648,6.54,3.1800001,Mixed democracies,3,,Not British colony,Not oil-producer,32,40.599998,Majority govt,.55000001
+Chad,10,1995,Autocracy,418,4.5900002,-2.79,Military dictatorships,6,,Not British colony,Not oil-producer,30,49.459999,,
+Comoros,11,1995,Autocracy,644,6.75,5.5700002,Civilian dictatorships,1,,Not British colony,Not oil-producer,99,63.66,,
+Congo,12,1995,Democracy,2177,6.7600002,1.59,Mixed democracies,4,,Not British colony,Oil-produced,52,113.17,,
+Djibouti,13,1995,Autocracy,1195,-999,-4.9299998,Civilian dictatorships,19,,Not British colony,Not oil-producer,47,,,
+"Egypt, Arab Rep.",14,1995,Autocracy,2496,4.73,2.4200001,Military dictatorships,44,,British colony,Not oil-producer,94,47.459999,,
+Gabon,16,1995,Autocracy,4811,6.3400002,2.1900001,Civilian dictatorships,36,,Not British colony,Oil-produced,34,86.239998,,
+"Gambia, The",17,1995,Autocracy,818,9.9099998,-6.8299999,Military dictatorships,2,,British colony,Not oil-producer,43,109.87,,
+Ghana,18,1995,Democracy,1144,5.5900002,1.6900001,Presidential democracies,3,,British colony,Not oil-producer,44,52.57,,
+Guinea,19,1995,Autocracy,521,8.1099997,1.36,Military dictatorships,12,,Not British colony,Not oil-producer,41,43,,
+Guinea-Bissau,20,1995,Autocracy,812,13.81,1.88,Military dictatorships,16,,Not British colony,Not oil-producer,27,47.310001,,
+Cote d'Ivoire,21,1995,Autocracy,1259,5.5900002,3.71,Civilian dictatorships,36,,Not British colony,Not oil-producer,20,77.059998,,
+Kenya,22,1995,Autocracy,1029,7.6399999,2.0799999,Civilian dictatorships,33,,British colony,Not oil-producer,21,70.449997,,
+Lesotho,23,1995,Democracy,1435,39.599998,11.59,Parliamentary democracies,3,,British colony,Not oil-producer,90,130.22,,
+Liberia,24,1995,Autocracy,1259,-999,6.79,Civilian dictatorships,6,,Not British colony,Not oil-producer,27,,,
+Madagascar,25,1995,Democracy,680,2.53,-1.3099999,Mixed democracies,3,,Not British colony,Not oil-producer,26,45.099998,,
+Malawi,26,1995,Democracy,617,4.8200002,18.200001,Presidential democracies,2,,British colony,Not oil-producer,59,47.610001,Minority govt,.47999999
+Mali,27,1995,Democracy,759,7.0999999,4.1199999,Mixed democracies,4,,Not British colony,Not oil-producer,33,53.27,Majority govt,.67000002
+Mauritania,28,1995,Autocracy,939,8.3800001,1.84,Military dictatorships,18,,Not British colony,Not oil-producer,80,111.87,,
+Mauritius,29,1995,Democracy,8716,10.48,2.52,Parliamentary democracies,28,,British colony,Not oil-producer,68,124.35,Majority govt,.91000003
+Morocco,30,1995,Autocracy,2446,11.17,-8.46,Monarchical dictatorships,40,,Not British colony,Not oil-producer,99,59.259998,,
+Mozambique,31,1995,Autocracy,1068,4.3000002,-1.48,Civilian dictatorships,21,,Not British colony,Not oil-producer,52,51.779999,,
+Niger,32,1995,Democracy,504,2.96,-.58999997,Mixed democracies,3,,Not British colony,Not oil-producer,52,40.189999,Minority govt,.41999999
+Nigeria,33,1995,Autocracy,1134,9.1000004,-.34999999,Military dictatorships,13,,British colony,Oil-produced,29,70.389999,,
+Rwanda,34,1995,Autocracy,674,3.1300001,52.139999,Military dictatorships,23,,Not British colony,Not oil-producer,88,33.560001,,
+Senegal,35,1995,Autocracy,1268,6.3200002,2.1800001,Civilian dictatorships,36,,Not British colony,Not oil-producer,35,74.739998,,
+Seychelles,36,1995,Autocracy,5458,16.51,-.34999999,Civilian dictatorships,20,,British colony,Not oil-producer,94,111.1,,
+Sierra Leone,37,1995,Autocracy,746,3.23,-13.46,Military dictatorships,11,,British colony,Not oil-producer,34,56.330002,,
+Somalia,38,1995,Autocracy,933,-999,1.08,Civilian dictatorships,5,,Not British colony,Not oil-producer,95,,,
+South Africa,39,1995,Democracy,3824,8.4899998,1.84,Parliamentary democracies,2,,Not British colony,Not oil-producer,72,46.240002,Majority govt,.94
+Sudan,40,1995,Autocracy,787,-999,.25,Military dictatorships,7,,Not British colony,Not oil-producer,46,,,
+Swaziland,41,1995,Autocracy,2467,-999,3.01,Monarchical dictatorships,28,,British colony,Not oil-producer,95,,,
+Tanzania,42,1995,Autocracy,505,9.71,.40000001,Civilian dictatorships,35,,British colony,Not oil-producer,21,57.790001,,
+Togo,43,1995,Autocracy,664,9.6899996,1.22,Military dictatorships,29,,Not British colony,Not oil-producer,46,68.040001,,
+Tunisia,44,1995,Autocracy,3692,12.51,.79000002,Military dictatorships,9,,Not British colony,Not oil-producer,98,93.839996,,
+Uganda,45,1995,Autocracy,671,3.6099999,8.9300003,Civilian dictatorships,10,,British colony,Not oil-producer,18,32.900002,,
+Zaire,46,1995,Autocracy,299,2.7,-4.7800002,Military dictatorships,31,,Not British colony,Not oil-producer,18,47.09,,
+Zambia,47,1995,Democracy,647,10.61,-4.5700002,Presidential democracies,5,,British colony,Not oil-producer,34,77.559998,Majority govt,.82999998
+Zimbabwe,48,1995,Autocracy,1263,14.93,-.79000002,Civilian dictatorships,31,,British colony,Not oil-producer,80,80.309998,,
+"Bahamas, The",49,1995,Democracy,,-999,,Parliamentary democracies,23,,British colony,Not oil-producer,70,,Majority govt,.63
+Barbados,50,1995,Democracy,,3.52,,Parliamentary democracies,30,,British colony,Not oil-producer,92,129.13,Majority govt,.68000001
+Belize,51,1995,Democracy,,11.49,,Parliamentary democracies,15,,British colony,Not oil-producer,40,103.54,Majority govt,.55000001
+Canada,52,1995,Democracy,19293,23.5,1.5,Parliamentary democracies,76,,Not British colony,Not oil-producer,61,70.870003,Majority govt,.60000002
+Costa Rica,53,1995,Democracy,5242,16.360001,.1,Presidential democracies,47,,Not British colony,Not oil-producer,85,84.449997,Minority govt,.49000001
+Dominican Republic,54,1995,Democracy,2703,12.31,2.8099999,Presidential democracies,30,,Not British colony,Not oil-producer,75,65.440002,Minority govt,.41999999
+El Salvador,55,1995,Democracy,2564,10.36,4.27,Presidential democracies,12,,Not British colony,Not oil-producer,94,57.259998,Minority govt,.46000001
+Grenada,56,1995,Democracy,,19.07,,Parliamentary democracies,12,,British colony,Not oil-producer,84,99.419998,Majority govt,.52999997
+Guatemala,57,1995,Democracy,3229,7.5799999,2.05,Presidential democracies,10,,Not British colony,Not oil-producer,50,42.470001,,
+Haiti,58,1995,Democracy,777,3.23,3.1900001,Mixed democracies,2,,Not British colony,Not oil-producer,95,39.619999,Majority govt,.81999999
+Honduras,59,1995,Democracy,1935,18.5,.82999998,Presidential democracies,14,,Not British colony,Not oil-producer,90,100.12,Majority govt,.55000001
+Jamaica,60,1995,Democracy,3753,21.02,.82999998,Parliamentary democracies,34,,British colony,Not oil-producer,76,122.94,Majority govt,.88
+Mexico,61,1995,Autocracy,6027,14.26,-7.79,Civilian dictatorships,38,,Not British colony,Not oil-producer,55,53.799999,,
+Nicaragua,62,1995,Democracy,1348,11.54,1.8099999,Presidential democracies,12,,Not British colony,Not oil-producer,69,89.660004,Majority govt,.55000001
+Panama,63,1995,Democracy,5333,25.620001,.079999998,Presidential democracies,7,,Not British colony,Not oil-producer,70,77.68,Minority govt,.41999999
+Trinidad and Tobago,64,1995,Democracy,10503,9.8500004,4.6900001,Parliamentary democracies,34,,British colony,Oil-produced,41,98.470001,Majority govt,.52999997
+United States,65,1995,Democracy,24484,20.799999,1.47,Presidential democracies,126,,Not British colony,Not oil-producer,83,22.68,Minority govt,.47
+Argentina,66,1995,Democracy,8005,15.23,-4.3299999,Presidential democracies,13,,Not British colony,Not oil-producer,97,20.1,Majority govt,.50999999
+Bolivia,67,1995,Democracy,2400,8.4200001,2.4300001,Presidential democracies,14,,Not British colony,Not oil-producer,45,48.57,Minority govt,.49000001
+Brazil,68,1995,Democracy,5296,17.139999,2.5799999,Presidential democracies,17,,Not British colony,Not oil-producer,53,15.85,Majority govt,.56
+Chile,69,1995,Democracy,8612,24.209999,7.52,Presidential democracies,6,,Not British colony,Not oil-producer,90,56.099998,Majority govt,.57999998
+Colombia,70,1995,Democracy,5418,15.47,3.4000001,Presidential democracies,38,,Not British colony,Not oil-producer,50,33.029999,Majority govt,.80000001
+Ecuador,71,1995,Democracy,4126,16.049999,.66000003,Presidential democracies,17,,Not British colony,Not oil-producer,50,54.509998,Minority govt,.12
+Guyana,72,1995,Democracy,,15.16,,Presidential democracies,4,,British colony,Not oil-producer,51,218.63,Majority govt,.52999997
+Paraguay,73,1995,Autocracy,3331,12.71,1.65,Civilian dictatorships,3,,Not British colony,Not oil-producer,90,100.89,,
+Peru,74,1995,Autocracy,3505,21.940001,6.3400002,Civilian dictatorships,6,,Not British colony,Not oil-producer,54,27.629999,,
+Suriname,75,1995,Democracy,,-999,,Presidential democracies,5,,Not British colony,Not oil-producer,35,,Majority govt,.58999997
+Uruguay,76,1995,Democracy,7365,12.54,-2.6700001,Presidential democracies,11,,Not British colony,Not oil-producer,90,40.619999,Majority govt,.63999999
+Venezuela,77,1995,Democracy,8950,13.1,3.8299999,Presidential democracies,37,,Not British colony,Oil-produced,69,56.630001,Minority govt,.12
+Bangladesh,78,1995,Democracy,733,9.6999998,3.24,Parliamentary democracies,5,,Not British colony,Not oil-producer,85,27.709999,Majority govt,.50999999
+China,79,1995,Autocracy,2653,22.219999,7.1900001,Civilian dictatorships,47,,Not British colony,Not oil-producer,94,37.459999,,
+India,80,1995,Democracy,1538,13.19,5.1300001,Parliamentary democracies,49,,British colony,Not oil-producer,40,24.5,Minority govt,.44
+Indonesia,81,1995,Autocracy,3348,23.58,6.4200001,Military dictatorships,30,,Not British colony,Not oil-producer,40,50.389999,,
+"Iran, Islamic Rep.",82,1995,Autocracy,4085,20.49,1.97,Civilian dictatorships,17,,Not British colony,Oil-produced,45,32.470001,,
+Iraq,83,1995,Autocracy,945,-999,-11.68,Civilian dictatorships,17,,British colony,Oil-produced,77,,,
+Israel,84,1995,Democracy,14932,30.25,4.3800001,Parliamentary democracies,48,,British colony,Not oil-producer,83,74.989998,Majority govt,.52999997
+Japan,85,1995,Democracy,19849,31.469999,1.26,Parliamentary democracies,49,,Not British colony,Not oil-producer,99,17.860001,Minority govt,.47999999
+Jordan,86,1995,Autocracy,4164,19.92,3.3499999,Monarchical dictatorships,50,,British colony,Not oil-producer,98,135.61,,
+"Korea, South (Rep.)",87,1995,Democracy,11818,40.889999,7.7800002,Presidential democracies,8,,Not British colony,Not oil-producer,100,59.709999,Minority govt,.5
+Laos PDR,88,1995,Autocracy,1079,-999,2.3699999,Military dictatorships,4,,Not British colony,Not oil-producer,56,,,
+Malaysia,89,1995,Autocracy,6965,33.779999,7.3899999,Civilian dictatorships,39,,British colony,Not oil-producer,44,183.62,,
+Mongolia,90,1995,Democracy,1058,-999,4.75,Mixed democracies,4,,Not British colony,Not oil-producer,84,,Majority govt,.92000002
+Myanmar,91,1995,Autocracy,1015,-999,6.0599999,Military dictatorships,34,,British colony,Not oil-producer,68,,,
+Nepal,92,1995,Democracy,917,17.940001,.88,Parliamentary democracies,5,,Not British colony,Not oil-producer,54,58.48,Majority govt,.51999998
+Pakistan,93,1995,Democracy,1830,11.05,2.5799999,Parliamentary democracies,8,,British colony,Not oil-producer,66,38.59,,
+Philippines,94,1995,Democracy,2221,15.4,2.3499999,Presidential democracies,10,,Not British colony,Not oil-producer,93,81.57,Majority govt,.75
+Singapore,95,1995,Autocracy,19225,42.939999,4.46,Civilian dictatorships,31,,British colony,Not oil-producer,77,341.03,,
+Sri Lanka,96,1995,Democracy,2997,11.69,4.21,Mixed democracies,7,,British colony,Not oil-producer,74,80.5,Majority govt,.52999997
+Syrian Arab Republic,97,1995,Autocracy,7177,10.25,3.3299999,Military dictatorships,33,,Not British colony,Not oil-producer,89,79.529999,,
+Taiwan,98,1995,Autocracy,13104,21.190001,5.4200001,Civilian dictatorships,21,,Not British colony,Not oil-producer,98,91.349998,,
+Thailand,99,1995,Democracy,6573,41.650002,7.8600001,Parliamentary democracies,4,,Not British colony,Not oil-producer,54,90.330002,Majority govt,.60000002
+Austria,101,1995,Democracy,17887,25.629999,1.8,Parliamentary democracies,51,,Not British colony,Not oil-producer,96,74.589996,Majority govt,.68000001
+Belgium,102,1995,Democracy,18255,23.120001,2.4100001,Parliamentary democracies,77,,Not British colony,Not oil-producer,58,134.86,Minority govt,.41
+Bulgaria,103,1995,Democracy,5272,3.25,3.98,Parliamentary democracies,6,,Not British colony,Not oil-producer,87,100.87,Majority govt,.66000003
+Denmark,105,1995,Democracy,20585,21.92,3.1500001,Parliamentary democracies,95,,Not British colony,Not oil-producer,99,65.639999,Minority govt,.41999999
+Finland,106,1995,Democracy,15925,20.08,3.4200001,Mixed democracies,52,,Not British colony,Not oil-producer,94,66.25,Majority govt,.73000002
+France,107,1995,Democracy,18558,22.9,1.23,Mixed democracies,38,,Not British colony,Not oil-producer,93,43.779999,Majority govt,.81
+Greece,110,1995,Democracy,10290,19.299999,1.83,Parliamentary democracies,22,,Not British colony,Not oil-producer,95,41.759998,Majority govt,.56999999
+Hungary,111,1995,Democracy,5772,19.200001,1.66,Parliamentary democracies,6,,Not British colony,Not oil-producer,99,73.779999,Majority govt,.72000003
+Iceland,112,1995,Democracy,,19.16,,Mixed democracies,50,,Not British colony,Not oil-producer,97,67.480003,Majority govt,.63
+Ireland,113,1995,Democracy,14445,18.620001,9.4499998,Parliamentary democracies,50,,British colony,Not oil-producer,96,137.69,Minority govt,.49000001
+Italy,114,1995,Democracy,17215,20.389999,2.75,Parliamentary democracies,50,,Not British colony,Not oil-producer,98,47.119999,,
+Luxembourg,115,1995,Democracy,,23.66,,Parliamentary democracies,126,,Not British colony,Not oil-producer,74,207.44,Majority govt,.63
+Malta,116,1995,Democracy,,21.360001,,Parliamentary democracies,32,,British colony,Not oil-producer,94,204.57001,Majority govt,.52999997
+Netherlands,117,1995,Democracy,18527,21.77,1.75,Parliamentary democracies,126,,Not British colony,Not oil-producer,36,108.6,Majority govt,.61000001
+Norway,118,1995,Democracy,21536,26.440001,3.3099999,Parliamentary democracies,111,,Not British colony,Not oil-producer,98,70.389999,Minority govt,.41
+Poland,119,1995,Democracy,5623,17.33,6.8800001,Mixed democracies,7,,Not British colony,Not oil-producer,99,44.389999,Majority govt,.66000003
+Portugal,120,1995,Democracy,11700,23.860001,2.77,Mixed democracies,20,,Not British colony,Not oil-producer,99,64.809998,Minority govt,.49000001
+Romania,121,1995,Democracy,3174,12.65,7.3400002,Mixed democracies,6,,Not British colony,Not oil-producer,89,66.510002,Minority govt,.43000001
+Spain,122,1995,Democracy,12756,21.73,2.5599999,Parliamentary democracies,19,,Not British colony,Not oil-producer,73,41.240002,Minority govt,.44999999
+Sweden,123,1995,Democracy,17658,19.41,3.03,Parliamentary democracies,78,,Not British colony,Not oil-producer,95,69.830002,Minority govt,.46000001
+Switzerland,124,1995,Democracy,20421,26.77,-.15000001,Presidential democracies,126,,Not British colony,Not oil-producer,65,66.139999,Majority govt,.81
+Turkey,125,1995,Democracy,5846,21.75,5.5,Parliamentary democracies,13,,Not British colony,Not oil-producer,87,43.57,Minority govt,.33000001
+United Kingdom,126,1995,Democracy,17495,18.02,2.4200001,Parliamentary democracies,85,,Not British colony,Not oil-producer,94,55.68,Majority govt,.51999998
+Australia,129,1995,Democracy,18602,22.879999,3.0999999,Parliamentary democracies,95,,Not British colony,Not oil-producer,96,37.099998,Majority govt,.54000002
+Fiji,130,1995,Autocracy,,10.17,,Military dictatorships,9,,British colony,Not oil-producer,50,113.93,,
+New Zealand,131,1995,Democracy,15031,23.129999,2.55,Parliamentary democracies,89,,Not British colony,Not oil-producer,90,55.029999,Majority govt,.50999999
+Papua New Guinea,132,1995,Democracy,,9.0600004,,Parliamentary democracies,21,,British colony,Not oil-producer,83,98.510002,Minority govt,.28
+Solomon Islands,133,1995,Democracy,,-999,,Parliamentary democracies,18,,British colony,Not oil-producer,93,,Minority govt,.44999999
+Vanuatu,134,1995,Democracy,,-999,,Parliamentary democracies,16,,Not British colony,Not oil-producer,94,,,
+Western Samoa,135,1995,Autocracy,,-999,,Monarchical dictatorships,34,,Not British colony,Not oil-producer,89,,,
+Bahrain,136,1995,Autocracy,4540,-999,1.3200001,Monarchical dictatorships,25,,British colony,Oil-produced,67.09999999999999,,,
+Kuwait,137,1995,Autocracy,12454,-999,-3.25,Monarchical dictatorships,35,,British colony,Oil-produced,78,,,
+Oman,138,1995,Autocracy,7161,-999,1.27,Monarchical dictatorships,45,,British colony,Oil-produced,73.5,,,
+Qatar,139,1995,Autocracy,6103,-999,-1.72,Monarchical dictatorships,25,,British colony,Oil-produced,40,,,
+Saudi Arabia,140,1995,Autocracy,8671,-999,-3.1099999,Monarchical dictatorships,50,,Not British colony,Oil-produced,90,,,
+United Arab Emirates,141,1995,Autocracy,13995,-999,5.8899999,Monarchical dictatorships,25,,British colony,Oil-produced,25,,,
+Afghanistan,142,1995,Autocracy,498,-999,19.42,Civilian dictatorships,23,,Not British colony,Not oil-producer,38,,,
+Albania,143,1995,Democracy,2256,13,11.96,Mixed democracies,4,,Not British colony,Not oil-producer,98,45.41,Majority govt,.87
+Antigua,144,1995,Democracy,,18.379999,,Parliamentary democracies,15,,British colony,Not oil-producer,91.3,185.32001,Majority govt,.64999998
+Armenia,145,1995,Democracy,3169,10.67,7.7199998,Mixed democracies,1,,Not British colony,Not oil-producer,93.3,81.93,,
+Nauru,146,1995,Democracy,,-999,,Parliamentary democracies,28,,British colony,Not oil-producer,,,,
+Azerbaijan,147,1995,Autocracy,1832,11.22,-12.47,Civilian dictatorships,5,,Not British colony,Not oil-producer,89,63.57,,
+Bhutan,148,1995,Autocracy,,-999,,Monarchical dictatorships,101,,British colony,Not oil-producer,50,,,
+Belarus,149,1995,Autocracy,4749,17.24,-10.53,Civilian dictatorships,5,28.530001,Not British colony,Not oil-producer,65.59999999999999,80.779999,,
+Bosnia-Herzegovina,150,1995,Autocracy,2364,-999,16.969999,Civilian dictatorships,5,,Not British colony,Not oil-producer,49.2,,,
+Brunei,151,1995,Autocracy,,-999,,Monarchical dictatorships,12,,British colony,Oil-produced,67.09999999999999,,,
+Cambodia,152,1995,Autocracy,973,4.6900001,3.8399999,Civilian dictatorships,5,,Not British colony,Not oil-producer,88.59999999999999,84.580002,,
+Croatia,153,1995,Democracy,5392,12.08,7.5799999,Mixed democracies,5,,Not British colony,Not oil-producer,78.09999999999999,86.279999,Majority govt,.58999997
+Cuba,154,1995,Autocracy,1925,1.3,2.8900001,Civilian dictatorships,37,,Not British colony,Not oil-producer,51,29.07,,
+Czech Republic,155,1995,Democracy,8464,24.780001,5.96,Parliamentary democracies,3,,Not British colony,Not oil-producer,81.2,104.69,Majority govt,.52999997
+Slovak Republic,156,1995,Democracy,6571,22.4,6.1700001,Parliamentary democracies,3,,Not British colony,Not oil-producer,85.7,118.43,Majority govt,.55000001
+Dominica,157,1995,Democracy,,13.94,,Parliamentary democracies,18,,British colony,Not oil-producer,89.09999999999999,114.19,Majority govt,.51999998
+Equatorial Guinea,158,1995,Autocracy,2036,33.650002,11.38,Military dictatorships,17,,Not British colony,Not oil-producer,82.90000000000001,128.36,,
+Estonia,159,1995,Democracy,8274,12.95,5.4000001,Parliamentary democracies,5,40.369999,Not British colony,Not oil-producer,63.9,133.75999,Majority govt,.58999997
+Eritrea,160,1995,Autocracy,,-999,,Civilian dictatorships,3,,Not British colony,Not oil-producer,49,,,
+Georgia,161,1995,Autocracy,2209,-999,4,Civilian dictatorships,5,,Not British colony,Not oil-producer,70.09999999999999,30.23,,
+Kazakhstan,162,1995,Autocracy,4429,10.63,-8.0500002,Civilian dictatorships,5,,Not British colony,Not oil-producer,47.4,58.560001,,
+Kiribati,163,1995,Democracy,,-999,,Parliamentary democracies,17,,British colony,Not oil-producer,97.40000000000001,,,
+"Korea, North (Dem. Rep.)",164,1995,Autocracy,1519,-999,-17.85,Civilian dictatorships,2,,Not British colony,Not oil-producer,99.8,,,
+Kyrgyzstan,165,1995,Autocracy,1772,7.9499998,-5.1900001,Civilian dictatorships,5,,Not British colony,Not oil-producer,59.7,84.690002,,
+Latvia,166,1995,Democracy,5189,10.08,.34999999,Parliamentary democracies,5,,Not British colony,Not oil-producer,55.1,90.540001,Majority govt,.73000002
+Lebanon,167,1995,Autocracy,3251,16.860001,5.1100001,Civilian dictatorships,7,,Not British colony,Not oil-producer,93,68.129997,,
+Lithuania,168,1995,Democracy,5055,13.46,3.5599999,Mixed democracies,5,,Not British colony,Not oil-producer,81.59999999999999,117.07,Majority govt,.51999998
+Macedonia,169,1995,Democracy,2930,13.06,-1.25,Parliamentary democracies,5,,Not British colony,Not oil-producer,66.5,75.709999,Majority govt,.88
+Maldive Islands,170,1995,Autocracy,,-999,,Civilian dictatorships,28,,British colony,Not oil-producer,100,,,
+Moldova,171,1995,Autocracy,2398,10.15,-1.3200001,Civilian dictatorships,5,,Not British colony,Not oil-producer,62,99.510002,,
+Namibia,172,1995,Democracy,3604,10.45,1.4400001,Presidential democracies,6,,Not British colony,Not oil-producer,50.7,109.06,Majority govt,.74000001
+Russia,173,1995,Democracy,4773,17.32,-4.0799999,Mixed democracies,5,,Not British colony,Not oil-producer,86.59999999999999,44.279999,,
+St. Lucia,174,1995,Democracy,,10.63,,Parliamentary democracies,17,,British colony,Not oil-producer,90.5,135.62,Majority govt,.64999998
+Sao Tome and Principe,175,1995,Democracy,1284,17.32,-1.15,Mixed democracies,5,,Not British colony,Not oil-producer,,128.62,,
+Slovenia,176,1995,Democracy,10987,23.049999,3.75,Parliamentary democracies,5,,Not British colony,Not oil-producer,87.8,112.83,Majority govt,.61000001
+Somaliland,177,1995,Autocracy,,-999,,Civilian dictatorships,5,,British colony,Not oil-producer,,,,
+St. Kitts and Nevis,179,1995,Democracy,,18.209999,,Parliamentary democracies,13,,British colony,Not oil-producer,94.90000000000001,126.43,Majority govt,.63999999
+St. Vincent,180,1995,Democracy,,9.6599998,,Parliamentary democracies,17,,British colony,Not oil-producer,82,119.71,Majority govt,.80000001
+Tajikistan,181,1995,Autocracy,967,-999,-13.89,Civilian dictatorships,5,,Not British colony,Not oil-producer,62.2,,,
+Turkmenistan,182,1995,Autocracy,2046,-999,-9.0699997,Civilian dictatorships,5,,Not British colony,Not oil-producer,77,,,
+Ukraine,183,1995,Democracy,2895,10.95,-11.52,Mixed democracies,5,,Not British colony,Not oil-producer,64.7,84.349998,,
+Tonga,184,1995,Autocracy,,-999,,Monarchical dictatorships,26,,British colony,Not oil-producer,95.5,,,
+Uzbekistan,185,1995,Autocracy,3071,13.75,-4.7199998,Civilian dictatorships,5,,Not British colony,Not oil-producer,75.8,61.84,,
+Vietnam,186,1995,Autocracy,1397,13.65,7.71,Civilian dictatorships,20,,Not British colony,Not oil-producer,87.09999999999999,78.199997,,
+Greek Cyprus,188,1995,Democracy,,20.34,,Presidential democracies,13,,British colony,Not oil-producer,95.09999999999999,96.370003,,
+"Micronesia, Federated States of",189,1995,Democracy,,-999,,Presidential democracies,5,,Not British colony,Not oil-producer,46.7,,,
+Republic of Yemen,190,1995,Autocracy,2328,6.1900001,7.3800001,Military dictatorships,6,,British colony,Not oil-producer,100,49.790001,,
+Germany,191,1995,Democracy,-1725,23.98,1.4299999,Parliamentary democracies,47,,Not British colony,Not oil-producer,91.09999999999999,47.959999,Majority govt,.50999999
+Yugoslavia2,192,1995,Autocracy,2311,-999,4.3299999,Civilian dictatorships,5,,Not British colony,Not oil-producer,62.6,,,
+Libya,193,1995,Autocracy,2321,-999,-1.78,Military dictatorships,27,,Not British colony,Oil-produced,79,,,
+Ethiopia2,194,1995,Autocracy,,4.77,,Civilian dictatorships,126,,Not British colony,Not oil-producer,,37.77,,
+Andorra,195,1995,Democracy,,-999,,Parliamentary democracies,3,,Not British colony,Not oil-producer,44.4,,Minority govt,.5
+Liechtenstein,196,1995,Democracy,,-999,,Parliamentary democracies,6,,Not British colony,Not oil-producer,62.4,,Majority govt,.95999998
+Marshall Islands,197,1995,Democracy,,-999,,Presidential democracies,5,,Not British colony,Not oil-producer,96.90000000000001,,,
+Palau,198,1995,Democracy,,-999,,Presidential democracies,2,,Not British colony,Not oil-producer,,,,
+San Marino,199,1995,Democracy,,-999,,Presidential democracies,80,,Not British colony,Not oil-producer,83.09999999999999,,,

@@ -1,0 +1,32 @@
+="Outcome: "
+
+="",="(1)",="(2)",="(3)"
+="",="Level of confidence in stategovt",="Level of confidence in stategovt",="Level of confidence in stategovt"
+
+="ln_precip_1",="-0.004",="-0.008",="-0.003"
+="",="(0.033)",="(0.032)",="(0.033)"
+
+="R-squared",="0.513",="0.513",="0.514"
+="Observations",="76644",="76644",="76644"
+
+="Standard errors in parentheses"
+="* p<0.10, ** p<0.05, *** p<0.01"
+="Outcome: "
+
+="",="(1)",="(2)",="(3)"
+="",="Level of confidence in stategovt",="Level of confidence in stategovt",="Level of confidence in stategovt"
+
+="ln_precip_1",="-0.024",="-0.028",="-0.029"
+="",="(0.048)",="(0.048)",="(0.048)"
+
+="(0) Rural # ln_precip_1",="0.027",="0.027",="0.029"
+="",="(0.058)",="(0.057)",="(0.057)"
+
+="R-squared",="0.513",="0.513",="0.514"
+="int_effect",="0.003",="-0.001",="-0.000"
+="se_int_effect",="0.038",="0.038",="0.038"
+="stars",="",="",=""
+="Observations",="76644",="76644",="76644"
+
+="Standard errors in parentheses"
+="* p<0.10, ** p<0.05, *** p<0.01"

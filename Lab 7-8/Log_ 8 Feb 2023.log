@@ -1,0 +1,1400 @@
+
+. 
+. *=========================================================================================
+. * GENERAL RECOMMENDATIONS
+. *=========================================================================================
+. /*
+> * Any table and graph needs should not have more than what the reader needs to know to understan
+> d and evaluate results.
+>  
+> * The graph must be self-contained - meaning that in your manuscript the reader
+> would be able to understand it even if he/she doesn't read the manuscript.
+> 
+> * The graph should be clear and easy to understand, especially if a reader prints
+> it in monocromatic. This means that you should consider using shades of gray
+> and other markers to produce clear graphs.
+> */
+. 
+. * For the first exercise we will analyse the effect of GDP on conflict
+. 
+. u "$main/IHDS_LONG_CLIMATE_SS.dta", clear
+(Written by R.              )
+
+. 
+. * Transformations
+. recode hh_urban (2=0) // converted to rural
+(24232 changes made to hh_urban)
+
+. forvalues i=1/4 {
+  2.         gen ln_precip_`i'=ln(precip_`i'+2)
+  3. }
+(1,250 missing values generated)
+(1,280 missing values generated)
+(1,303 missing values generated)
+(1,313 missing values generated)
+
+. 
+. * Re-label
+. lab var irrigation "Irrigation" 
+
+. lab var avg_light "Nighlight"
+
+. 
+. * Outcomes - confidence
+. local confi_govt          = "confidence_stategovt confidence_villagegovt confidence_politicians"
+
+. 
+. * Outcomes - conflict/cooperation
+. local conflict_coop  = "conflict_community conflict_amount cooperation_water"
+
+. 
+. * Controls
+. local controls  = "irrigation avg_light head_sex hh_urban" 
+
+. 
+. global desvars `confi_govt' `conflict_coop' `controls'
+
+. 
+. *=========================================================================================
+. * SUMMARY STATISTICS: USING TABOUT
+. 
+. * check also: http://tabout.net.au/docs/gallery.php
+. 
+. * The limitation of tabout is its inability of creating complex layour with
+. * multiple variables, however it is quite intutitive.
+. *=========================================================================================
+. cap erase "$main/summary_tabout.csv"
+
+. 
+. * Running loop for each variable
+. qui foreach var of global desvars  {
+
+. *=========================================================================================
+. * SUMMARY STATISTICS: USING ESTOUT (RECOMMENDED)
+. 
+. * check also: http://repec.org/bocode/e/estout/estpost.html#estpost102
+. 
+. 
+. * Tabstat is quite powerful for handling multiple variables in complex layouts.
+. * The layouts however are somewhat standard, and thus personalized layouts are
+. * difficult to create. Moreover, it does not take into account individuals missing.
+. *=========================================================================================
+. cap ssc install estout
+
+. 
+. * Generating descriptive stats with common sample (no missing in $desvars)
+. estpost tabstat $desvars, stat(mean sd min max N) listwise ///
+>         columns(statistics) 
+
+Summary statistics: mean sd min max count
+     for variables: confidence_stategovt confidence_villagegovt confidence_politicians conflict_co
+> mmunity conflict_amount cooperation_water irrigation avg_light head_sex hh_urban
+
+             |   e(mean)      e(sd)     e(min)     e(max)   e(count) 
+-------------+-------------------------------------------------------
+confi~tegovt |  .7824364   .4125916          0          1      77729 
+confi~gegovt |   .804809   .3963502          0          1      77729 
+confidence~s |  .4548624   .4979616          0          1      77729 
+conflict_c~y |   .136011   .3428025          0          1      77729 
+conflict_a~t |  .0677225   .2512707          0          1      77729 
+cooperatio~r |  .6575924   .4745182          0          1      77729 
+  irrigation |  .2414929   .4279912          0          1      77729 
+   avg_light |  7.834001   10.08137   .0725592   62.88403      77729 
+    head_sex |  1.119068     .32387          1          2      77729 
+    hh_urban |  .6960337   .4599712          0          1      77729 
+
+. esttab using "$main/tables/summary_estout.csv", /// 
+>          cells("mean sd min max Obs") label nodepvar replace 
+(output written to /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/IR Honors/
+> Lab 8/tables/summary_estout.csv)
+
+. 
+. * Generating descriptive stats with common sample by period
+. estpost tabstat $desvars, by(period) stat(mean sd min max N) listwise ///
+>         columns(statistics) 
+
+Summary statistics: mean sd min max count
+     for variables: confidence_stategovt confidence_villagegovt confidence_politicians conflict_co
+> mmunity conflict_amount cooperation_water irrigation avg_light head_sex hh_urban
+  by categories of: period
+
+      period |   e(mean)      e(sd)     e(min)     e(max)   e(count) 
+-------------+-------------------------------------------------------
+2005         |                                                       
+confi~tegovt |  .7705887   .4204597          0          1      38407 
+confi~gegovt |  .8074309   .3943225          0          1      38407 
+confidence~s |  .4178145   .4932057          0          1      38407 
+conflict_c~y |   .147395   .3545039          0          1      38407 
+conflict_a~t |   .043716   .2044651          0          1      38407 
+cooperatio~r |  .5813524   .4933438          0          1      38407 
+  irrigation |  .2419351   .4282607          0          1      38407 
+   avg_light |  6.638782   9.416082   .0725592    62.4648      38407 
+    head_sex |  1.092561   .2898204          1          2      38407 
+    hh_urban |  .7099747   .4537796          0          1      38407 
+-------------+-------------------------------------------------------
+2012         |                                                       
+confi~tegovt |  .7940084   .4044295          0          1      39322 
+confi~gegovt |  .8022481   .3983091          0          1      39322 
+confidence~s |  .4910483   .4999262          0          1      39322 
+conflict_c~y |  .1248919   .3306005          0          1      39322 
+conflict_a~t |  .0911703   .2878548          0          1      39322 
+cooperatio~r |  .7320584   .4428926          0          1      39322 
+  irrigation |   .241061   .4277327          0          1      39322 
+   avg_light |  9.001408   10.56162    .098526   62.88403      39322 
+    head_sex |  1.144957    .352062          1          2      39322 
+    hh_urban |   .682417   .4655422          0          1      39322 
+-------------+-------------------------------------------------------
+Total        |                                                       
+confi~tegovt |  .7824364   .4125916          0          1      77729 
+confi~gegovt |   .804809   .3963502          0          1      77729 
+confidence~s |  .4548624   .4979616          0          1      77729 
+conflict_c~y |   .136011   .3428025          0          1      77729 
+conflict_a~t |  .0677225   .2512707          0          1      77729 
+cooperatio~r |  .6575924   .4745182          0          1      77729 
+  irrigation |  .2414929   .4279912          0          1      77729 
+   avg_light |  7.834001   10.08137   .0725592   62.88403      77729 
+    head_sex |  1.119068     .32387          1          2      77729 
+    hh_urban |  .6960337   .4599712          0          1      77729 
+
+. esttab using "$main/tables/summary_estout.csv", /// 
+>          cells("mean sd min max Obs") label nodepvar replace 
+(output written to /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/IR Honors/
+> Lab 8/tables/summary_estout.csv)
+
+.          
+.          
+. /*
+> You can also do a loop similar to the one we did for tabout     
+> */
+. *=========================================================================================
+. * SUMMARY STATISTICS: USING MATRICES (ADVANCED)
+. 
+. * Using a matrix gives the most flexibility and it can be highly personalized.
+. * The limitation is that it is not easy to get used to it.
+. *=========================================================================================
+. 
+. preserve
+
+.         cap matrix drop descriptives // Drops any existing matrix called descriptives
+
+. 
+.         local i=0 // Starts counter for renaming
+
+.         
+.         * Looping throught the variables to obtain basic statistics
+.         foreach var of global desvars  {
+  2.                 local i=`i'+1
+  3.                 qui sum `var', detail // summarize the variable var
+  4.                 
+.                 * Store the variable number, mean, SD, minimum, maximum, median, and N obs. in a
+>  matrix called descriptives
+.                 matrix descriptives = (nullmat(descriptives) \ /// we need to start with null ma
+> trix
+>                 `i', r(mean), r(sd), r(min),r(max),r(p50),r(N),0) // zero to identify full sampl
+> e 
+  5.         }
+
+. 
+.         * RUN THIS SEPARATELY BECAUSE A BUG IN STATA DOES NOT CARRY OVER THE `name_`i'' local
+.         
+.         * Obtaining the names of the variables
+.         foreach var of global desvars  {
+  2.                 local i=`i'+1
+  3.                 local name_`i'="`:var l `var''" 
+  4.                 disp "`name_`i''"
+  5.         }
+Level of confidence in stategovt
+Level of confidence in villagegovt
+Level of confidence in politicians
+Conflict: community
+Conflict: amount
+Cooperation during water shortage
+Irrigation
+Nighlight
+Household sex
+Household head: urban
+
+. 
+.         * Since everything is stored in a matrix, we load the matrix and format it
+.         clear
+
+. 
+.         * Column names
+.         matrix colnames descriptives = variable mean sd min max median obs ID
+
+. 
+.         * Load descriptives
+.         svmat descriptives, names(col)
+number of observations will be reset to 10
+Press any key to continue, or Break to abort
+Number of observations (_N) was 0, now 10.
+
+.         tostring variable, replace
+variable was float now str2
+
+. 
+.         * Replace variable names
+.         local i=0
+
+.         foreach var of global desvars  {
+  2.                 local i=`i'+1
+  3.                 replace variable="`name_`i''" if variable=="`i'" 
+  4.         }
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+
+.         * Rounding
+.         des *, varlist // creates a local with the variable names
+
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+--------------------------------------------------------------------------------------------------
+variable        str2    %9s                   
+mean            float   %9.0g                 
+sd              float   %9.0g                 
+min             float   %9.0g                 
+max             float   %9.0g                 
+median          float   %9.0g                 
+obs             float   %9.0g                 
+ID              float   %9.0g                 
+
+.         qui foreach var of varlist `r(varlist)'  {
+
+.         * Saving
+.         outsheet using "$main/tables/summary_matrix.csv", replace comma
+
+. restore
+
+. 
+. *=========================================================================================
+. * DESCRIPTIVE GRAPHS
+. 
+. * We already covered how to generate graphs, but below you will find some 
+. * additional examples to refresh your memory.
+. *=========================================================================================
+. 
+. * Generate index
+. egen confidence_govt=rowmean(confidence_politicians confidence_stategovt confidence_villagegovt)
+(210 missing values generated)
+
+. 
+. * Precipitation
+. preserve
+
+.         collapse confidence_govt ln_precip_1, by(district period)
+
+.         replace confidence_govt=confidence_govt*100
+(726 real changes made)
+
+.         #delimit ;
+delimiter now ;
+.         twoway (scatter confidence_govt ln_precip_1, mc(gray%20) ) 
+>                 (lfit confidence_govt ln_precip_1, lc(gs0)) 
+>                 , graphregion(color(white))
+>                 xtitle("Ln Precipitation shock" "(mm of rainfall normalized to 1SD)", size(medla
+> rge))  
+>                 ytitle("% of confidence in State Government",size(medlarge))
+>                 legend(off);
+
+.                 graph export "$main/figures/motivating_graph_precip.png", replace;
+file /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/IR Honors/Lab
+    8/figures/motivating_graph_precip.png saved as PNG format
+
+.         #delimit cr
+delimiter now cr
+. restore
+
+. 
+. #delimit ;
+delimiter now ;
+.         twoway (kdensity ln_precip_1, lc(gs0) )
+>                 (kdensity ln_precip_2, lc(gs9) ) 
+>                 (kdensity ln_precip_3, lc(gs0) lp("-") )
+>                 (kdensity ln_precip_4, lc(gs9) lp("-") )
+>                 , graphregion(color(white))
+>                 xtitle("Ln precipitation shock", size(medlarge))  
+>                 ytitle("Density",size(medlarge))
+>                 legend(label(1 "t-1") label(2 "t-2") label(3 "t-3") label(4 "t-4") size(medlarge
+> ));
+
+.                 graph export "$main/figures/kernel_density_temp.png", replace;
+file /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/IR Honors/Lab
+    8/figures/kernel_density_temp.png saved as PNG format
+
+. #delimit cr
+delimiter now cr
+. 
+. *=========================================================================================
+. * CREATING REGRESSION TABLES
+. 
+. * http://repec.sowi.unibe.ch/stata/estout/
+. 
+. * We have already covered this multiple times, so I won't spend a lot of time 
+. * on this - nonetheless I will show how you can use excel to format your tables 
+. * nicely.
+. *=========================================================================================
+. global controls         = "irrigation avg_light"
+
+. global demo         = "head_sex hh_urban i.hh_caste i.hh_religion" 
+
+. 
+. global FEs      = "period idh" 
+
+. global clusters = "district"
+
+. *=========================================================================================
+. * SET OF OUTCOMES: CONFIDENCE IN GOVERNMENT
+. *=========================================================================================
+. cap erase  "$tables/results.csv"
+
+. eststo clear
+
+. eststo:  reghdfe confidence_stategovt ln_precip_1, absorb($FEs) cluster($clusters)
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(   1,    360) =       0.01
+Statistics robust to heteroskedasticity           Prob > F        =     0.9130
+                                                  R-squared       =     0.5132
+                                                  Adj R-squared   =     0.0263
+                                                  Within R-sq.    =     0.0000
+Number of clusters (district) =        361        Root MSE        =     0.4072
+
+                             (Std. err. adjusted for 361 clusters in district)
+------------------------------------------------------------------------------
+             |               Robust
+confi~tegovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_precip_1 |  -.0035762   .0327117    -0.11   0.913    -.0679063    .0607539
+       _cons |    .785444   .0283525    27.70   0.000     .7296867    .8412013
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est1 stored)
+
+. eststo:  reghdfe confidence_stategovt ln_precip_1 $controls, absorb($FEs) cluster($clusters)
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(   3,    360) =       0.50
+Statistics robust to heteroskedasticity           Prob > F        =     0.6836
+                                                  R-squared       =     0.5134
+                                                  Adj R-squared   =     0.0268
+                                                  Within R-sq.    =     0.0006
+Number of clusters (district) =        361        Root MSE        =     0.4071
+
+                             (Std. err. adjusted for 361 clusters in district)
+------------------------------------------------------------------------------
+             |               Robust
+confi~tegovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_precip_1 |  -.0078417   .0323301    -0.24   0.808    -.0714213    .0557379
+  irrigation |   .0052779   .0109335     0.48   0.630    -.0162235    .0267794
+   avg_light |  -.0062225   .0056125    -1.11   0.268    -.0172599    .0048148
+       _cons |    .834478   .0500877    16.66   0.000     .7359767    .9329793
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est2 stored)
+
+. eststo:  reghdfe confidence_stategovt ln_precip_1 $conrols $demo, absorb($FEs) cluster($clusters
+> )
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(  15,    360) =       1.70
+Statistics robust to heteroskedasticity           Prob > F        =     0.0496
+                                                  R-squared       =     0.5136
+                                                  Adj R-squared   =     0.0268
+                                                  Within R-sq.    =     0.0009
+Number of clusters (district) =        361        Root MSE        =     0.4071
+
+                               (Std. err. adjusted for 361 clusters in district)
+--------------------------------------------------------------------------------
+               |               Robust
+confidence_s~t | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+   ln_precip_1 |  -.0025192   .0326703    -0.08   0.939    -.0667677    .0617294
+      head_sex |  -.0017204   .0106183    -0.16   0.871     -.022602    .0191612
+      hh_urban |   -.024706   .0368804    -0.67   0.503    -.0972342    .0478221
+               |
+      hh_caste |
+      (2) OBC  |  -.0191954   .0143624    -1.34   0.182    -.0474401    .0090494
+       (3) SC  |   .0219161   .0245825     0.89   0.373    -.0264274    .0702595
+       (4) ST  |  -.0315279   .0263894    -1.19   0.233    -.0834247    .0203689
+    (5) Other  |   -.009552   .0176398    -0.54   0.588     -.044242    .0251381
+               |
+   hh_religion |
+   (2) Muslim  |  -.0474392   .0608127    -0.78   0.436    -.1670319    .0721536
+(3) Christian  |   .0582437   .0445969     1.31   0.192    -.0294595    .1459469
+     (4) Sikh  |  -.0715087   .0832161    -0.86   0.391    -.2351594     .092142
+ (5) Buddhist  |   .1173535   .0472595     2.48   0.013     .0244142    .2102928
+     (6) Jain  |  -.0140073   .0791271    -0.18   0.860    -.1696166     .141602
+   (7) Tribal  |   .0449263    .042209     1.06   0.288    -.0380809    .1279334
+   (8) Others  |    .106499   .0984057     1.08   0.280    -.0870231    .3000212
+     (9) None  |  -.1680103   .1150594    -1.46   0.145    -.3942834    .0582627
+               |
+         _cons |   .8152204   .0425308    19.17   0.000     .7315804    .8988604
+--------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est3 stored)
+
+. 
+. esttab using "$main/tables/results.csv", star(* 0.10 "**" 0.05 "***" 0.01) ///
+>         title("Outcome: `indep'") ///
+>         b(3) se(3) r2(3) sfmt(3) obslast replace keep(ln_precip_1) l
+(output written to /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/IR Honors/
+> Lab 8/tables/results.csv)
+
+. 
+. *=========================================================================================
+. * Interaction effects   
+. eststo clear
+
+. 
+. eststo:  reghdfe confidence_stategovt c.ln_precip_1##i.hh_urban, absorb($FEs) cluster($clusters)
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(   3,    360) =       0.20
+Statistics robust to heteroskedasticity           Prob > F        =     0.8979
+                                                  R-squared       =     0.5132
+                                                  Adj R-squared   =     0.0263
+                                                  Within R-sq.    =     0.0001
+Number of clusters (district) =        361        Root MSE        =     0.4072
+
+                                       (Std. err. adjusted for 361 clusters in district)
+----------------------------------------------------------------------------------------
+                       |               Robust
+  confidence_stategovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-----------------------+----------------------------------------------------------------
+           ln_precip_1 |  -.0235291   .0483884    -0.49   0.627    -.1186885    .0716303
+                       |
+              hh_urban |
+            (0) Rural  |  -.0453107   .0641861    -0.71   0.481    -.1715376    .0809161
+                       |
+hh_urban#c.ln_precip_1 |
+            (0) Rural  |   .0267329   .0577388     0.46   0.644    -.0868147    .1402805
+                       |
+                 _cons |   .8181041   .0493049    16.59   0.000     .7211422    .9150659
+----------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est1 stored)
+
+. 
+. * Joint hypothesis testing for the full interaction effect
+. lincom ln_precip_1+c.ln_precip_1#1.hh_urban
+
+ ( 1)  ln_precip_1 + 1.hh_urban#c.ln_precip_1 = 0
+
+------------------------------------------------------------------------------
+confi~tegovt | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0032039   .0381586     0.08   0.933    -.0718379    .0782456
+------------------------------------------------------------------------------
+
+. estadd scalar int_effect    = r(estimate)
+
+added scalar:
+         e(int_effect) =  .00320385
+
+. estadd scalar se_int_effect = r(se)
+
+added scalar:
+      e(se_int_effect) =  .03815858
+
+. local divide=abs(r(estimate)/r(se))
+
+. if `divide'>2.56 {
+.         local mstars="***"
+. }
+
+. else {
+.         if `divide'>1.96 {
+.                 local mstars="**"
+.         } 
+.         else {
+.                 if `divide'>1.64 {
+.                         local mstars="*"
+.                 }
+.                 else {
+.                         local mstars=""
+.                 }
+.         }
+. }
+
+. estadd local stars="`mstars'"
+
+added macro:
+              e(stars) : ""
+
+. 
+. * Controlling for covariates
+. eststo:  reghdfe confidence_stategovt c.ln_precip_1##i.hh_urban $controls, absorb($FEs) cluster(
+> $clusters)
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(   5,    360) =       0.47
+Statistics robust to heteroskedasticity           Prob > F        =     0.7958
+                                                  R-squared       =     0.5135
+                                                  Adj R-squared   =     0.0268
+                                                  Within R-sq.    =     0.0007
+Number of clusters (district) =        361        Root MSE        =     0.4071
+
+                                       (Std. err. adjusted for 361 clusters in district)
+----------------------------------------------------------------------------------------
+                       |               Robust
+  confidence_stategovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-----------------------+----------------------------------------------------------------
+           ln_precip_1 |  -.0280424    .047693    -0.59   0.557    -.1218342    .0657494
+                       |
+              hh_urban |
+            (0) Rural  |  -.0499388   .0633784    -0.79   0.431    -.1745773    .0746996
+                       |
+hh_urban#c.ln_precip_1 |
+            (0) Rural  |    .027171   .0572554     0.47   0.635     -.085426     .139768
+                       |
+            irrigation |   .0054721   .0109211     0.50   0.617    -.0160051    .0269493
+             avg_light |  -.0063215   .0056201    -1.12   0.261    -.0173739    .0047309
+                 _cons |   .8710192   .0638179    13.65   0.000     .7455165    .9965219
+----------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est2 stored)
+
+. 
+. * Joint hypothesis testing for the full interaction effect
+. lincom ln_precip_1+c.ln_precip_1#1.hh_urban
+
+ ( 1)  ln_precip_1 + 1.hh_urban#c.ln_precip_1 = 0
+
+------------------------------------------------------------------------------
+confi~tegovt | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0008714   .0378453    -0.02   0.982     -.075297    .0735542
+------------------------------------------------------------------------------
+
+. estadd scalar int_effect    = r(estimate)
+
+added scalar:
+         e(int_effect) =  -.00087142
+
+. estadd scalar se_int_effect = r(se)
+
+added scalar:
+      e(se_int_effect) =  .03784527
+
+. local divide=abs(r(estimate)/r(se))
+
+. if `divide'>2.56 {
+.         local mstars="***"
+. }
+
+. else {
+.         if `divide'>1.96 {
+.                 local mstars="**"
+.         } 
+.         else {
+.                 if `divide'>1.64 {
+.                         local mstars="*"
+.                 }
+.                 else {
+.                         local mstars=""
+.                 }
+.         }
+. }
+
+. estadd local stars="`mstars'"
+
+added macro:
+              e(stars) : ""
+
+. 
+. * Controlling for all covariates
+. eststo:  reghdfe confidence_stategovt c.ln_precip_1##i.hh_urban $controls $demo, absorb($FEs) cl
+> uster($clusters)
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+note: hh_urban omitted because of collinearity
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(  18,    360) =       1.47
+Statistics robust to heteroskedasticity           Prob > F        =     0.0968
+                                                  R-squared       =     0.5140
+                                                  Adj R-squared   =     0.0274
+                                                  Within R-sq.    =     0.0016
+Number of clusters (district) =        361        Root MSE        =     0.4070
+
+                                       (Std. err. adjusted for 361 clusters in district)
+----------------------------------------------------------------------------------------
+                       |               Robust
+  confidence_stategovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-----------------------+----------------------------------------------------------------
+           ln_precip_1 |  -.0289551   .0477275    -0.61   0.544     -.122815    .0649047
+                       |
+              hh_urban |
+            (0) Rural  |   -.055026    .062838    -0.88   0.382    -.1786016    .0685496
+                       |
+hh_urban#c.ln_precip_1 |
+            (0) Rural  |   .0286851   .0571549     0.50   0.616    -.0837143    .1410844
+                       |
+            irrigation |   .0054848   .0109387     0.50   0.616     -.016027    .0269966
+             avg_light |  -.0065357   .0056361    -1.16   0.247    -.0176196    .0045481
+              head_sex |  -.0018767   .0107526    -0.17   0.862    -.0230224    .0192691
+              hh_urban |          0  (omitted)
+                       |
+              hh_caste |
+              (2) OBC  |   -.019788   .0143745    -1.38   0.169    -.0480566    .0084806
+               (3) SC  |   .0220051      .0247     0.89   0.374    -.0265693    .0705795
+               (4) ST  |  -.0314901   .0263712    -1.19   0.233     -.083351    .0203708
+            (5) Other  |   -.011228   .0177149    -0.63   0.527    -.0460657    .0236098
+                       |
+           hh_religion |
+           (2) Muslim  |  -.0479331   .0606073    -0.79   0.430    -.1671219    .0712557
+        (3) Christian  |   .0586326   .0437854     1.34   0.181    -.0274748    .1447399
+             (4) Sikh  |  -.0744186    .082861    -0.90   0.370     -.237371    .0885338
+         (5) Buddhist  |   .1162144   .0472246     2.46   0.014     .0233436    .2090851
+             (6) Jain  |  -.0099154   .0796932    -0.12   0.901    -.1666381    .1468073
+           (7) Tribal  |   .0495989    .041709     1.19   0.235     -.032425    .1316229
+           (8) Others  |   .1058273    .098556     1.07   0.284    -.0879905    .2996452
+             (9) None  |  -.1698688   .1176418    -1.44   0.150    -.4012202    .0614826
+                       |
+                 _cons |   .8901363   .0690492    12.89   0.000     .7543458    1.025927
+----------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est3 stored)
+
+. 
+. * Joint hypothesis testing for the full interaction effect
+. lincom ln_precip_1+c.ln_precip_1#1.hh_urban
+
+ ( 1)  ln_precip_1 + 1.hh_urban#c.ln_precip_1 = 0
+
+------------------------------------------------------------------------------
+confi~tegovt | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0002701   .0376261    -0.01   0.994    -.0742647    .0737246
+------------------------------------------------------------------------------
+
+. estadd scalar int_effect    = r(estimate)
+
+added scalar:
+         e(int_effect) =  -.00027008
+
+. estadd scalar se_int_effect = r(se)
+
+added scalar:
+      e(se_int_effect) =  .03762615
+
+. local divide=abs(r(estimate)/r(se))
+
+. if `divide'>2.56 {
+.         local mstars="***"
+. }
+
+. else {
+.         if `divide'>1.96 {
+.                 local mstars="**"
+.         } 
+.         else {
+.                 if `divide'>1.64 {
+.                         local mstars="*"
+.                 }
+.                 else {
+.                         local mstars=""
+.                 }
+.         }
+. }
+
+. estadd local stars="`mstars'"
+
+added macro:
+              e(stars) : ""
+
+.                 
+. esttab using "$main/tables/results.csv", star(* 0.10 "**" 0.05 "***" 0.01) ///
+>         title("Outcome: `indep'") scalars(int_effect se_int_effect stars) ///
+>         b(3) se(3) r2(3) sfmt(3) obslast append keep(ln_precip_1 1.hh_urban#c.ln_precip_1) l
+(output written to /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/IR Honors/
+> Lab 8/tables/results.csv)
+
+. 
+. *=========================================================================================
+. * MARGINS PLOT
+. 
+. * https://stats.oarc.ucla.edu/stata/faq/how-can-i-graph-the-results-of-the-margins-command-stata
+> -12/
+. 
+. * It computes marginal effects. This is a very useful command for plotting the results from inte
+> raction effects. Or the effect of a coefficient evaluated at a certain value of the independent 
+> variable. 
+. 
+. * This command should not be used to plot the results from multiple regressions.
+. 
+. *=========================================================================================
+. reghdfe confidence_stategovt c.ln_precip_1##c.hh_urban $controls $demo, absorb($FEs) cluster($cl
+> usters)
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+note: hh_urban omitted because of collinearity
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(  18,    360) =       1.47
+Statistics robust to heteroskedasticity           Prob > F        =     0.0968
+                                                  R-squared       =     0.5140
+                                                  Adj R-squared   =     0.0274
+                                                  Within R-sq.    =     0.0016
+Number of clusters (district) =        361        Root MSE        =     0.4070
+
+                                         (Std. err. adjusted for 361 clusters in district)
+------------------------------------------------------------------------------------------
+                         |               Robust
+    confidence_stategovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------------------+----------------------------------------------------------------
+             ln_precip_1 |  -.0289551   .0477275    -0.61   0.544     -.122815    .0649047
+                hh_urban |   -.055026    .062838    -0.88   0.382    -.1786016    .0685496
+                         |
+c.ln_precip_1#c.hh_urban |   .0286851   .0571549     0.50   0.616    -.0837143    .1410844
+                         |
+              irrigation |   .0054848   .0109387     0.50   0.616     -.016027    .0269966
+               avg_light |  -.0065357   .0056361    -1.16   0.247    -.0176196    .0045481
+                head_sex |  -.0018767   .0107526    -0.17   0.862    -.0230224    .0192691
+                hh_urban |          0  (omitted)
+                         |
+                hh_caste |
+                (2) OBC  |   -.019788   .0143745    -1.38   0.169    -.0480566    .0084806
+                 (3) SC  |   .0220051      .0247     0.89   0.374    -.0265693    .0705795
+                 (4) ST  |  -.0314901   .0263712    -1.19   0.233     -.083351    .0203708
+              (5) Other  |   -.011228   .0177149    -0.63   0.527    -.0460657    .0236098
+                         |
+             hh_religion |
+             (2) Muslim  |  -.0479331   .0606073    -0.79   0.430    -.1671219    .0712557
+          (3) Christian  |   .0586326   .0437854     1.34   0.181    -.0274748    .1447399
+               (4) Sikh  |  -.0744186    .082861    -0.90   0.370     -.237371    .0885338
+           (5) Buddhist  |   .1162144   .0472246     2.46   0.014     .0233436    .2090851
+               (6) Jain  |  -.0099154   .0796932    -0.12   0.901    -.1666381    .1468073
+             (7) Tribal  |   .0495989    .041709     1.19   0.235     -.032425    .1316229
+             (8) Others  |   .1058273    .098556     1.07   0.284    -.0879905    .2996452
+               (9) None  |  -.1698688   .1176418    -1.44   0.150    -.4012202    .0614826
+                         |
+                   _cons |   .8901363   .0690492    12.89   0.000     .7543458    1.025927
+------------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. 
+. * Plotting the results from the regression for a discrete moderator
+. margins, dydx(ln_precip_1) at(hh_urban=(0(1)1))   post
+
+Average marginal effects                                Number of obs = 76,644
+Model VCE: Robust
+
+Expression: Linear prediction, predict()
+dy/dx wrt:  ln_precip_1
+1._at: hh_urban = 0
+2._at: hh_urban = 1
+
+------------------------------------------------------------------------------
+             |            Delta-method
+             |      dy/dx   std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ln_precip_1  |
+         _at |
+          1  |  -.0289551   .0477275    -0.61   0.544    -.1224994    .0645891
+          2  |  -.0002701   .0376261    -0.01   0.994     -.074016    .0734758
+------------------------------------------------------------------------------
+
+. marginsplot,  recast(scatter)  graphregion(color(white))  yline(0) xscale(range(-.5 1.5)) ///
+> title("") ytitle("Effect of precipitation shock")  xtitle("Area of residence")
+
+Variables that uniquely identify margins: hh_urban
+
+. 
+. graph export "$main/figures/interaction_discrete.png", replace
+file /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/IR Honors/Lab
+    8/figures/interaction_discrete.png saved as PNG format
+
+.                         
+. /*
+> Homework: how can we change the axis labels so that they say urban and rural?
+> */      
+. reghdfe confidence_stategovt c.ln_precip_1##c.myers $controls $demo, absorb($FEs) cluster($clust
+> ers)
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(  19,    360) =       1.49
+Statistics robust to heteroskedasticity           Prob > F        =     0.0865
+                                                  R-squared       =     0.5143
+                                                  Adj R-squared   =     0.0280
+                                                  Within R-sq.    =     0.0023
+Number of clusters (district) =        361        Root MSE        =     0.4068
+
+                                      (Std. err. adjusted for 361 clusters in district)
+---------------------------------------------------------------------------------------
+                      |               Robust
+ confidence_stategovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+----------------------+----------------------------------------------------------------
+          ln_precip_1 |   .0025684   .0550599     0.05   0.963     -.105711    .1108479
+                myers |   -.005688   .0058476    -0.97   0.331    -.0171877    .0058117
+                      |
+c.ln_precip_1#c.myers |  -.0006314   .0037889    -0.17   0.868    -.0080826    .0068197
+                      |
+           irrigation |   .0064948   .0109704     0.59   0.554    -.0150793    .0280688
+            avg_light |  -.0051358   .0058889    -0.87   0.384    -.0167169    .0064452
+             head_sex |   -.002628   .0106888    -0.25   0.806    -.0236484    .0183923
+             hh_urban |   -.034307   .0365759    -0.94   0.349    -.1062362    .0376222
+                      |
+             hh_caste |
+             (2) OBC  |  -.0190236   .0144774    -1.31   0.190    -.0474944    .0094473
+              (3) SC  |   .0214628   .0248486     0.86   0.388    -.0274038    .0703294
+              (4) ST  |  -.0326661   .0262213    -1.25   0.214    -.0842323       .0189
+           (5) Other  |  -.0113175    .017702    -0.64   0.523    -.0461299    .0234949
+                      |
+          hh_religion |
+          (2) Muslim  |  -.0448315   .0601723    -0.75   0.457    -.1631648    .0735018
+       (3) Christian  |   .0569572   .0438702     1.30   0.195    -.0293169    .1432313
+            (4) Sikh  |  -.0712017   .0821589    -0.87   0.387    -.2327734      .09037
+        (5) Buddhist  |   .1181517   .0476063     2.48   0.014     .0245303     .211773
+            (6) Jain  |   -.004716   .0770903    -0.06   0.951    -.1563198    .1468878
+          (7) Tribal  |   .0527597   .0422539     1.25   0.213    -.0303358    .1358551
+          (8) Others  |   .1030844   .0979979     1.05   0.294     -.089636    .2958047
+            (9) None  |  -.1766866   .1242928    -1.42   0.156    -.4211177    .0677446
+                      |
+                _cons |   .9467523   .0991066     9.55   0.000     .7518518    1.141653
+---------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. 
+. * Plotting the results from the regression for a continuous moderator
+. margins, dydx(ln_precip_1) at(myers=(2(5)31))   post
+
+Average marginal effects                                Number of obs = 76,644
+Model VCE: Robust
+
+Expression: Linear prediction, predict()
+dy/dx wrt:  ln_precip_1
+1._at: myers =  2
+2._at: myers =  7
+3._at: myers = 12
+4._at: myers = 17
+5._at: myers = 22
+6._at: myers = 27
+
+------------------------------------------------------------------------------
+             |            Delta-method
+             |      dy/dx   std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ln_precip_1  |
+         _at |
+          1  |   .0013056    .049066     0.03   0.979     -.094862    .0974731
+          2  |  -.0018516    .036737    -0.05   0.960    -.0738549    .0701516
+          3  |  -.0050088   .0317731    -0.16   0.875    -.0672829    .0572653
+          4  |   -.008166   .0372456    -0.22   0.826     -.081166     .064834
+          5  |  -.0113232   .0498269    -0.23   0.820    -.1089821    .0863357
+          6  |  -.0144804   .0655438    -0.22   0.825    -.1429438    .1139831
+------------------------------------------------------------------------------
+
+. marginsplot, plotopts(lc(gs0) mc(gs0)) recastci(rarea) ciopt(color(gray%50))  graphregion(color(
+> white))  yline(0) ///
+> title("") ytitle("Effect of precipitation shock")  xtitle("Myers index")
+
+Variables that uniquely identify margins: myers
+
+. 
+. graph export "$main/figures/interaction_discrete.png", replace
+file /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/IR Honors/Lab
+    8/figures/interaction_discrete.png saved as PNG format
+
+.                         
+. *=========================================================================================
+. * COEFPLOT
+. 
+. * http://repec.sowi.unibe.ch/stata/coefplot/getting-started.html
+. 
+. * It is a flexible command and computes marginal effects for multiple regressions.  
+. 
+. *
+. *=========================================================================================
+. cap ssc install coefplot
+
+. 
+. eststo clear
+
+. * SET OF OUTCOMES: CONFIDENCE IN GOVERNMENT
+. eststo:  reghdfe confidence_stategovt ln_precip_1, absorb($FEs) cluster($clusters)
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(   1,    360) =       0.01
+Statistics robust to heteroskedasticity           Prob > F        =     0.9130
+                                                  R-squared       =     0.5132
+                                                  Adj R-squared   =     0.0263
+                                                  Within R-sq.    =     0.0000
+Number of clusters (district) =        361        Root MSE        =     0.4072
+
+                             (Std. err. adjusted for 361 clusters in district)
+------------------------------------------------------------------------------
+             |               Robust
+confi~tegovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_precip_1 |  -.0035762   .0327117    -0.11   0.913    -.0679063    .0607539
+       _cons |    .785444   .0283525    27.70   0.000     .7296867    .8412013
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est1 stored)
+
+. eststo:  reghdfe confidence_stategovt ln_precip_1 $controls, absorb($FEs) cluster($clusters)
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(   3,    360) =       0.50
+Statistics robust to heteroskedasticity           Prob > F        =     0.6836
+                                                  R-squared       =     0.5134
+                                                  Adj R-squared   =     0.0268
+                                                  Within R-sq.    =     0.0006
+Number of clusters (district) =        361        Root MSE        =     0.4071
+
+                             (Std. err. adjusted for 361 clusters in district)
+------------------------------------------------------------------------------
+             |               Robust
+confi~tegovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_precip_1 |  -.0078417   .0323301    -0.24   0.808    -.0714213    .0557379
+  irrigation |   .0052779   .0109335     0.48   0.630    -.0162235    .0267794
+   avg_light |  -.0062225   .0056125    -1.11   0.268    -.0172599    .0048148
+       _cons |    .834478   .0500877    16.66   0.000     .7359767    .9329793
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est2 stored)
+
+. eststo:  reghdfe confidence_stategovt ln_precip_1 $conrols $demo, absorb($FEs) cluster($clusters
+> )
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(  15,    360) =       1.70
+Statistics robust to heteroskedasticity           Prob > F        =     0.0496
+                                                  R-squared       =     0.5136
+                                                  Adj R-squared   =     0.0268
+                                                  Within R-sq.    =     0.0009
+Number of clusters (district) =        361        Root MSE        =     0.4071
+
+                               (Std. err. adjusted for 361 clusters in district)
+--------------------------------------------------------------------------------
+               |               Robust
+confidence_s~t | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+   ln_precip_1 |  -.0025192   .0326703    -0.08   0.939    -.0667677    .0617294
+      head_sex |  -.0017204   .0106183    -0.16   0.871     -.022602    .0191612
+      hh_urban |   -.024706   .0368804    -0.67   0.503    -.0972342    .0478221
+               |
+      hh_caste |
+      (2) OBC  |  -.0191954   .0143624    -1.34   0.182    -.0474401    .0090494
+       (3) SC  |   .0219161   .0245825     0.89   0.373    -.0264274    .0702595
+       (4) ST  |  -.0315279   .0263894    -1.19   0.233    -.0834247    .0203689
+    (5) Other  |   -.009552   .0176398    -0.54   0.588     -.044242    .0251381
+               |
+   hh_religion |
+   (2) Muslim  |  -.0474392   .0608127    -0.78   0.436    -.1670319    .0721536
+(3) Christian  |   .0582437   .0445969     1.31   0.192    -.0294595    .1459469
+     (4) Sikh  |  -.0715087   .0832161    -0.86   0.391    -.2351594     .092142
+ (5) Buddhist  |   .1173535   .0472595     2.48   0.013     .0244142    .2102928
+     (6) Jain  |  -.0140073   .0791271    -0.18   0.860    -.1696166     .141602
+   (7) Tribal  |   .0449263    .042209     1.06   0.288    -.0380809    .1279334
+   (8) Others  |    .106499   .0984057     1.08   0.280    -.0870231    .3000212
+     (9) None  |  -.1680103   .1150594    -1.46   0.145    -.3942834    .0582627
+               |
+         _cons |   .8152204   .0425308    19.17   0.000     .7315804    .8988604
+--------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est3 stored)
+
+. 
+. 
+. #delimit ;
+delimiter now ;
+.         coefplot (est1, keep(ln_precip_1) ciopts(lc(gs0 gs0)) mc(gs0))                   (est2, 
+> keep(ln_precip_1) ciopts(lc(ebblue ebblue)) mc(ebblue)) 
+>                          (est3, keep(ln_precip_1) ciopts(lc(gray gray) lp("solid" "-")) mc(gray)
+>  mfc(none)),
+>                 legend(order(1 "No controls" 5 "Controls" 8 "All controls"))
+>                 yline(0) graphregion(color(white)) vertical levels(95 90)
+>                 ytitle("Effect of an increase in rainfall")  xtitle("Model") 
+>                 coeflabels(ln_precip_1 = "Preicipitation in t-1");
+
+. #delimit cr
+delimiter now cr
+. graph export "$main/figures/models_plot.pdf", replace
+file /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/IR Honors/Lab
+    8/figures/models_plot.pdf saved as PDF format
+
+. 
+. *=========================================================================================
+. cap prog drop ltest
+
+. prog def ltest, eclass
+  1.         syntax [anything]
+  2.         lincomest  `0' 
+  3.         tokenize `0'
+  4.         matrix betass=e(b)
+  5.         matrix colnames betass = "`1'"
+  6.         mat list betass
+  7.         ereturn repost b = betass, rename
+  8. end
+
+. 
+. eststo clear
+
+. * SET OF OUTCOMES: CONFIDENCE IN GOVERNMENT
+. eststo:  reghdfe confidence_stategovt c.ln_precip_1##i.hh_urban $conrols $demo, absorb($FEs) clu
+> ster($clusters)
+(dropped 1278 singleton observations)
+(MWFE estimator converged in 2 iterations)
+note: hh_urban omitted because of collinearity
+
+HDFE Linear regression                            Number of obs   =     76,644
+Absorbing 2 HDFE groups                           F(  16,    360) =       1.60
+Statistics robust to heteroskedasticity           Prob > F        =     0.0660
+                                                  R-squared       =     0.5136
+                                                  Adj R-squared   =     0.0269
+                                                  Within R-sq.    =     0.0010
+Number of clusters (district) =        361        Root MSE        =     0.4071
+
+                                       (Std. err. adjusted for 361 clusters in district)
+----------------------------------------------------------------------------------------
+                       |               Robust
+  confidence_stategovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-----------------------+----------------------------------------------------------------
+           ln_precip_1 |  -.0243133   .0483786    -0.50   0.616    -.1194534    .0708268
+                       |
+              hh_urban |
+            (0) Rural  |   -.050143   .0636381    -0.79   0.431    -.1752922    .0750061
+                       |
+hh_urban#c.ln_precip_1 |
+            (0) Rural  |   .0281146   .0576273     0.49   0.626    -.0852138    .1414431
+                       |
+              head_sex |  -.0017089    .010615    -0.16   0.872    -.0225842    .0191664
+              hh_urban |          0  (omitted)
+                       |
+              hh_caste |
+              (2) OBC  |  -.0196613   .0143532    -1.37   0.172    -.0478879    .0085654
+               (3) SC  |   .0214901   .0246179     0.87   0.383    -.0269229     .069903
+               (4) ST  |  -.0318947    .026417    -1.21   0.228    -.0838457    .0200563
+            (5) Other  |  -.0100759   .0176037    -0.57   0.567    -.0446949    .0245431
+                       |
+           hh_religion |
+           (2) Muslim  |  -.0473118    .060888    -0.78   0.438    -.1670527     .072429
+        (3) Christian  |   .0584739   .0443706     1.32   0.188    -.0287842     .145732
+             (4) Sikh  |  -.0716466   .0832573    -0.86   0.390    -.2353784    .0920853
+         (5) Buddhist  |   .1165832   .0475651     2.45   0.015     .0230428    .2101237
+             (6) Jain  |  -.0151734   .0789581    -0.19   0.848    -.1704504    .1401037
+           (7) Tribal  |   .0450316   .0422224     1.07   0.287     -.038002    .1280651
+           (8) Others  |   .1063406   .0986093     1.08   0.282     -.087582    .3002632
+             (9) None  |  -.1662877   .1181929    -1.41   0.160    -.3987229    .0661476
+                       |
+                 _cons |   .8350754   .0544306    15.34   0.000     .7280336    .9421172
+----------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38322       38322           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est1 stored)
+
+. eststo: ltest ln_precip_1 + c.ln_precip_1#1.hh_urban
+Confidence interval for formula:
+ln_precip_1+c.ln_precip_1#1.hh_urban
+
+------------------------------------------------------------------------------
+confi~tegovt | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0038013   .0379528     0.10   0.920    -.0708358    .0784384
+------------------------------------------------------------------------------
+
+symmetric betass[1,1]
+    ln_precip_1
+y1    .00380131
+(est2 stored)
+
+. 
+. eststo:  reghdfe confidence_stategovt c.ln_precip_2##i.hh_urban $conrols $demo, absorb($FEs) clu
+> ster($clusters)
+(dropped 1307 singleton observations)
+(MWFE estimator converged in 2 iterations)
+note: hh_urban omitted because of collinearity
+
+HDFE Linear regression                            Number of obs   =     76,586
+Absorbing 2 HDFE groups                           F(  16,    360) =       1.74
+Statistics robust to heteroskedasticity           Prob > F        =     0.0380
+                                                  R-squared       =     0.5138
+                                                  Adj R-squared   =     0.0271
+                                                  Within R-sq.    =     0.0013
+Number of clusters (district) =        361        Root MSE        =     0.4071
+
+                                       (Std. err. adjusted for 361 clusters in district)
+----------------------------------------------------------------------------------------
+                       |               Robust
+  confidence_stategovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-----------------------+----------------------------------------------------------------
+           ln_precip_2 |    .050907    .039755     1.28   0.201    -.0272743    .1290883
+                       |
+              hh_urban |
+            (0) Rural  |   .0368856   .0614732     0.60   0.549     -.084006    .1577772
+                       |
+hh_urban#c.ln_precip_2 |
+            (0) Rural  |  -.0696579   .0529211    -1.32   0.189    -.1737313    .0344155
+                       |
+              head_sex |  -.0014325   .0105926    -0.14   0.892    -.0222637    .0193986
+              hh_urban |          0  (omitted)
+                       |
+              hh_caste |
+              (2) OBC  |  -.0191409   .0143363    -1.34   0.183    -.0473342    .0090525
+               (3) SC  |    .022411   .0244837     0.92   0.361    -.0257382    .0705601
+               (4) ST  |  -.0322026   .0260692    -1.24   0.218    -.0834697    .0190645
+            (5) Other  |  -.0094134   .0177516    -0.53   0.596    -.0443232    .0254964
+                       |
+           hh_religion |
+           (2) Muslim  |  -.0483896   .0609426    -0.79   0.428    -.1682377    .0714586
+        (3) Christian  |   .0592855   .0449033     1.32   0.188    -.0290202    .1475911
+             (4) Sikh  |  -.0715111    .083256    -0.86   0.391    -.2352402    .0922181
+         (5) Buddhist  |   .1194374   .0470589     2.54   0.012     .0268925    .2119824
+             (6) Jain  |  -.0116118   .0805163    -0.14   0.885    -.1699531    .1467295
+           (7) Tribal  |    .044133   .0423239     1.04   0.298    -.0391002    .1273661
+           (8) Others  |   .1076932    .098111     1.10   0.273    -.0852496    .3006359
+             (9) None  |   -.171159   .1099167    -1.56   0.120    -.3873185    .0450005
+                       |
+                 _cons |   .7680293   .0486816    15.78   0.000     .6722933    .8637653
+----------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38293       38293           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est3 stored)
+
+. eststo: ltest ln_precip_2 + c.ln_precip_2#1.hh_urban
+Confidence interval for formula:
+ln_precip_2+c.ln_precip_2#1.hh_urban
+
+------------------------------------------------------------------------------
+confi~tegovt | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0187509   .0375809    -0.50   0.618    -.0926567    .0551549
+------------------------------------------------------------------------------
+
+symmetric betass[1,1]
+    ln_precip_2
+y1    -.0187509
+(est4 stored)
+
+. 
+. eststo:  reghdfe confidence_stategovt c.ln_precip_3##i.hh_urban $conrols $demo, absorb($FEs) clu
+> ster($clusters)
+(dropped 1330 singleton observations)
+(MWFE estimator converged in 2 iterations)
+note: hh_urban omitted because of collinearity
+
+HDFE Linear regression                            Number of obs   =     76,540
+Absorbing 2 HDFE groups                           F(  16,    360) =       2.10
+Statistics robust to heteroskedasticity           Prob > F        =     0.0080
+                                                  R-squared       =     0.5142
+                                                  Adj R-squared   =     0.0279
+                                                  Within R-sq.    =     0.0021
+Number of clusters (district) =        361        Root MSE        =     0.4069
+
+                                       (Std. err. adjusted for 361 clusters in district)
+----------------------------------------------------------------------------------------
+                       |               Robust
+  confidence_stategovt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-----------------------+----------------------------------------------------------------
+           ln_precip_3 |   .0599119   .0501045     1.20   0.233    -.0386223    .1584461
+                       |
+              hh_urban |
+            (0) Rural  |   .0821916   .0637757     1.29   0.198    -.0432282    .2076114
+                       |
+hh_urban#c.ln_precip_3 |
+            (0) Rural  |  -.1218591   .0598543    -2.04   0.042    -.2395671   -.0041511
+                       |
+              head_sex |  -.0011341   .0105436    -0.11   0.914    -.0218689    .0196008
+              hh_urban |          0  (omitted)
+                       |
+              hh_caste |
+              (2) OBC  |  -.0193731   .0144257    -1.34   0.180    -.0477422    .0089961
+               (3) SC  |   .0214311   .0247056     0.87   0.386    -.0271545    .0700166
+               (4) ST  |  -.0323458   .0261677    -1.24   0.217    -.0838066     .019115
+            (5) Other  |  -.0097476   .0177717    -0.55   0.584     -.044697    .0252017
+                       |
+           hh_religion |
+           (2) Muslim  |  -.0449681   .0604662    -0.74   0.458    -.1638795    .0739432
+        (3) Christian  |    .063543   .0458859     1.38   0.167    -.0266951    .1537811
+             (4) Sikh  |  -.0708339   .0838779    -0.84   0.399    -.2357861    .0941184
+         (5) Buddhist  |   .1219555   .0467476     2.61   0.009     .0300229    .2138881
+             (6) Jain  |  -.0136694    .081295    -0.17   0.867    -.1735422    .1462033
+           (7) Tribal  |   .0405447   .0425686     0.95   0.342    -.0431697    .1242592
+           (8) Others  |   .1083398   .0972012     1.11   0.266    -.0828137    .2994932
+             (9) None  |  -.1768079   .1054916    -1.68   0.095    -.3842651    .0306492
+                       |
+                 _cons |   .7595788   .0560056    13.56   0.000     .6494395    .8697181
+----------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+      period |         2           0           2     |
+         idh |     38270       38270           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est5 stored)
+
+. eststo: ltest ln_precip_3 + c.ln_precip_3#1.hh_urban
+Confidence interval for formula:
+ln_precip_3+c.ln_precip_3#1.hh_urban
+
+------------------------------------------------------------------------------
+confi~tegovt | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0619472   .0360153    -1.72   0.086     -.132774    .0088796
+------------------------------------------------------------------------------
+
+symmetric betass[1,1]
+    ln_precip_3
+y1   -.06194723
+(est6 stored)
+
+. 
+. #delimit ;
+delimiter now ;
+.         coefplot (est1, keep(ln_precip_1) ciopts(lc(gs0 gs0)) mc(gs0) offset(-0.15)) (est2, keep
+> (ln_precip_1) ciopts(lc(gs9 gs9)) mc(gs9) offset(0.15))
+>                         (est3, keep(ln_precip_2) ciopts(lc(gs0 gs0)) mc(gs0) offset(-0.15)) (est
+> 4, keep(ln_precip_2) ciopts(lc(gs9 gs9)) mc(gs9) offset(0.15))
+>                         (est5, keep(ln_precip_3) ciopts(lc(gs0 gs0)) mc(gs0) offset(-0.15)) (est
+> 6, keep(ln_precip_3) ciopts(lc(gs9 gs9)) mc(gs9) offset(0.15)),
+>                 legend(order(5 "Rural" 8 "Urban"))
+>                 yline(0) graphregion(color(white)) vertical levels(95 90)
+>                 ytitle("Effect of an increase in rainfall")  xtitle("Model") 
+>                 coeflabels(ln_precip_1 = "t-1"
+>                                         ln_precip_2 = "t-2"
+>                                         ln_precip_3 = "t-3");
+
+. #delimit cr
+delimiter now cr
+. graph export "$main/figures/interaction_models_plot.pdf", replace
+file /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/IR Honors/Lab
+    8/figures/interaction_models_plot.pdf saved as PDF format
+
+. 
+end of do-file
+

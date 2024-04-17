@@ -1,0 +1,627 @@
+
+. 
+. *=================================================================================
+> ========
+. * INSTRUMENTAL VARIABLES
+. *=================================================================================
+> ========
+. /*
+> In instrumental variables we run a two stage regression using an instrument in the
+>  first-stage. That is, in the first stage we run the treatment against the instrum
+> ent (Z)
+> 
+> D=alpha_1+beta_1*Z+ delta_1*X+e_1
+> 
+> then we optain the predicted values of the treatment; that is
+> 
+> D_predicted=alpha_1+beta_1*Z+ delta_1*X
+> 
+> Using these values we run the regression we are interested in - the second-stage r
+> egression:
+> 
+> Y=alpha_2+beta_2*D_predicted+ delta_2*X+e_2
+> 
+> Importantly, the instrument (Z) must satisfy two properties:
+> 
+> a) Relevance: The instrument and the treatment need to be HIGHLY related.   
+> 
+> b) Exogeneity/exclusion restriction: The instrument cannot affect the outcome thro
+> ugh any other channel that is not the treatment. The best instruments are those th
+> at are exogenous.
+> 
+> If these conditions are satisfied, then beta_2 identify the effect of the treatmen
+> t for those that react (monotonically) to the treatment. This is a smaller group. 
+> In this case we say beta_2 identifies that Local Average Treatment Effect or LATE.
+> 
+> Impotantly, you should have a broad sense of the direction of the bias according t
+> o your theory. Also, you should have a good sense of who your compliers are. 
+> 
+> Instrumental Variables is useful because it solve:
+> 
+> * Problem of omitted variable bias. 
+> * Reverse causality.
+> * Endogenous measurement error (same as omitted variable bias).
+> 
+> */
+. 
+. * We will data from Alesina, Giulano and Nunn (2013) on historical origins of exis
+> ting cross-cultural differences in beliefs and values regarding the appropriate ro
+> le of women in society.
+. 
+. u "$main/mss_repdata_feb07.dta", clear
+(Miguel, Satyanath, Sergenti 2004, Civil Conflict)
+
+. 
+. cap ssc install ivreg2 // main package for instrumental variables
+
+. 
+. h ivreg2
+
+. 
+. 
+. eststo clear
+
+. * First let us estimate the regression
+. eststo: regress war_prio_nar gdp_g democ i.ccode i.year_actual, vce(cluster ccode)
+>   
+
+Linear regression                               Number of obs     =        737
+                                                F(19, 40)         =          .
+                                                Prob > F          =          .
+                                                R-squared         =     0.5755
+                                                Root MSE          =     .23198
+
+                                 (Std. err. adjusted for 41 clusters in ccode)
+------------------------------------------------------------------------------
+             |               Robust
+war_prio_nar | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+       gdp_g |  -.2730502   .1733056    -1.58   0.123    -.6233139    .0772134
+       democ |  -.0013719   .0010749    -1.28   0.209    -.0035444    .0008006
+             |
+       ccode |
+        420  |  -.0411491   .0152763    -2.69   0.010    -.0720238   -.0102745
+        432  |  -.0463881   .0066771    -6.95   0.000    -.0598831   -.0328931
+        433  |  -.0410939   .0107712    -3.82   0.000    -.0628632   -.0193246
+        434  |  -.0472553   .0070423    -6.71   0.000    -.0614884   -.0330223
+        435  |  -.0438097   .0086248    -5.08   0.000    -.0612411   -.0263783
+        436  |  -.0554621   .0093104    -5.96   0.000    -.0742792   -.0366451
+        437  |  -.0566674   .0069883    -8.11   0.000    -.0707912   -.0425436
+        438  |  -.0439184   .0090442    -4.86   0.000    -.0621974   -.0256395
+        439  |  -.0415024   .0080664    -5.15   0.000    -.0578051   -.0251997
+        450  |  -.0112071   .0238007    -0.47   0.640    -.0593102     .036896
+        451  |   .0321919   .0087797     3.67   0.001     .0144476    .0499363
+        452  |  -.0545963   .0008373   -65.20   0.000    -.0562886    -.052904
+        461  |  -.0610262    .003963   -15.40   0.000    -.0690358   -.0530166
+        471  |   -.046306   .0101019    -4.58   0.000    -.0667226   -.0258894
+        475  |  -.0548824   .0083293    -6.59   0.000    -.0717165   -.0380484
+        481  |  -.0542943   .0056676    -9.58   0.000     -.065749   -.0428397
+        482  |  -.0449393   .0123615    -3.64   0.001    -.0699228   -.0199558
+        483  |   .3958463    .013706    28.88   0.000     .3681455    .4235471
+        484  |   .1079347   .0061127    17.66   0.000     .0955805    .1202888
+        490  |   .0114085   .0233708     0.49   0.628    -.0358257    .0586427
+        500  |   .4868875   .0052963    91.93   0.000     .4761833    .4975918
+        501  |  -.0441829   .0092038    -4.80   0.000    -.0627846   -.0255813
+        510  |   -.041603   .0088057    -4.72   0.000    -.0593999    -.023806
+        516  |  -.0175524   .0091174    -1.93   0.061    -.0359794    .0008746
+        517  |   .1065906   .0041859    25.46   0.000     .0981306    .1150507
+        520  |   .1842774   .0211874     8.70   0.000      .141456    .2270988
+        522  |  -.0792003   .0211882    -3.74   0.001    -.1220233   -.0363773
+        530  |   .7570359    .022661    33.41   0.000     .7112362    .8028356
+        540  |   .7570082   .0198871    38.07   0.000     .7168148    .7972015
+        541  |   .5916455   .0103245    57.30   0.000     .5707789    .6125122
+        551  |  -.0485691   .0138619    -3.50   0.001    -.0765851   -.0205531
+        552  |  -.0418297   .0099069    -4.22   0.000    -.0618524    -.021807
+        553  |  -.0410479   .0110641    -3.71   0.001    -.0634094   -.0186864
+        560  |   .5294672   .0069925    75.72   0.000     .5153348    .5435996
+        565  |  -.0004222   .0342524    -0.01   0.990     -.069649    .0688045
+        570  |  -.0526023   .0016725   -31.45   0.000    -.0559826    -.049222
+        571  |    -.02678   .0172981    -1.55   0.129    -.0617408    .0081807
+        572  |  -.0462299   .0094219    -4.91   0.000    -.0652723   -.0271874
+        580  |   -.053402   .0108436    -4.92   0.000    -.0753178   -.0314862
+        625  |   .7305746   .0042807   170.67   0.000     .7219229    .7392263
+             |
+ year_actual |
+       1982  |  -.0061383   .0074277    -0.83   0.413    -.0211502    .0088737
+       1983  |   .0114429   .0300151     0.38   0.705    -.0492199    .0721057
+       1984  |   -.009603   .0384198    -0.25   0.804    -.0872524    .0680463
+       1985  |  -.0066398   .0374338    -0.18   0.860    -.0822963    .0690167
+       1986  |   .0267938   .0288008     0.93   0.358    -.0314148    .0850024
+       1987  |   .0214432   .0289026     0.74   0.462    -.0369711    .0798575
+       1988  |   .0260962   .0280204     0.93   0.357    -.0305351    .0827276
+       1989  |   .0251047    .042699     0.59   0.560    -.0611933    .1114027
+       1990  |   .0361057   .0513364     0.70   0.486    -.0676491    .1398605
+       1991  |    .012042   .0576985     0.21   0.836     -.104571     .128655
+       1992  |   -.047569   .0669038    -0.71   0.481    -.1827867    .0876486
+       1993  |  -.1230101   .0573683    -2.14   0.038    -.2389558   -.0070644
+       1994  |  -.1180357   .0557266    -2.12   0.040    -.2306634   -.0054079
+       1995  |  -.1070899   .0705883    -1.52   0.137    -.2497543    .0355745
+       1996  |  -.1057895   .0695279    -1.52   0.136    -.2463107    .0347317
+       1997  |  -.0548058   .0795093    -0.69   0.495    -.2155001    .1058886
+       1998  |   .0696067   .0920099     0.76   0.454    -.1163523    .2555658
+       1999  |  -.0419926   .0765518    -0.55   0.586    -.1967095    .1127244
+             |
+       _cons |    .065401   .0361497     1.81   0.078    -.0076604    .1384623
+------------------------------------------------------------------------------
+(est1 stored)
+
+. 
+. * Instrument: Growth in rainfall, Control:laged growth in rainfall and democracy
+. 
+. regress gdp_g GPCP_g GPCP_g_l democ i.ccode i.year_actual, vce(cluster ccode)
+
+Linear regression                               Number of obs     =        737
+                                                F(20, 40)         =          .
+                                                Prob > F          =          .
+                                                R-squared         =     0.1401
+                                                Root MSE          =     .06863
+
+                                 (Std. err. adjusted for 41 clusters in ccode)
+------------------------------------------------------------------------------
+             |               Robust
+       gdp_g | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      GPCP_g |   .0426706   .0179887     2.37   0.023     .0063142    .0790271
+    GPCP_g_l |   .0203546   .0178629     1.14   0.261    -.0157477    .0564569
+       democ |   .0004843   .0001118     4.33   0.000     .0002584    .0007101
+             |
+       ccode |
+        420  |  -.0274861   .0014286   -19.24   0.000    -.0303734   -.0245988
+        432  |  -.0087777   .0006334   -13.86   0.000    -.0100578   -.0074976
+        433  |  -.0105825   .0010952    -9.66   0.000     -.012796    -.008369
+        434  |  -.0119572   .0006584   -18.16   0.000    -.0132879   -.0106265
+        435  |  -.0097061   .0008697   -11.16   0.000    -.0114639   -.0079483
+        436  |  -.0381483   .0007351   -51.89   0.000     -.039634   -.0366625
+        437  |  -.0295764   .0008463   -34.95   0.000    -.0312869   -.0278659
+        438  |  -.0098289   .0011245    -8.74   0.000    -.0121017   -.0075561
+        439  |  -.0008866   .0008466    -1.05   0.301    -.0025976    .0008244
+        450  |  -.0203666    .002217    -9.19   0.000    -.0248472    -.015886
+        451  |  -.0487906    .001285   -37.97   0.000    -.0513875   -.0461936
+        452  |  -.0018647   .0005547    -3.36   0.002    -.0029858   -.0007437
+        461  |  -.0227152   .0005626   -40.37   0.000    -.0238523    -.021578
+        471  |  -.0198813   .0010475   -18.98   0.000    -.0219983   -.0177642
+        475  |  -.0316175   .0007358   -42.97   0.000    -.0331046   -.0301304
+        481  |  -.0219296    .000407   -53.89   0.000    -.0227521   -.0211071
+        482  |  -.0250823   .0011344   -22.11   0.000    -.0273751   -.0227895
+        483  |  -.0174775   .0015697   -11.13   0.000    -.0206499    -.014305
+        484  |  -.0145953   .0005739   -25.43   0.000    -.0157552   -.0134353
+        490  |  -.0428691   .0028032   -15.29   0.000    -.0485346   -.0372036
+        500  |   .0247251   .0005957    41.50   0.000      .023521    .0259291
+        501  |  -.0127232   .0008706   -14.61   0.000    -.0144828   -.0109637
+        510  |    -.00269   .0012449    -2.16   0.037    -.0052061   -.0001739
+        516  |  -.0129559   .0012514   -10.35   0.000     -.015485   -.0104268
+        517  |  -.0102997   .0006875   -14.98   0.000    -.0116892   -.0089103
+        520  |  -.0161892   .0031648    -5.12   0.000    -.0225854   -.0097929
+        522  |  -.0142255   .0022058    -6.45   0.000    -.0186836   -.0097675
+        530  |   .0033059   .0020101     1.64   0.108    -.0007566    .0073685
+        540  |  -.0107504   .0022585    -4.76   0.000    -.0153151   -.0061858
+        541  |  -.0056256   .0010651    -5.28   0.000    -.0077781    -.003473
+        551  |  -.0377659   .0013115   -28.80   0.000    -.0404166   -.0351153
+        552  |  -.0099726   .0010388    -9.60   0.000    -.0120721    -.007873
+        553  |  -.0115795   .0011437   -10.12   0.000    -.0138909    -.009268
+        560  |  -.0168652   .0005999   -28.12   0.000    -.0180776   -.0156528
+        565  |  -.0291632    .004364    -6.68   0.000    -.0379832   -.0203433
+        570  |  -.0059507   .0002612   -22.78   0.000    -.0064787   -.0054228
+        571  |   .0024876   .0018835     1.32   0.194    -.0013191    .0062944
+        572  |  -.0189103   .0008713   -21.70   0.000    -.0206712   -.0171494
+        580  |  -.0371782   .0009332   -39.84   0.000    -.0390641   -.0352922
+        625  |   .0031613   .0005434     5.82   0.000     .0020631    .0042596
+             |
+ year_actual |
+       1982  |  -.0337655   .0221519    -1.52   0.135    -.0785362    .0110052
+       1983  |  -.0530677   .0184469    -2.88   0.006    -.0903504   -.0157851
+       1984  |  -.0425576   .0336526    -1.26   0.213     -.110572    .0254569
+       1985  |  -.0268283   .0274902    -0.98   0.335    -.0823881    .0287315
+       1986  |  -.0142619   .0254162    -0.56   0.578      -.06563    .0371063
+       1987  |  -.0310439   .0233455    -1.33   0.191     -.078227    .0161392
+       1988  |  -.0226785   .0236409    -0.96   0.343    -.0704586    .0251015
+       1989  |  -.0219152   .0231358    -0.95   0.349    -.0686743    .0248439
+       1990  |  -.0273223   .0220939    -1.24   0.223    -.0719758    .0173312
+       1991  |  -.0230824   .0220123    -1.05   0.301     -.067571    .0214061
+       1992  |  -.0471188   .0210901    -2.23   0.031    -.0897434   -.0044942
+       1993  |  -.0446769   .0224007    -1.99   0.053    -.0899505    .0005966
+       1994  |  -.0393146   .0269809    -1.46   0.153    -.0938449    .0152158
+       1995  |   .0050697    .022809     0.22   0.825     -.041029    .0511685
+       1996  |  -.0011685   .0212766    -0.05   0.956    -.0441701    .0418332
+       1997  |  -.0126279   .0222345    -0.57   0.573    -.0575654    .0323096
+       1998  |   -.011144   .0235249    -0.47   0.638    -.0586895    .0364015
+       1999  |  -.0184586    .020738    -0.89   0.379    -.0603717    .0234544
+             |
+       _cons |   .0361801   .0200745     1.80   0.079     -.004392    .0767521
+------------------------------------------------------------------------------
+
+. predict gdp_g_hat, xb   
+(6 missing values generated)
+
+. 
+. * Estimate the second stage regression
+. 
+. eststo: regress war_prio_nar gdp_g_hat GPCP_g_l democ i.ccode i.year_actual, vce(c
+> luster ccode) 
+
+Linear regression                               Number of obs     =        737
+                                                F(20, 40)         =          .
+                                                Prob > F          =          .
+                                                R-squared         =     0.5734
+                                                Root MSE          =     .23273
+
+                                 (Std. err. adjusted for 41 clusters in ccode)
+------------------------------------------------------------------------------
+             |               Robust
+war_prio_nar | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   gdp_g_hat |  -1.240307   1.202369    -1.03   0.308    -3.670386    1.189772
+    GPCP_g_l |  -.0123974   .0350786    -0.35   0.726     -.083294    .0584991
+       democ |  -.0008799   .0011409    -0.77   0.445    -.0031856    .0014259
+             |
+       ccode |
+        420  |  -.0681475   .0342865    -1.99   0.054    -.1374432    .0011481
+        432  |  -.0552195   .0117407    -4.70   0.000    -.0789483   -.0314906
+        433  |  -.0518664   .0156239    -3.32   0.002    -.0834435   -.0202893
+        434  |  -.0594828   .0155463    -3.83   0.000    -.0909031   -.0280624
+        435  |  -.0534648   .0134682    -3.97   0.000    -.0806851   -.0262445
+        436  |  -.0913758   .0439935    -2.08   0.044      -.18029   -.0024617
+        437  |  -.0873151   .0379529    -2.30   0.027    -.1640208   -.0106095
+        438  |  -.0555308   .0156865    -3.54   0.001    -.0872344   -.0238272
+        439  |  -.0429351   .0080001    -5.37   0.000     -.059104   -.0267662
+        450  |  -.0330128   .0393893    -0.84   0.407    -.1126215    .0465958
+        451  |  -.0177904   .0632149    -0.28   0.780    -.1455525    .1099717
+        452  |  -.0576324   .0042322   -13.62   0.000    -.0661859   -.0490789
+        461  |  -.0842631   .0292862    -2.88   0.006    -.1434528   -.0250734
+        471  |  -.0672023   .0262383    -2.56   0.014    -.1202319   -.0141727
+        475  |  -.0869941   .0396237    -2.20   0.034    -.1670766   -.0069115
+        481  |  -.0762002   .0269233    -2.83   0.007    -.1306141   -.0217862
+        482  |  -.0704515   .0319402    -2.21   0.033     -.135005   -.0058979
+        483  |   .3793837    .026569    14.28   0.000     .3256857    .4330817
+        484  |   .0929367   .0185353     5.01   0.000     .0554755    .1303979
+        490  |   -.031514   .0623888    -0.51   0.616    -.1576064    .0945785
+        500  |   .5098467   .0294907    17.29   0.000     .4502439    .5694496
+        501  |  -.0567127   .0165404    -3.43   0.001     -.090142   -.0232834
+        510  |  -.0465632   .0099314    -4.69   0.000    -.0666354    -.026491
+        516  |  -.0315821    .021296    -1.48   0.146    -.0746228    .0114587
+        517  |   .0950173   .0144072     6.60   0.000     .0658993    .1241354
+        520  |   .1748912   .0259551     6.74   0.000     .1224339    .2273485
+        522  |  -.0945654   .0297347    -3.18   0.003    -.1546615   -.0344694
+        530  |   .7603087    .022567    33.69   0.000      .714699    .8059183
+        540  |   .7456445   .0267457    27.88   0.000     .6915893    .7996996
+        541  |   .5855942   .0116601    50.22   0.000     .5620282    .6091602
+        551  |  -.0871737   .0477813    -1.82   0.076    -.1837433     .009396
+        552  |    -.05095    .013556    -3.76   0.001    -.0783477   -.0235523
+        553  |  -.0528443   .0167527    -3.15   0.003    -.0867027    -.018986
+        560  |   .5124764   .0210285    24.37   0.000     .4699762    .5549766
+        565  |  -.0205925    .037152    -0.55   0.582    -.0956796    .0544945
+        570  |  -.0579598   .0064944    -8.92   0.000    -.0710855   -.0448341
+        571  |  -.0238529   .0186245    -1.28   0.208    -.0614945    .0137886
+        572  |  -.0642207   .0225405    -2.85   0.007    -.1097768   -.0186646
+        580  |  -.0911644   .0464971    -1.96   0.057    -.1851386    .0028099
+        625  |   .7326189   .0051017   143.60   0.000      .722308    .7429298
+             |
+ year_actual |
+       1982  |  -.0383665   .0389143    -0.99   0.330    -.1170152    .0402822
+       1983  |  -.0475221   .0854543    -0.56   0.581    -.2202317    .1251875
+       1984  |  -.0537759   .0715307    -0.75   0.457    -.1983448     .090793
+       1985  |  -.0267262   .0441884    -0.60   0.549    -.1160342    .0625819
+       1986  |   .0139473   .0356109     0.39   0.697    -.0580249    .0859196
+       1987  |  -.0117992   .0546569    -0.22   0.830    -.1222648    .0986665
+       1988  |   .0095187   .0379772     0.25   0.803    -.0672361    .0862734
+       1989  |   .0085189   .0529181     0.16   0.873    -.0984325    .1154703
+       1990  |   .0015286   .0625246     0.02   0.981    -.1248383    .1278955
+       1991  |  -.0140927    .073228    -0.19   0.848     -.162092    .1339066
+       1992  |  -.0966792   .0990749    -0.98   0.335     -.296917    .1035587
+       1993  |  -.1642826   .0894636    -1.84   0.074    -.3450953    .0165301
+       1994  |  -.1502741   .0730468    -2.06   0.046    -.2979072    -.002641
+       1995  |  -.1025261   .0683688    -1.50   0.142    -.2407047    .0356524
+       1996  |  -.1079675   .0687679    -1.57   0.124    -.2469526    .0310175
+       1997  |  -.0677019   .0825043    -0.82   0.417    -.2344494    .0990456
+       1998  |   .0554856   .0951315     0.58   0.563    -.1367822    .2477535
+       1999  |  -.0580483   .0822508    -0.71   0.484    -.2242834    .1081868
+             |
+       _cons |   .1027227   .0629023     1.63   0.110    -.0244077     .229853
+------------------------------------------------------------------------------
+(est2 stored)
+
+. 
+. * For the purposes of creating the table
+. qui: eststo:  regress gdp_g GPCP_g GPCP_g_l democ i.ccode i.year_actual, vce(clust
+> er ccode)
+
+. 
+. esttab using "$main/regression_results_IV.csv", /// 
+>         star(* 0.10 "**" 0.05 "***" 0.01) /// Statistical significance
+>         b(3) se(3) r2(3) sfmt(3) ///
+>         obslast keep(gdp_g GPCP_g) replace 
+(output written to /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the s
+> ide/IR Honors/Lab 6/regression_results_IV.csv)
+
+. eststo clear
+
+. 
+. * VERY IMPORTANT! You should not do your 2-stage regression by hand! The standard 
+> errors will be wrong because of the Moulton problem - i.e., you need to take into 
+> account the uncertainty of the first stage into the second stage. Hence computing 
+> this by hand, your standard errors will very likely be underestimated, increasing 
+> the chances of type I error.
+. 
+. *=================================================================================
+> ========
+. * USING IVREG2
+. *=================================================================================
+> ========
+. 
+. ivreg2 war_prio_nar GPCP_g_l democ (gdp_g=GPCP_g) i.ccode i.year_actual, cluster(c
+> code) partial(i.ccode i.year_actual)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on ccode
+
+Number of clusters (ccode) =        41                Number of obs =      737
+                                                      F(  3,    40) =     1.41
+                                                      Prob > F      =   0.2536
+Total (centered) SS     =  37.25237707                Centered R2   =  -0.0573
+Total (uncentered) SS   =  37.25237707                Uncentered R2 =  -0.0573
+Residual SS             =  39.38535326                Root MSE      =    .2312
+
+------------------------------------------------------------------------------
+             |               Robust
+war_prio_nar | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+       gdp_g |  -1.240307   1.178553    -1.05   0.293    -3.550229    1.069616
+    GPCP_g_l |  -.0123974   .0441202    -0.28   0.779    -.0988714    .0740765
+       democ |  -.0008799    .001066    -0.83   0.409    -.0029691    .0012094
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              6.085
+                                                   Chi-sq(1) P-val =    0.0136
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                7.793
+                         (Kleibergen-Paap rk Wald F statistic):          5.627
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         gdp_g
+Included instruments: GPCP_g_l democ
+Excluded instruments: GPCP_g
+Partialled-out:       420.ccode 432.ccode 433.ccode 434.ccode 435.ccode
+                      436.ccode 437.ccode 438.ccode 439.ccode 450.ccode
+                      451.ccode 452.ccode 461.ccode 471.ccode 475.ccode
+                      481.ccode 482.ccode 483.ccode 484.ccode 490.ccode
+                      500.ccode 501.ccode 510.ccode 516.ccode 517.ccode
+                      520.ccode 522.ccode 530.ccode 540.ccode 541.ccode
+                      551.ccode 552.ccode 553.ccode 560.ccode 565.ccode
+                      570.ccode 571.ccode 572.ccode 580.ccode 625.ccode
+                      1982.year_actual 1983.year_actual 1984.year_actual
+                      1985.year_actual 1986.year_actual 1987.year_actual
+                      1988.year_actual 1989.year_actual 1990.year_actual
+                      1991.year_actual 1992.year_actual 1993.year_actual
+                      1994.year_actual 1995.year_actual 1996.year_actual
+                      1997.year_actual 1998.year_actual 1999.year_actual _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+. 
+. * Did you notice something strange?! The standard errors are bigger!
+. 
+. eststo: ivreg2 war_prio_nar GPCP_g_l democ (gdp_g=GPCP_g) i.ccode i.year_actual, c
+> luster(ccode) partial(i.ccode i.year_actual) first
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of gdp_g:
+
+Statistics robust to heteroskedasticity and clustering on ccode
+Number of obs =                    737
+Number of clusters (ccode) =        41
+------------------------------------------------------------------------------
+             |               Robust
+       gdp_g | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      GPCP_g |   .0426706   .0179887     2.37   0.018     .0073502    .0779911
+    GPCP_g_l |   .0203546   .0178629     1.14   0.255     -.014719    .0554282
+       democ |   .0004843   .0001118     4.33   0.000     .0002648    .0007037
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  1,    40) =     5.63
+  Prob > F      =   0.0226
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  1,    40) =     5.63
+  Prob > F      =   0.0226
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  1,    40)  P-val | SW Chi-sq(  1) P-val | SW F(  1,    40)
+gdp_g        |       5.63    0.0226 |        6.29   0.0122 |        5.63
+
+NB: first-stage test statistics cluster-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(1)=6.09     P-val=0.0136
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                       7.79
+Kleibergen-Paap Wald rk F statistic                                 5.63
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=1:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(1,40)=        1.06     P-val=0.3085
+Anderson-Rubin Wald test           Chi-sq(1)=      1.19     P-val=0.2755
+Stock-Wright LM S statistic        Chi-sq(1)=      2.32     P-val=0.1277
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics cluster-robust
+
+Number of clusters             N_clust  =         41
+Number of observations               N  =        737
+Number of regressors                 K  =          3
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          3
+Number of excluded instruments       L1 =          1
+Number of partialled-out regressors/IVs =         59
+NB: K & L do not included partialled-out variables
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on ccode
+
+Number of clusters (ccode) =        41                Number of obs =      737
+                                                      F(  3,    40) =     1.41
+                                                      Prob > F      =   0.2536
+Total (centered) SS     =  37.25237707                Centered R2   =  -0.0573
+Total (uncentered) SS   =  37.25237707                Uncentered R2 =  -0.0573
+Residual SS             =  39.38535326                Root MSE      =    .2312
+
+------------------------------------------------------------------------------
+             |               Robust
+war_prio_nar | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+       gdp_g |  -1.240307   1.178553    -1.05   0.293    -3.550229    1.069616
+    GPCP_g_l |  -.0123974   .0441202    -0.28   0.779    -.0988714    .0740765
+       democ |  -.0008799    .001066    -0.83   0.409    -.0029691    .0012094
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              6.085
+                                                   Chi-sq(1) P-val =    0.0136
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                7.793
+                         (Kleibergen-Paap rk Wald F statistic):          5.627
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         gdp_g
+Included instruments: GPCP_g_l democ
+Excluded instruments: GPCP_g
+Partialled-out:       420.ccode 432.ccode 433.ccode 434.ccode 435.ccode
+                      436.ccode 437.ccode 438.ccode 439.ccode 450.ccode
+                      451.ccode 452.ccode 461.ccode 471.ccode 475.ccode
+                      481.ccode 482.ccode 483.ccode 484.ccode 490.ccode
+                      500.ccode 501.ccode 510.ccode 516.ccode 517.ccode
+                      520.ccode 522.ccode 530.ccode 540.ccode 541.ccode
+                      551.ccode 552.ccode 553.ccode 560.ccode 565.ccode
+                      570.ccode 571.ccode 572.ccode 580.ccode 625.ccode
+                      1982.year_actual 1983.year_actual 1984.year_actual
+                      1985.year_actual 1986.year_actual 1987.year_actual
+                      1988.year_actual 1989.year_actual 1990.year_actual
+                      1991.year_actual 1992.year_actual 1993.year_actual
+                      1994.year_actual 1995.year_actual 1996.year_actual
+                      1997.year_actual 1998.year_actual 1999.year_actual _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+(est1 stored)
+
+. 
+. * Notice the F-test. This is a test of relevance. It needs to be at least greater 
+> than 10 - hopefully close to 100 or more.
+. 
+. esttab using "$main/regression_results_IV.csv", /// 
+>         star(* 0.10 "**" 0.05 "***" 0.01) /// Statistical significance
+>         b(3) se(3) r2(3) sfmt(3) ///
+>         obslast keep(gdp_g) replace 
+(output written to /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the s
+> ide/IR Honors/Lab 6/regression_results_IV.csv)
+
+. eststo clear
+
+. 
+. *=================================================================================
+> ========
+. /* NOTES REGARDING INSTRUMENTAL VARIABLES
+> 
+> You can perform some robustness checks:
+> 
+> * 1. Is the reduced form effect consistent with the LATE?
+>         * Run a regression of the instrument on the outcome
+>         * show that the effect your estimate is consistent.
+>         
+> * 2. Are the estimates estable or lower bounds? 
+>         * Add your pre-treatment controls one a time and evaluate 
+>         * the estability of your parameters. If they vary erratically  
+>         * this is a signal that there may be important unobservables to account fo
+> r.
+>         * This is much less problematic if your estimate increases in size
+>         * and becomes more significant.
+> 
+> * 3. Other checks:
+>         * Look for associations between the instrument and things that
+>         * predict the outcome but should not be sensitive to the
+>         * instrument (like things that were determined prior to the
+>         * instrument).
+>         * Find subpopulations for which there should be no relationship
+>         * between the instrument and the outcome. If the instrument
+>         * predicts Y in this subsample, then you may have an exclusion
+>         * violation!
+> /* 
+> Common questions:
+> 
+> * Can I have two variables as my instrument? Yes! 
+> 
+> * Can I have more than one independent variable instrumented with the same instrum
+> ent? Yes, but the assumptions for this are very strong! Consult with me if you wan
+> t to do this.
+> 
+> * Can I have more than one instrument? Yes! 
+> 
+> * Can I instrument and interaction effect? How? Yes! Just add another instrument t
+> hat is the interaction of your instrument with your moderator. Thus for instance i
+> n the first-stage you would have:
+> 
+> D=alpha_11+beta_11*Z+theta_11*Z*X+ delta_11*X+e_11
+> 
+> D*x=alpha_12+beta_12*Z+theta_12*Z*X+ delta_12*X+e_12
+> 
+> Use ivreg2!
+>  
+> 
+> More information here:
+> https://mixtape.scunning.com/07-instrumental_variables
+> http://scholar.harvard.edu/nunn/pages/data-0
+> 
+> */
+
+end of do-file
+

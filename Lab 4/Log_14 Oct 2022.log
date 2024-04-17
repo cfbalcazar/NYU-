@@ -1,0 +1,824 @@
+
+. *======================================================================================
+> ===
+. u "$main/data_lab.dta", clear
+
+. 
+. * Merging the dataset with oil production
+. merge 1:1 wb_code year using "$main/oil_production.dta", keep(master match) nogen
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                         2,434
+        from master                     2,434  
+        from using                          0  
+
+    Matched                             5,985  
+    -----------------------------------------
+
+. 
+. encode wb_code, gen(ccode) // numeric identifier
+
+. 
+. * Generate the logarithm
+. gen ln_gdp_pk=ln(gdp_pk+1)
+(1,550 missing values generated)
+
+. 
+. * Setting your data for panel analysis
+. xtset ccode year
+
+Panel variable: ccode (unbalanced)
+ Time variable: year, 1980 to 2010
+         Delta: 1 unit
+
+. 
+. 
+. * Generating lagged variables
+. gen lag_gdp_pk=L.ln_gdp_pk // First lag
+(1,802 missing values generated)
+
+. gen lag_intra_state_war=L2.intra_state_war // L2 means second lag
+(552 missing values generated)
+
+. 
+. *======================================================================================
+> ===
+. /* Hypothesis testing
+> 
+> Consider
+> 
+> Y_i=alpha+beta*D_i+e_i
+> 
+> Define a null hypothesis and the alternative hypothesis. For example
+> 
+> H0: beta=0
+> H0: beta!=0
+> 
+> The previous hypothesis evaluates statisitical significance. That is, is the effect of 
+> D on the outcome (Y) statistically different from zero? 
+> */
+. *======================================================================================
+> ===
+. 
+. reghdfe polity2 lag_gdp_pk lag_intra_state_war i.year, absorb(ccode)
+(MWFE estimator converged in 1 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,983
+Absorbing 1 HDFE group                            F(  30,   3798) =      42.44
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.8191
+                                                  Adj R-squared   =     0.8103
+                                                  Within R-sq.    =     0.2511
+                                                  Root MSE        =     3.1062
+
+-------------------------------------------------------------------------------------
+            polity2 | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+         lag_gdp_pk |  -1.556336   .2402516    -6.48   0.000    -2.027371   -1.085302
+lag_intra_state_war |  -.2043412   .2107237    -0.97   0.332    -.6174837    .2088014
+                    |
+               year |
+              1983  |   .3164953   .4105636     0.77   0.441    -.4884511    1.121442
+              1984  |   .1950081     .41061     0.47   0.635    -.6100293    1.000045
+              1985  |   .5645244   .4090737     1.38   0.168     -.237501     1.36655
+              1986  |   .7330823   .4091848     1.79   0.073    -.0691607    1.535325
+              1987  |   .7377829   .4081075     1.81   0.071    -.0623482    1.537914
+              1988  |   1.017732   .4081175     2.49   0.013      .217582    1.817883
+              1989  |   1.348624   .4066729     3.32   0.001     .5513062    2.145943
+              1990  |   2.257082   .4058386     5.56   0.000     1.461399    3.052765
+              1991  |   3.361521   .3968618     8.47   0.000     2.583438    4.139604
+              1992  |   3.889668   .3954684     9.84   0.000     3.114317    4.665019
+              1993  |   4.133035   .3944763    10.48   0.000     3.359629     4.90644
+              1994  |   4.435122   .3947543    11.24   0.000     3.661171    5.209073
+              1995  |   4.389332    .394554    11.12   0.000     3.615774     5.16289
+              1996  |   4.248794   .3902302    10.89   0.000     3.483713    5.013875
+              1997  |   4.256218   .3905563    10.90   0.000     3.490497    5.021938
+              1998  |   4.475347   .3906443    11.46   0.000     3.709454     5.24124
+              1999  |   4.700596   .3910541    12.02   0.000     3.933899    5.467292
+              2000  |   4.917241   .3910211    12.58   0.000     4.150609    5.683872
+              2001  |    5.09915    .390826    13.05   0.000     4.332901    5.865399
+              2002  |    5.22648   .3914863    13.35   0.000     4.458936    5.994023
+              2003  |   5.261644   .3934282    13.37   0.000     4.490293    6.032995
+              2004  |   5.378066   .3938194    13.66   0.000     4.605949    6.150184
+              2005  |    5.66427   .3951509    14.33   0.000     4.889541    6.438998
+              2006  |   5.744292   .3960584    14.50   0.000     4.967784    6.520799
+              2007  |   5.790017   .3983473    14.54   0.000     5.009022    6.571012
+              2008  |   5.951797   .4008582    14.85   0.000     5.165879    6.737715
+              2009  |   6.025808   .4024706    14.97   0.000     5.236729    6.814888
+              2010  |    6.12751   .4011975    15.27   0.000     5.340926    6.914093
+                    |
+              _cons |   10.94036   1.936591     5.65   0.000     7.143505    14.73722
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       ccode |       155           0         155     |
+-----------------------------------------------------+
+
+. 
+. /* Test coefficient lag_gdp_pk is 0
+> H0: lag_gdp_pk=0
+> Ha: lag_gdp_pk!=0
+> */
+. test lag_gdp_pk=0
+
+ ( 1)  lag_gdp_pk = 0
+
+       F(  1,  3798) =   41.96
+            Prob > F =    0.0000
+
+. 
+. /* Estimate linear combination of coefficients
+> H0: lag_gdp_pk + lag_intra_state_war=0
+> Ha: lag_gdp_pk + lag_intra_state_war!=0
+> */
+. lincom lag_gdp_pk + lag_intra_state_war
+
+ ( 1)  lag_gdp_pk + lag_intra_state_war = 0
+
+------------------------------------------------------------------------------
+     polity2 | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -1.760677   .3219289    -5.47   0.000    -2.391848   -1.129507
+------------------------------------------------------------------------------
+
+. 
+. /* Equality of coefficients
+> H0: lag_gdp_pk=lag_intra_state_war
+> Ha: lag_gdp_pk!=lag_intra_state_war
+> */
+. lincom lag_gdp_pk - lag_intra_state_war
+
+ ( 1)  lag_gdp_pk - lag_intra_state_war = 0
+
+------------------------------------------------------------------------------
+     polity2 | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -1.351995   .3171946    -4.26   0.000    -1.973883   -.7301069
+------------------------------------------------------------------------------
+
+. lincomest lag_gdp_pk - lag_intra_state_war // alternative command
+Confidence interval for formula:
+lag_gdp_pk-lag_intra_state_war
+
+------------------------------------------------------------------------------
+     polity2 | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -1.351995   .3171946    -4.26   0.000    -1.973883   -.7301069
+------------------------------------------------------------------------------
+
+. 
+. *======================================================================================
+> ===
+. * HETEROSCEDASTICITY
+. *======================================================================================
+> ===
+. /*
+> Consider our usual regression equation:
+> 
+> Y=a+beta_1*X+e
+> 
+> If the variability of the random disturbance (e) is different across elements of X,  if
+>  Var(e)!=constant, we say then that error term is heteroskedastic. e might be heteroske
+> dastic if for instance var(e)=g(X), where g(.) is some function. That is, the variabili
+> ty of the treatment is unequal across the range of values of a covariate. 
+> 
+> The presence of heteroskedasticity implies the absence of homoskedasticity, violating t
+> he assumptions for the Gauss-Markov theorem. This means that OLS estimators are not BLU
+> E because their variance is not the lowest of all other unbiased estimators. 
+> 
+> Heteroscedasticity does not cause OLS estimates to be biased, although it can cause bia
+> sed standard errors. Therefore inferences obtained from data analysis are suspect---and
+>  likely wrong. Most of the times the standard errors are too small, increasing the chan
+> ce of type 1 error - rejecting the null hypothesis when it is true. 
+> */ 
+. 
+. eststo clear
+
+. eststo: reghdfe polity2 lag_gdp_pk lag_intra_state_war i.year, absorb(ccode)
+(MWFE estimator converged in 1 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,983
+Absorbing 1 HDFE group                            F(  30,   3798) =      42.44
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.8191
+                                                  Adj R-squared   =     0.8103
+                                                  Within R-sq.    =     0.2511
+                                                  Root MSE        =     3.1062
+
+-------------------------------------------------------------------------------------
+            polity2 | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+         lag_gdp_pk |  -1.556336   .2402516    -6.48   0.000    -2.027371   -1.085302
+lag_intra_state_war |  -.2043412   .2107237    -0.97   0.332    -.6174837    .2088014
+                    |
+               year |
+              1983  |   .3164953   .4105636     0.77   0.441    -.4884511    1.121442
+              1984  |   .1950081     .41061     0.47   0.635    -.6100293    1.000045
+              1985  |   .5645244   .4090737     1.38   0.168     -.237501     1.36655
+              1986  |   .7330823   .4091848     1.79   0.073    -.0691607    1.535325
+              1987  |   .7377829   .4081075     1.81   0.071    -.0623482    1.537914
+              1988  |   1.017732   .4081175     2.49   0.013      .217582    1.817883
+              1989  |   1.348624   .4066729     3.32   0.001     .5513062    2.145943
+              1990  |   2.257082   .4058386     5.56   0.000     1.461399    3.052765
+              1991  |   3.361521   .3968618     8.47   0.000     2.583438    4.139604
+              1992  |   3.889668   .3954684     9.84   0.000     3.114317    4.665019
+              1993  |   4.133035   .3944763    10.48   0.000     3.359629     4.90644
+              1994  |   4.435122   .3947543    11.24   0.000     3.661171    5.209073
+              1995  |   4.389332    .394554    11.12   0.000     3.615774     5.16289
+              1996  |   4.248794   .3902302    10.89   0.000     3.483713    5.013875
+              1997  |   4.256218   .3905563    10.90   0.000     3.490497    5.021938
+              1998  |   4.475347   .3906443    11.46   0.000     3.709454     5.24124
+              1999  |   4.700596   .3910541    12.02   0.000     3.933899    5.467292
+              2000  |   4.917241   .3910211    12.58   0.000     4.150609    5.683872
+              2001  |    5.09915    .390826    13.05   0.000     4.332901    5.865399
+              2002  |    5.22648   .3914863    13.35   0.000     4.458936    5.994023
+              2003  |   5.261644   .3934282    13.37   0.000     4.490293    6.032995
+              2004  |   5.378066   .3938194    13.66   0.000     4.605949    6.150184
+              2005  |    5.66427   .3951509    14.33   0.000     4.889541    6.438998
+              2006  |   5.744292   .3960584    14.50   0.000     4.967784    6.520799
+              2007  |   5.790017   .3983473    14.54   0.000     5.009022    6.571012
+              2008  |   5.951797   .4008582    14.85   0.000     5.165879    6.737715
+              2009  |   6.025808   .4024706    14.97   0.000     5.236729    6.814888
+              2010  |    6.12751   .4011975    15.27   0.000     5.340926    6.914093
+                    |
+              _cons |   10.94036   1.936591     5.65   0.000     7.143505    14.73722
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       ccode |       155           0         155     |
+-----------------------------------------------------+
+(est1 stored)
+
+. 
+. * Robust standard errors solve heteroskedasticity
+. eststo: reghdfe polity2 lag_gdp_pk lag_intra_state_war i.year, vce(robust) absorb(ccode
+> )
+(MWFE estimator converged in 1 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,983
+Absorbing 1 HDFE group                            F(  30,   3798) =      28.86
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.8191
+                                                  Adj R-squared   =     0.8103
+                                                  Within R-sq.    =     0.2511
+                                                  Root MSE        =     3.1062
+
+-------------------------------------------------------------------------------------
+                    |               Robust
+            polity2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+         lag_gdp_pk |  -1.556336   .2307982    -6.74   0.000    -2.008837   -1.103836
+lag_intra_state_war |  -.2043412    .235902    -0.87   0.386     -.666848    .2581656
+                    |
+               year |
+              1983  |   .3164953   .6127193     0.52   0.606    -.8847954    1.517786
+              1984  |   .1950081   .6017056     0.32   0.746    -.9846891    1.374705
+              1985  |   .5645244   .5841545     0.97   0.334    -.5807624    1.709811
+              1986  |   .7330823   .5845175     1.25   0.210    -.4129162    1.879081
+              1987  |   .7377829   .5734466     1.29   0.198    -.3865101    1.862076
+              1988  |   1.017732   .5762758     1.77   0.077    -.1121074    2.147572
+              1989  |   1.348624   .5508231     2.45   0.014     .2686869    2.428562
+              1990  |   2.257082   .5354554     4.22   0.000     1.207274     3.30689
+              1991  |   3.361521    .516663     6.51   0.000     2.348558    4.374485
+              1992  |   3.889668   .5262576     7.39   0.000     2.857893    4.921443
+              1993  |   4.133035   .5147024     8.03   0.000     3.123915    5.142154
+              1994  |   4.435122   .5100096     8.70   0.000     3.435203    5.435041
+              1995  |   4.389332   .5015825     8.75   0.000     3.405935    5.372729
+              1996  |   4.248794   .5037742     8.43   0.000       3.2611    5.236488
+              1997  |   4.256218   .5010185     8.50   0.000     3.273926    5.238509
+              1998  |   4.475347   .4867024     9.20   0.000     3.521124     5.42957
+              1999  |   4.700596   .4833765     9.72   0.000     3.752893    5.648298
+              2000  |   4.917241   .4885773    10.06   0.000     3.959341     5.87514
+              2001  |    5.09915   .4906166    10.39   0.000     4.137253    6.061048
+              2002  |    5.22648   .4969972    10.52   0.000     4.252072    6.200887
+              2003  |   5.261644   .4946738    10.64   0.000     4.291792    6.231496
+              2004  |   5.378066   .4991494    10.77   0.000      4.39944    6.356693
+              2005  |    5.66427   .5026864    11.27   0.000     4.678709    6.649831
+              2006  |   5.744292   .5104364    11.25   0.000     4.743536    6.745048
+              2007  |   5.790017   .5153814    11.23   0.000     4.779566    6.800468
+              2008  |   5.951797   .5178603    11.49   0.000     4.936486    6.967108
+              2009  |   6.025808   .5196422    11.60   0.000     5.007004    7.044613
+              2010  |    6.12751   .5210277    11.76   0.000     5.105989    7.149031
+                    |
+              _cons |   10.94036   1.862152     5.88   0.000     7.289449    14.59128
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       ccode |       155           0         155     |
+-----------------------------------------------------+
+(est2 stored)
+
+. 
+. /*
+> CLUSTER STANDARD ERRORS:
+> 
+> A treatment may affect similarly certain observations, such as those belonging to the s
+> ame group: the same country, the same municipality, the same state, the same classroom!
+>  In other words the observations react similarly to the treatment when they belong to t
+> he same group.
+> 
+> This means that the amount of units of obersvation we have is actually smaller, because
+>  each observation contributes less than "one unit of information." 
+> 
+> We usually cluster at the level of the treatment assignment. If there is clustered samp
+> ling, we cluster at the level of the cluster in the sampling frame.
+> */ 
+. 
+. 
+. eststo: reghdfe polity2 lag_gdp_pk lag_intra_state_war i.year, vce(cluster ccode) absor
+> b(ccode)
+(MWFE estimator converged in 1 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,983
+Absorbing 1 HDFE group                            F(  30,    154) =       4.37
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.8191
+                                                  Adj R-squared   =     0.8103
+                                                  Within R-sq.    =     0.2511
+Number of clusters (ccode)   =        155         Root MSE        =     3.1062
+
+                                       (Std. err. adjusted for 155 clusters in ccode)
+-------------------------------------------------------------------------------------
+                    |               Robust
+            polity2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+         lag_gdp_pk |  -1.556336   .6940222    -2.24   0.026    -2.927369   -.1853038
+lag_intra_state_war |  -.2043412   .4312072    -0.47   0.636    -1.056186    .6475035
+                    |
+               year |
+              1983  |   .3164953   .1983606     1.60   0.113    -.0753637    .7083543
+              1984  |   .1950081     .24531     0.79   0.428    -.2895989     .679615
+              1985  |   .5645244   .3033034     1.86   0.065    -.0346478    1.163697
+              1986  |   .7330823   .3298173     2.22   0.028     .0815322    1.384632
+              1987  |   .7377829   .3806158     1.94   0.054    -.0141191    1.489685
+              1988  |   1.017732   .4129306     2.46   0.015      .201993    1.833472
+              1989  |   1.348624   .4342892     3.11   0.002     .4906913    2.206558
+              1990  |   2.257082   .4812065     4.69   0.000     1.306464      3.2077
+              1991  |   3.361521   .5187054     6.48   0.000     2.336825    4.386218
+              1992  |   3.889668   .5718152     6.80   0.000     2.760054    5.019282
+              1993  |   4.133035   .5725298     7.22   0.000     3.002009     5.26406
+              1994  |   4.435122   .6219439     7.13   0.000     3.206479    5.663765
+              1995  |   4.389332   .6136634     7.15   0.000     3.177047    5.601617
+              1996  |   4.248794    .613773     6.92   0.000     3.036293    5.461296
+              1997  |   4.256218   .6143826     6.93   0.000     3.042512    5.469923
+              1998  |   4.475347    .594843     7.52   0.000     3.300242    5.650452
+              1999  |   4.700596   .5851232     8.03   0.000     3.544692    5.856499
+              2000  |   4.917241   .5996038     8.20   0.000      3.73273    6.101751
+              2001  |    5.09915   .6133063     8.31   0.000     3.887571    6.310729
+              2002  |    5.22648   .6326226     8.26   0.000     3.976741    6.476218
+              2003  |   5.261644   .6295528     8.36   0.000     4.017969    6.505318
+              2004  |   5.378066   .6473198     8.31   0.000     4.099294    6.656839
+              2005  |    5.66427    .667708     8.48   0.000     4.345221    6.983319
+              2006  |   5.744292   .6974043     8.24   0.000     4.366578    7.122006
+              2007  |   5.790017   .7128847     8.12   0.000     4.381722    7.198312
+              2008  |   5.951797   .7313379     8.14   0.000     4.507048    7.396546
+              2009  |   6.025808   .7286049     8.27   0.000     4.586458    7.465159
+              2010  |    6.12751   .7236321     8.47   0.000     4.697983    7.557036
+                    |
+              _cons |   10.94036   5.489385     1.99   0.048     .0961484    21.78458
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       ccode |       155         155           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est3 stored)
+
+. 
+. 
+. * Showing only results for the treatment - nicey!
+. esttab using "$main/regression_results_SE.csv", /// 
+>         star(* 0.10 "**" 0.05 "***" 0.01) /// Statistical significance
+>         b(3) se(3) r2(3) sfmt(3) ///
+>         obslast keep(lag_gdp_pk) replace 
+(output written to /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/I
+> R Honors/Lab 4/regression_results_SE.csv)
+
+. 
+. /*
+>  Note that the Standard errors are bigger.
+> */
+. *======================================================================================
+> ===
+. * INTERACTION EFFECTS; MODERATORS; HETEROGENOUS EFFECTS
+. *======================================================================================
+> ===
+. /*
+> An interaction effect explores the heterogenous effect of a regressor, say D, on our ou
+> tcome Y. The variable that is used for the interaction, say X_2, is called a moderator.
+> 
+> Therefore when people use the terms interaction effects, moderators or heterogenous eff
+> ects they are basically referring to the same thing!
+> 
+> We say that X is a moderator because it moderates the effect of D on Y. Importantly X m
+> ust always occur before D, that is: X->D and not the other way around!
+> 
+> In a regression setting this looks like
+> 
+>         Y=alpha+beta_1*D+beta_2*X+beta_3*D*X+e
+> 
+> beta_3 is called the interaction effect. D and X are called the component terms of the 
+> interaction D*X, and they should always be included in your regression.
+> 
+> If X is a dummy variable (the easiest way to get this), then we have the following (ass
+> uming D is also a dummy):
+> 
+> beta_1=E(Y|D=1,X=0)-E(Y|D=0,X=0)
+> 
+> beta_1 + beta_2=E(Y|D=1,X=1)-E(Y|D=0,X=1). This is called the full interaction effect a
+> nd usually what we interpret when we talk about an interaction effect.
+> 
+> beta_2 = E(Y|X_1=1,X_2=1)-E(Y|X_1=0,X_2=1)-[E(Y|X_1=1,X_2=0)-E(Y|X_1=0,X_2=0)] 
+> This is the difference in the effect of D between the groups in your sample when they t
+> ake different values for X.
+>  
+> Interaction effects are tricky at first. Keep always in mind the difference between bet
+> a_2 (the interaction effect) and beta_1+beta_2 (the full interaction effect).
+> */
+. 
+. * Generate dummy for oil producer
+. gen oil_producer=(oil_production>0) if oil_production!=.
+(3,325 missing values generated)
+
+. 
+. * Using stored results
+. h sum
+
+. sum oil_production, d
+
+     oil prod in metric tons. 1932-69: USGS, 1970-2000:
+                     WB, 2001-2011: EIA
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs               5,094
+25%            0              0       Sum of wgt.       5,094
+
+50%     39830.02                      Mean           1.96e+07
+                        Largest       Std. dev.      6.27e+07
+75%      5315000       6.13e+08
+90%     4.95e+07       6.13e+08       Variance       3.93e+15
+95%     1.17e+08       6.15e+08       Skewness        5.41158
+99%     4.12e+08       6.16e+08       Kurtosis       37.60854
+
+. gen high_oil=(oil_production>r(p50)) if oil_production!=.
+(3,325 missing values generated)
+
+. 
+. * Adding labels to values
+. label define yesno 0 "No" 1 "Yes"
+
+. label values oil_producer yesno
+
+. label values high_oil yesno
+
+. 
+. * Taking out some big oil producers
+. gen bigol=(wb_code=="USA" | wb_code=="SAU" | wb_code=="RUS" | wb_code=="IRN") 
+
+. drop if bigol==1 // I take out the big oil 
+(124 observations deleted)
+
+. 
+. * Generating lagged variables
+. gen lag_oil_production=ln(L2.oil_production+1) // L2 means second lag
+(3,663 missing values generated)
+
+. gen lag_high_oil=L2.high_oil // L2 means second lag
+(3,663 missing values generated)
+
+. label values lag_high_oil yesno
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD00900.000000"
+
+. eststo clear
+
+. * Running our previous regression
+. eststo: reghdfe polity2 lag_gdp_pk lag_intra_state_war i.year, vce(cluster ccode) absor
+> b(ccode)
+(MWFE estimator converged in 1 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,877
+Absorbing 1 HDFE group                            F(  30,    150) =       4.50
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.8154
+                                                  Adj R-squared   =     0.8064
+                                                  Within R-sq.    =     0.2575
+Number of clusters (ccode)   =        151         Root MSE        =     3.1200
+
+                                       (Std. err. adjusted for 151 clusters in ccode)
+-------------------------------------------------------------------------------------
+                    |               Robust
+            polity2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+         lag_gdp_pk |  -1.613252   .7045078    -2.29   0.023    -3.005292   -.2212108
+lag_intra_state_war |  -.2133292   .4629663    -0.46   0.646    -1.128107    .7014485
+                    |
+               year |
+              1983  |   .3274735   .2039397     1.61   0.110    -.0754919     .730439
+              1984  |    .204448   .2521431     0.81   0.419    -.2937629    .7026588
+              1985  |   .5859629   .3113455     1.88   0.062    -.0292264    1.201152
+              1986  |    .761627   .3381969     2.25   0.026      .093382    1.429872
+              1987  |   .7710668   .3911242     1.97   0.051    -.0017575    1.543891
+              1988  |   1.060789   .4236715     2.50   0.013     .2236539    1.897923
+              1989  |   1.402388   .4456105     3.15   0.002     .5219034    2.282872
+              1990  |   2.334625   .4934107     4.73   0.000     1.359692    3.309558
+              1991  |   3.468141   .5310536     6.53   0.000      2.41883    4.517453
+              1992  |   3.990871   .5849471     6.82   0.000     2.835071    5.146671
+              1993  |   4.257346   .5852581     7.27   0.000     3.100932    5.413761
+              1994  |   4.569283    .636308     7.18   0.000     3.311998    5.826567
+              1995  |   4.522028   .6270586     7.21   0.000      3.28302    5.761036
+              1996  |   4.377831   .6273897     6.98   0.000     3.138168    5.617493
+              1997  |   4.323136   .6283859     6.88   0.000     3.081505    5.564767
+              1998  |   4.551352   .6081109     7.48   0.000     3.349782    5.752922
+              1999  |   4.783996   .5979731     8.00   0.000     3.602458    5.965534
+              2000  |   4.988505   .6137318     8.13   0.000     3.775829    6.201181
+              2001  |   5.174059   .6269743     8.25   0.000     3.935217    6.412901
+              2002  |   5.305577   .6465663     8.21   0.000     4.028023    6.583131
+              2003  |   5.342184   .6434067     8.30   0.000     4.070873    6.613494
+              2004  |    5.52276      .6605     8.36   0.000     4.217675    6.827846
+              2005  |   5.817146   .6810939     8.54   0.000     4.471369    7.162924
+              2006  |   5.900029   .7117017     8.29   0.000     4.493774    7.306284
+              2007  |   5.961473   .7275478     8.19   0.000     4.523907    7.399039
+              2008  |   6.128331   .7464848     8.21   0.000     4.653348    7.603314
+              2009  |   6.211363   .7430339     8.36   0.000     4.743198    7.679527
+              2010  |   6.317557    .737667     8.56   0.000     4.859996    7.775117
+                    |
+              _cons |   11.31488   5.542958     2.04   0.043     .3625168    22.26724
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       ccode |       151         151           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est1 stored)
+
+. 
+. * Controlling for oil producer
+. eststo: reghdfe polity2 lag_gdp_pk lag_intra_state_war lag_high_oil i.year, vce(cluster
+>  ccode) absorb(ccode)
+(MWFE estimator converged in 1 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,852
+Absorbing 1 HDFE group                            F(  31,    149) =       4.41
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.8168
+                                                  Adj R-squared   =     0.8078
+                                                  Within R-sq.    =     0.2614
+Number of clusters (ccode)   =        150         Root MSE        =     3.1125
+
+                                       (Std. err. adjusted for 150 clusters in ccode)
+-------------------------------------------------------------------------------------
+                    |               Robust
+            polity2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+         lag_gdp_pk |  -1.695523   .7347326    -2.31   0.022    -3.147364   -.2436814
+lag_intra_state_war |  -.1937839   .4651303    -0.42   0.678    -1.112887    .7253196
+       lag_high_oil |   .0886597   .8354232     0.11   0.916    -1.562148    1.739467
+                    |
+               year |
+              1983  |   .3252736   .2044939     1.59   0.114    -.0788091    .7293562
+              1984  |   .2010784   .2524577     0.80   0.427    -.2977813    .6999382
+              1985  |   .5821854    .313641     1.86   0.065    -.0375734    1.201944
+              1986  |    .758222   .3413578     2.22   0.028     .0836946    1.432749
+              1987  |    .768969   .3937798     1.95   0.053    -.0091451    1.547083
+              1988  |   1.058948   .4277387     2.48   0.014     .2137306    1.904165
+              1989  |   1.402016   .4470061     3.14   0.002     .5187256    2.285306
+              1990  |   2.315309   .4964545     4.66   0.000     1.334309     3.29631
+              1991  |   3.264472   .5206025     6.27   0.000     2.235755    4.293189
+              1992  |   3.862344   .5799296     6.66   0.000     2.716396    5.008293
+              1993  |   4.281456    .589722     7.26   0.000     3.116158    5.446754
+              1994  |    4.58309   .6437912     7.12   0.000      3.31095     5.85523
+              1995  |   4.542661   .6337884     7.17   0.000     3.290287    5.795036
+              1996  |   4.399291   .6327101     6.95   0.000     3.149047    5.649535
+              1997  |   4.347692   .6341094     6.86   0.000     3.094684    5.600701
+              1998  |   4.578746   .6154792     7.44   0.000     3.362551    5.794941
+              1999  |   4.812912   .6061473     7.94   0.000     3.615157    6.010667
+              2000  |   5.017375    .621835     8.07   0.000     3.788621    6.246129
+              2001  |   5.205685   .6344723     8.20   0.000      3.95196    6.459411
+              2002  |   5.339296   .6549945     8.15   0.000     4.045018    6.633573
+              2003  |   5.378878   .6504662     8.27   0.000     4.093548    6.664207
+              2004  |   5.560851   .6682633     8.32   0.000     4.240354    6.881348
+              2005  |   5.858858   .6899369     8.49   0.000     4.495533    7.222182
+              2006  |   5.944002   .7222161     8.23   0.000     4.516894    7.371111
+              2007  |    6.00825   .7395178     8.12   0.000     4.546953    7.469547
+              2008  |     6.1786   .7602952     8.13   0.000     4.676247    7.680954
+              2009  |   6.264036   .7559896     8.29   0.000      4.77019    7.757881
+              2010  |   6.370838   .7499527     8.49   0.000     4.888922    7.852755
+                    |
+              _cons |    11.9188   5.752503     2.07   0.040      .551783    23.28583
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       ccode |       150         150           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est2 stored)
+
+. 
+. * Interaction effect
+. eststo: reghdfe polity2 lag_gdp_pk c.lag_gdp_pk#i.lag_high_oil lag_high_oil lag_intra_s
+> tate_war i.year, vce(cluster ccode) absorb(ccode) // c. is telling stata we deal with a
+>  continuous variable and i. with a categorical variable
+(MWFE estimator converged in 1 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,852
+Absorbing 1 HDFE group                            F(  32,    149) =       4.29
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.8168
+                                                  Adj R-squared   =     0.8078
+                                                  Within R-sq.    =     0.2617
+Number of clusters (ccode)   =        150         Root MSE        =     3.1123
+
+                                       (Std. err. adjusted for 150 clusters in ccode)
+-------------------------------------------------------------------------------------
+                    |               Robust
+            polity2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+         lag_gdp_pk |  -1.536349   .8513694    -1.80   0.073    -3.218666     .145968
+                    |
+       lag_high_oil#|
+       c.lag_gdp_pk |
+               Yes  |   -.322879   .5791255    -0.56   0.578    -1.467239    .8214807
+                    |
+       lag_high_oil |   2.524902   4.526289     0.56   0.578    -6.419106    11.46891
+lag_intra_state_war |  -.1908014   .4640772    -0.41   0.682    -1.107824    .7262213
+                    |
+               year |
+              1983  |   .3298619    .205008     1.61   0.110    -.0752366    .7349604
+              1984  |   .2056884   .2535797     0.81   0.419    -.2953884    .7067651
+              1985  |   .5901714   .3155508     1.87   0.063    -.0333612    1.213704
+              1986  |    .772261   .3446909     2.24   0.027     .0911473    1.453375
+              1987  |    .782082   .3970074     1.97   0.051      -.00241    1.566574
+              1988  |   1.067406   .4293596     2.49   0.014     .2189858    1.915826
+              1989  |   1.410655   .4485362     3.15   0.002     .5243413    2.296968
+              1990  |   2.322485   .4966897     4.68   0.000      1.34102    3.303951
+              1991  |   3.274274   .5226822     6.26   0.000     2.241447      4.3071
+              1992  |   3.869625   .5819914     6.65   0.000     2.719603    5.019648
+              1993  |   4.289887   .5922652     7.24   0.000     3.119563    5.460211
+              1994  |   4.585783   .6447733     7.11   0.000     3.311703    5.859864
+              1995  |    4.54236   .6339959     7.16   0.000     3.289576    5.795145
+              1996  |   4.399576   .6328053     6.95   0.000     3.149144    5.650007
+              1997  |   4.353971   .6358528     6.85   0.000     3.097517    5.610424
+              1998  |   4.580615   .6158656     7.44   0.000     3.363656    5.797573
+              1999  |   4.817755   .6067096     7.94   0.000     3.618889    6.016621
+              2000  |   5.021885   .6223417     8.07   0.000      3.79213    6.251641
+              2001  |   5.208043   .6353829     8.20   0.000     3.952518    6.463568
+              2002  |   5.349384   .6567008     8.15   0.000     4.051735    6.647034
+              2003  |    5.38206   .6513937     8.26   0.000     4.094898    6.669223
+              2004  |   5.564593   .6691434     8.32   0.000     4.242357     6.88683
+              2005  |   5.862322   .6910589     8.48   0.000      4.49678    7.227863
+              2006  |   5.950943   .7236319     8.22   0.000     4.521037    7.380849
+              2007  |   6.010715   .7410444     8.11   0.000     4.546402    7.475029
+              2008  |   6.181368   .7619628     8.11   0.000      4.67572    7.687017
+              2009  |   6.267504   .7576738     8.27   0.000      4.77033    7.764677
+              2010  |   6.375261   .7515693     8.48   0.000      4.89015    7.860372
+                    |
+              _cons |   10.78468   6.589694     1.64   0.104     -2.23664    23.80601
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       ccode |       150         150           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est3 stored)
+
+. 
+. * Alternative way to write this
+. eststo: reghdfe polity2 c.lag_gdp_pk##i.lag_high_oil lag_intra_state_war i.year, vce(cl
+> uster ccode) absorb(ccode) 
+(MWFE estimator converged in 1 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,852
+Absorbing 1 HDFE group                            F(  32,    149) =       4.29
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.8168
+                                                  Adj R-squared   =     0.8078
+                                                  Within R-sq.    =     0.2617
+Number of clusters (ccode)   =        150         Root MSE        =     3.1123
+
+                                       (Std. err. adjusted for 150 clusters in ccode)
+-------------------------------------------------------------------------------------
+                    |               Robust
+            polity2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+         lag_gdp_pk |  -1.536349   .8513694    -1.80   0.073    -3.218666     .145968
+                    |
+       lag_high_oil |
+               Yes  |   2.524902   4.526289     0.56   0.578    -6.419106    11.46891
+                    |
+       lag_high_oil#|
+       c.lag_gdp_pk |
+               Yes  |   -.322879   .5791255    -0.56   0.578    -1.467239    .8214807
+                    |
+lag_intra_state_war |  -.1908014   .4640772    -0.41   0.682    -1.107824    .7262213
+                    |
+               year |
+              1983  |   .3298619    .205008     1.61   0.110    -.0752366    .7349604
+              1984  |   .2056884   .2535797     0.81   0.419    -.2953884    .7067651
+              1985  |   .5901714   .3155508     1.87   0.063    -.0333612    1.213704
+              1986  |    .772261   .3446909     2.24   0.027     .0911473    1.453375
+              1987  |    .782082   .3970074     1.97   0.051      -.00241    1.566574
+              1988  |   1.067406   .4293596     2.49   0.014     .2189858    1.915826
+              1989  |   1.410655   .4485362     3.15   0.002     .5243413    2.296968
+              1990  |   2.322485   .4966897     4.68   0.000      1.34102    3.303951
+              1991  |   3.274274   .5226822     6.26   0.000     2.241447      4.3071
+              1992  |   3.869625   .5819914     6.65   0.000     2.719603    5.019648
+              1993  |   4.289887   .5922652     7.24   0.000     3.119563    5.460211
+              1994  |   4.585783   .6447733     7.11   0.000     3.311703    5.859864
+              1995  |    4.54236   .6339959     7.16   0.000     3.289576    5.795145
+              1996  |   4.399576   .6328053     6.95   0.000     3.149144    5.650007
+              1997  |   4.353971   .6358528     6.85   0.000     3.097517    5.610424
+              1998  |   4.580615   .6158656     7.44   0.000     3.363656    5.797573
+              1999  |   4.817755   .6067096     7.94   0.000     3.618889    6.016621
+              2000  |   5.021885   .6223417     8.07   0.000      3.79213    6.251641
+              2001  |   5.208043   .6353829     8.20   0.000     3.952518    6.463568
+              2002  |   5.349384   .6567008     8.15   0.000     4.051735    6.647034
+              2003  |    5.38206   .6513937     8.26   0.000     4.094898    6.669223
+              2004  |   5.564593   .6691434     8.32   0.000     4.242357     6.88683
+              2005  |   5.862322   .6910589     8.48   0.000      4.49678    7.227863
+              2006  |   5.950943   .7236319     8.22   0.000     4.521037    7.380849
+              2007  |   6.010715   .7410444     8.11   0.000     4.546402    7.475029
+              2008  |   6.181368   .7619628     8.11   0.000      4.67572    7.687017
+              2009  |   6.267504   .7576738     8.27   0.000      4.77033    7.764677
+              2010  |   6.375261   .7515693     8.48   0.000      4.89015    7.860372
+                    |
+              _cons |   10.78468   6.589694     1.64   0.104     -2.23664    23.80601
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       ccode |       150         150           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est4 stored)
+
+. 
+. * Showing only results for the treatment - nicey!
+. esttab using "$main/regression_results.csv", /// 
+>         star(* 0.10 "**" 0.05 "***" 0.01) /// Statistical significance
+>         b(3) se(3) r2(3) sfmt(3) ///
+>         obslast keep(lag_gdp_pk 1.lag_high_oil#c.lag_gdp_pk ) replace 
+(output written to /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/I
+> R Honors/Lab 4/regression_results.csv)
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD00900.000000"
+
+.                 
+. lincom lag_gdp_pk // This is the effect of gdp per capita conditional on being a high o
+> il producer
+
+ ( 1)  lag_gdp_pk = 0
+
+------------------------------------------------------------------------------
+     polity2 | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -1.536349   .8513694    -1.80   0.073    -3.218666     .145968
+------------------------------------------------------------------------------
+
+.         
+. lincom lag_gdp_pk + c.lag_gdp_pk#1.lag_high_oil // This is the effect of schooling cond
+> itional on high oil producer = 1 
+
+ ( 1)  lag_gdp_pk + 1.lag_high_oil#c.lag_gdp_pk = 0
+
+------------------------------------------------------------------------------
+     polity2 | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -1.859228   .7261311    -2.56   0.011    -3.294073   -.4243836
+------------------------------------------------------------------------------
+
+. 
+end of do-file
+

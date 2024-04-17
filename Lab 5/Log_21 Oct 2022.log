@@ -1,0 +1,614 @@
+
+. 
+. *=================================================================================
+> ========
+. * DIFFERENCES IN DIFFERENCES
+. *=================================================================================
+> ========
+. /*
+> Recall that in differences-in-differences (DID) we observe observations that are s
+> ubject
+> to the treatment in a particular time period. Thus we need a variable that identif
+> ies
+> if the unit of observation was treated during the whole time period (hence it is i
+> n the 
+> treatment group), and the a variable for time.
+> 
+> The set-up for a DID looks like this:
+> 
+> Y=alpha+beta_3 D*time D*T + beta_1*D + beta_2*T +e
+> 
+> Assume there are only two periods, and that the treatment kicks in at T=1.
+> 
+> We only focus on beta_3, which is the DID estimate:
+> 
+> beta_3 = E(Y|D=1, t=1) - E(Y|D=0, T=1)-[E(Y|D=1, T=0)-E(Y|D=1 , T=0)]
+> 
+> Notice this effect is the difference between two differences - hence the name DID.
+> 
+> */
+. 
+. * We will use some standard hospitals dataset to motivate DID
+. 
+. u "$main/hospdd.dta", clear
+(Artificial hospital admission procedure data)
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. tab month procedure
+
+           |  Admission procedure
+     Month |       Old        New |     Total
+-----------+----------------------+----------
+   January |     1,842          0 |     1,842 
+  February |       921          0 |       921 
+     March |       921          0 |       921 
+     April |       538        383 |       921 
+       May |       538        383 |       921 
+      June |       538        383 |       921 
+      July |       538        383 |       921 
+-----------+----------------------+----------
+     Total |     5,836      1,532 |     7,368 
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. preserve
+
+.         collapse satis, by(month treated)
+variable treated not found
+(error in option by())
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. u "$main/hospdd.dta", clear
+(Artificial hospital admission procedure data)
+
+. 
+. * Notice that some hospitals are treated starting in April - as new procedures are
+>  introduced
+. tab month procedure
+
+           |  Admission procedure
+     Month |       Old        New |     Total
+-----------+----------------------+----------
+   January |     1,842          0 |     1,842 
+  February |       921          0 |       921 
+     March |       921          0 |       921 
+     April |       538        383 |       921 
+       May |       538        383 |       921 
+      June |       538        383 |       921 
+      July |       538        383 |       921 
+-----------+----------------------+----------
+     Total |     5,836      1,532 |     7,368 
+
+. 
+. * Let's generate the treated and time of treatment data
+. bys hospital: egen treated = max(procedure)
+
+. gen time = (month>3) if month!=. // Recall to always be sure you are not inputing 
+> a zero to a missing
+
+. 
+. * First thing we want to do is have an evaluation of the trends
+. h preserve // preserve and restore works for loading data back
+
+. preserve
+
+.         collapse satis, by(month treated)
+
+.         #delimit ;
+delimiter now ;
+.                 twoway (line satis month if treated==1, lc(gs0)) (line satis month
+>  if treated==0, lc(gs0) lp("-")),
+>                 title("") ytitle("Patient satisfaction") xtitle("Month")
+>                 legend(label(1 "Treated") label(2 "Control"))
+>                 xlabel(1 "J" 2 "F" 3 "M" 4 "A" 5 "M" 6 "J" 7 "J")
+>                 xline(3) graphregion(color(white)) ;
+
+.         #delimit cr
+delimiter now cr
+. restore
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. * Running the regression
+. eststo: reg satis i.treated##i.time,  vce(cluster hospital) // no controls 
+
+Linear regression                               Number of obs     =      7,368
+                                                F(3, 45)          =     276.83
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1331
+                                                Root MSE          =     .98319
+
+                              (Std. err. adjusted for 46 clusters in hospital)
+------------------------------------------------------------------------------
+             |               Robust
+       satis | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   1.treated |   .1328739   .2121529     0.63   0.534    -.2944239    .5601718
+      1.time |  -.0100198   .0133172    -0.75   0.456     -.036842    .0168024
+             |
+treated#time |
+        1 1  |   .8479879   .0320051    26.50   0.000     .7835263    .9124494
+             |
+       _cons |   3.392509   .1304557    26.01   0.000     3.129758    3.655261
+------------------------------------------------------------------------------
+(est1 stored)
+
+. 
+. * Adding fixed effects
+. eststo: reghdfe satis i.treated##i.time,  vce(cluster hospital) absorb(hospital) 
+note: 1bn.treated is probably collinear with the fixed effects (all partialled-out v
+> alues are close to zero; tol = 1.0e-09)
+(MWFE estimator converged in 1 iterations)
+note: 1.treated omitted because of collinearity
+
+HDFE Linear regression                            Number of obs   =      7,368
+Absorbing 1 HDFE group                            F(   2,     45) =     414.87
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.5332
+                                                  Adj R-squared   =     0.5302
+                                                  Within R-sq.    =     0.1231
+Number of clusters (hospital) =         46        Root MSE        =     0.7236
+
+                              (Std. err. adjusted for 46 clusters in hospital)
+------------------------------------------------------------------------------
+             |               Robust
+       satis | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   1.treated |          0  (omitted)
+      1.time |  -.0100198   .0133163    -0.75   0.456    -.0368402    .0168006
+             |
+treated#time |
+        1 1  |   .8479879   .0320029    26.50   0.000     .7835307    .9124451
+             |
+       _cons |   3.447765    .007193   479.32   0.000     3.433278    3.462253
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+    hospital |        46          46           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est2 stored)
+
+. 
+. * Adding covariates: should we add frequency of hospital visit as a control?
+. 
+. * We observe the results for the bet!
+. esttab using "$main/regression_results_DID.csv", /// 
+>         star(* 0.10 "**" 0.05 "***" 0.01) /// Statistical significance
+>         b(3) se(3) r2(3) sfmt(3) ///
+>         obslast keep(1.treated#1.time) replace 
+(file /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the side/IR
+    Honors/Lab 5/regression_results_DID.csv not found)
+(output written to /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the s
+> ide/IR Honors/Lab 5/regression_results_DID.csv)
+
+. eststo clear
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. eststo clear
+
+. * Running the regression
+. eststo: reg satis i.treated##i.time,  vce(cluster hospital) // no controls 
+
+Linear regression                               Number of obs     =      7,368
+                                                F(3, 45)          =     276.83
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1331
+                                                Root MSE          =     .98319
+
+                              (Std. err. adjusted for 46 clusters in hospital)
+------------------------------------------------------------------------------
+             |               Robust
+       satis | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   1.treated |   .1328739   .2121529     0.63   0.534    -.2944239    .5601718
+      1.time |  -.0100198   .0133172    -0.75   0.456     -.036842    .0168024
+             |
+treated#time |
+        1 1  |   .8479879   .0320051    26.50   0.000     .7835263    .9124494
+             |
+       _cons |   3.392509   .1304557    26.01   0.000     3.129758    3.655261
+------------------------------------------------------------------------------
+(est1 stored)
+
+. 
+. * Adding fixed effects
+. eststo: reghdfe satis i.treated##i.time,  vce(cluster hospital) absorb(hospital) 
+note: 1bn.treated is probably collinear with the fixed effects (all partialled-out v
+> alues are close to zero; tol = 1.0e-09)
+(MWFE estimator converged in 1 iterations)
+note: 1.treated omitted because of collinearity
+
+HDFE Linear regression                            Number of obs   =      7,368
+Absorbing 1 HDFE group                            F(   2,     45) =     414.87
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.5332
+                                                  Adj R-squared   =     0.5302
+                                                  Within R-sq.    =     0.1231
+Number of clusters (hospital) =         46        Root MSE        =     0.7236
+
+                              (Std. err. adjusted for 46 clusters in hospital)
+------------------------------------------------------------------------------
+             |               Robust
+       satis | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   1.treated |          0  (omitted)
+      1.time |  -.0100198   .0133163    -0.75   0.456    -.0368402    .0168006
+             |
+treated#time |
+        1 1  |   .8479879   .0320029    26.50   0.000     .7835307    .9124451
+             |
+       _cons |   3.447765    .007193   479.32   0.000     3.433278    3.462253
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+    hospital |        46          46           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est2 stored)
+
+. 
+. * Adding covariates: should we add frequency of hospital visit as a control?
+. 
+. * We observe the results for the bet!
+. esttab using "$main/regression_results_DID.csv", /// 
+>         star(* 0.10 "**" 0.05 "***" 0.01) /// Statistical significance
+>         b(3) se(3) r2(3) sfmt(3) ///
+>         obslast keep(1.treated#1.time) replace 
+(output written to /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the s
+> ide/IR Honors/Lab 5/regression_results_DID.csv)
+
+. eststo clear
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. * Evaluating the parallel trends assumption
+. quietly: eststo: reghdfe satis i.treated##i.month,  vce(cluster hospital) absorb(h
+> ospital) 
+
+. #delimit ;
+delimiter now ;
+.         coefplot, keep(1.treated#*.month)
+>         title("") ytitle("Patient satisfaction") xtitle("Month")
+>         xlabel(1 "J" 2 "F" 3 "M" 4 "A" 5 "M" 6 "J" 7 "J")
+>         vertical
+>         yline(0)  xline(3, lc(gs9) lp("-"))  graphregion(color(white)) ;
+
+. #delimit cr
+delimiter now cr
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. 
+. clear all
+
+. 
+. * Load the database 
+. u "$main/DID_colombia_illicit_crops.dta", clear
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. u "$main/DID_colombia_illicit_crops.dta", clear
+
+. 
+. * Create a global with all the controls for the regression 
+. global controls male age educ raza_0 raza_1 raza_2 raza_3 raza_4 raza_5  
+
+. 
+. eststo clear
+
+. * Running the regression
+. eststo: reg illicit_crop treatment i.treatment##i.time,  vce(cluster mun_code) // 
+> no controls 
+note: 1.treatment omitted because of collinearity.
+
+Linear regression                               Number of obs     =     22,872
+                                                F(3, 62)          =       3.22
+                                                Prob > F          =     0.0286
+                                                R-squared         =     0.0026
+                                                Root MSE          =     .35331
+
+                                (Std. err. adjusted for 63 clusters in mun_code)
+--------------------------------------------------------------------------------
+               |               Robust
+  illicit_crop | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+     treatment |   -.023478   .0468889    -0.50   0.618    -.1172075    .0702515
+   1.treatment |          0  (omitted)
+        1.time |  -.0139539   .0098778    -1.41   0.163    -.0336992    .0057915
+               |
+treatment#time |
+          1 1  |   .0581444   .0188316     3.09   0.003     .0205007    .0957882
+               |
+         _cons |   .1502543   .0407281     3.69   0.000     .0688399    .2316687
+--------------------------------------------------------------------------------
+(est1 stored)
+
+. 
+. * Adding covariates
+. eststo: reg illicit_crop i.treatment##i.time $controls,  vce(cluster mun_code) 
+note: raza_5 omitted because of collinearity.
+
+Linear regression                               Number of obs     =     22,872
+                                                F(11, 62)         =       6.92
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0110
+                                                Root MSE          =     .35189
+
+                                (Std. err. adjusted for 63 clusters in mun_code)
+--------------------------------------------------------------------------------
+               |               Robust
+  illicit_crop | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+   1.treatment |   -.028804   .0455855    -0.63   0.530    -.1199281      .06232
+        1.time |  -.0101411   .0096463    -1.05   0.297    -.0294238    .0091416
+               |
+treatment#time |
+          1 1  |    .057652   .0192994     2.99   0.004     .0190731     .096231
+               |
+          male |   .0275038   .0100001     2.75   0.008     .0075138    .0474938
+           age |  -.0014761   .0005757    -2.56   0.013    -.0026269   -.0003254
+          educ |  -.0165522    .011182    -1.48   0.144    -.0389047    .0058003
+        raza_0 |   .0733996    .039062     1.88   0.065    -.0046844    .1514835
+        raza_1 |   .1164627   .0465079     2.50   0.015     .0234946    .2094307
+        raza_2 |   .0839553   .0414107     2.03   0.047     .0011764    .1667342
+        raza_3 |   .0350492   .0397113     0.88   0.381    -.0443325    .1144309
+        raza_4 |   .0952053   .0189875     5.01   0.000     .0572498    .1331608
+        raza_5 |          0  (omitted)
+         _cons |   .1539402   .0592888     2.60   0.012     .0354236    .2724567
+--------------------------------------------------------------------------------
+(est2 stored)
+
+. 
+. * Adding municipality fixed effects
+. eststo: reghdfe illicit_crop i.treatment##i.time $controls,  vce(cluster mun_code)
+>  absorb(mun_code) 
+(MWFE estimator converged in 1 iterations)
+note: raza_5 omitted because of collinearity
+
+HDFE Linear regression                            Number of obs   =     22,872
+Absorbing 1 HDFE group                            F(  11,     62) =       3.53
+Statistics robust to heteroskedasticity           Prob > F        =     0.0007
+                                                  R-squared       =     0.2384
+                                                  Adj R-squared   =     0.2359
+                                                  Within R-sq.    =     0.0073
+Number of clusters (mun_code) =         63        Root MSE        =     0.3092
+
+                                (Std. err. adjusted for 63 clusters in mun_code)
+--------------------------------------------------------------------------------
+               |               Robust
+  illicit_crop | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+   1.treatment |  -.0584652    .021219    -2.76   0.008    -.1008814   -.0160491
+        1.time |  -.0117432   .0093759    -1.25   0.215    -.0304853     .006999
+               |
+treatment#time |
+          1 1  |   .0599506   .0189991     3.16   0.002      .021972    .0979292
+               |
+          male |   .0307848   .0068801     4.47   0.000     .0170316    .0445379
+           age |  -.0004653   .0003778    -1.23   0.223    -.0012204    .0002898
+          educ |  -.0024688   .0065104    -0.38   0.706    -.0154829    .0105452
+        raza_0 |   .1040979    .048007     2.17   0.034     .0081332    .2000626
+        raza_1 |   .1176105   .0500715     2.35   0.022     .0175191    .2177019
+        raza_2 |   .1122659   .0507381     2.21   0.031     .0108419      .21369
+        raza_3 |   .1284306   .0526949     2.44   0.018      .023095    .2337661
+        raza_4 |   .0851484   .0524221     1.62   0.109    -.0196418    .1899387
+        raza_5 |          0  (omitted)
+         _cons |    .069747   .0485945     1.44   0.156     -.027392     .166886
+--------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+    mun_code |        63          63           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(est3 stored)
+
+. 
+. * Showing only results for the treatment - nicey!
+. esttab using "$main/regression_results_DID.csv", /// 
+>         star(* 0.10 "**" 0.05 "***" 0.01) /// Statistical significance
+>         b(3) se(3) r2(3) sfmt(3) ///
+>         obslast keep(1.treatment#1.time) replace 
+(output written to /Users/balcazar/Dropbox//NYU/Dissertation - phase/Things on the s
+> ide/IR Honors/Lab 5/regression_results_DID.csv)
+
+. eststo clear
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. 
+. use "$main/RDD_data.dta",clear 
+(Written by R.              )
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. use "$main/RDD_data.dta",clear 
+(Written by R.              )
+
+. 
+. replace DPctPrv=DPctPrv-50
+(9,163 real changes made)
+
+. replace DPctNxt=DPctNxt-50
+(8,980 real changes made)
+
+. * First let's add some labels
+. lab var DPctPrv  "Margin of victory for demcorat in 1st election"
+
+. lab var DPctNxt "Margin of victory for democrat in run-off"
+
+. 
+. 
+. * Let's plot the data
+. #delimit ;
+delimiter now ;
+.         twoway (scatter DPctNxt  DPctPrv if DPctPrv<0, msize(vsmall) msymbol(circl
+> e_hollow) mc(gs9)) 
+>         (scatter DPctNxt  DPctPrv if DPctPrv>0, sort mcolor(blue) msize(vsmall) ms
+> ymbol(circle_hollow) mc(gs6)) 
+>         (lfitci DPctNxt  DPctPrv if DPctPrv<0, lcolor(red) msize(small) lwidth(med
+> thin) lpattern(solid)) 
+>         (lfitci DPctNxt  DPctPrv if DPctPrv>0, lcolor(blue) msize(small) lwidth(me
+> dthin) lpattern(solid)), 
+>         ytitle("% vote for democrat (run-off)")  xtitle("% vote for democrat (1st 
+> election)") 
+>         graphregion(color(white)) legend(off);
+
+. #delimit cr
+delimiter now cr
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. 
+. * Let's look at the binned graph
+. qui: cmogram DPctNxt  DPctPrv, cut(0) scatter line(0) lfitci 
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. * Let's define the bandwidth - look at Cattaneo's work on this regard; we will do 
+> it the easy way
+. gen local_sample=(abs(DPctPrv)<5) if DPctPrv!=. // I'm using 5% of margin of victo
+> ry
+(7,805 missing values generated)
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. * Let's look once again at the restricted binning plot
+. qui: cmogram DPctNxt  DPctPrv if local_sample==1, cut(0) scatter line(0) lfitci
+
+. 
+end of do-file
+
+. do "/var/folders/8l/dm7r06n54jn9z9cdznx0n76w0000gn/T//SD03156.000000"
+
+. * Obtain f(R-c) and f(c-R_i)
+. reg DPctNxt  DPctPrv if local_sample==1 & DPctPrv<0
+
+      Source |       SS           df       MS      Number of obs   =       747
+-------------+----------------------------------   F(1, 745)       =     12.22
+       Model |  2069.45744         1  2069.45744   Prob > F        =    0.0005
+    Residual |  126154.291       745  169.334619   R-squared       =    0.0161
+-------------+----------------------------------   Adj R-squared   =    0.0148
+       Total |  128223.749       746  171.881701   Root MSE        =    13.013
+
+------------------------------------------------------------------------------
+     DPctNxt | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     DPctPrv |   1.166645   .3337209     3.50   0.001     .5114999     1.82179
+       _cons |  -1.712372   .9690713    -1.77   0.078    -3.614808    .1900631
+------------------------------------------------------------------------------
+
+. predict f_polynomial if  local_sample==1 & DPctPrv<0, xb
+(16,138 missing values generated)
+
+. 
+. reg DPctNxt  DPctPrv if local_sample==1 & DPctPrv>0
+
+      Source |       SS           df       MS      Number of obs   =       738
+-------------+----------------------------------   F(1, 736)       =     19.13
+       Model |  4041.43009         1  4041.43009   Prob > F        =    0.0000
+    Residual |  155511.545       736   211.29286   R-squared       =    0.0253
+-------------+----------------------------------   Adj R-squared   =    0.0240
+       Total |  159552.975       737   216.48979   Root MSE        =    14.536
+
+------------------------------------------------------------------------------
+     DPctNxt | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     DPctPrv |   1.632181   .3732014     4.37   0.000     .8995152    2.364848
+       _cons |   2.166827     1.0543     2.06   0.040     .0970338     4.23662
+------------------------------------------------------------------------------
+
+. predict f_polynomial_right if  local_sample==1 & DPctPrv>0, xb
+(16,164 missing values generated)
+
+. replace f_polynomial=f_polynomial_right if local_sample==1 & f_polynomial==.
+(804 real changes made)
+
+. 
+. * Define treatment
+. gen WinDemPrv=(DPctPrv>0) if local_sample==1 
+(15,334 missing values generated)
+
+. 
+. * Define outcome
+. gen WinDemNxt=(DPctNxt>0) if local_sample==1 
+(15,334 missing values generated)
+
+. 
+. * Run your regression!
+. reg WinDemNxt i.WinDemPrv##c.f_polynomial if local_sample==1, cluster( StICPSR) no
+> cons
+
+Linear regression                               Number of obs     =      1,634
+                                                F(3, 49)          =     485.52
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.5637
+                                                Root MSE          =     .49091
+
+                                 (Std. err. adjusted for 50 clusters in StICPSR)
+--------------------------------------------------------------------------------
+               |               Robust
+     WinDemNxt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+   1.WinDemPrv |   .5644429   .0426934    13.22   0.000     .4786472    .6502386
+  f_polynomial |  -.0703645   .0035672   -19.73   0.000    -.0775331   -.0631959
+               |
+     WinDemPrv#|
+c.f_polynomial |
+            1  |   .0939843   .0071586    13.13   0.000     .0795985    .1083701
+--------------------------------------------------------------------------------
+
+. 
+end of do-file
+

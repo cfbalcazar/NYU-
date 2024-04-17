@@ -1,0 +1,191 @@
+name	country	year	regime	gdppc	investment	growth	hinst	agehinst	ginig	britcol	oil	ethnic	openk	majgov	govsh
+"Algeria"	1	1995	"Autocracy"	2632	12.01	1.62	"Military dictatorships"	31		"Not British colony"	"Oil-produced"	83	58.74		
+"Angola"	2	1995	"Autocracy"	636	9.46	6.53	"Civilian dictatorships"	21		"Not British colony"	"Oil-produced"	37	148.03		
+"Benin"	3	1995	"Democracy"	1200	7.82	1.27	"Presidential democracies"	5		"Not British colony"	"Not oil-producer"	59	58.4	"Minority govt"	.3
+"Botswana"	4	1995	"Autocracy"	3359	16.76	2.35	"Civilian dictatorships"	30		"British colony"	"Not oil-producer"	34	84.4		
+"Burkina Faso"	5	1995	"Autocracy"	754	9.26	1.48	"Military dictatorships"	30		"Not British colony"	"Not oil-producer"	54	38		
+"Burundi"	6	1995	"Democracy"	639	3.11	-.93	"Presidential democracies"	3		"Not British colony"	"Not oil-producer"	83	40		
+"Cameroon"	7	1995	"Autocracy"	988	4.77	1.02	"Civilian dictatorships"	36		"Not British colony"	"Not oil-producer"	21	41.32		
+"Cape Verde"	8	1995	"Democracy"	1318	20.91	6.2	"Parliamentary democracies"	5		"Not British colony"	"Not oil-producer"	70	77.9	"Majority govt"	.69
+"Central African Republic"	9	1995	"Democracy"	648	6.54	3.18	"Mixed democracies"	3		"Not British colony"	"Not oil-producer"	32	40.6	"Majority govt"	.55
+"Chad"	10	1995	"Autocracy"	418	4.59	-2.79	"Military dictatorships"	6		"Not British colony"	"Not oil-producer"	30	49.46		
+"Comoros"	11	1995	"Autocracy"	644	6.75	5.57	"Civilian dictatorships"	1		"Not British colony"	"Not oil-producer"	99	63.66		
+"Congo"	12	1995	"Democracy"	2177	6.76	1.59	"Mixed democracies"	4		"Not British colony"	"Oil-produced"	52	113.17		
+"Djibouti"	13	1995	"Autocracy"	1195	-999	-4.93	"Civilian dictatorships"	19		"Not British colony"	"Not oil-producer"	47			
+"Egypt, Arab Rep."	14	1995	"Autocracy"	2496	4.73	2.42	"Military dictatorships"	44		"British colony"	"Not oil-producer"	94	47.46		
+"Gabon"	16	1995	"Autocracy"	4811	6.34	2.19	"Civilian dictatorships"	36		"Not British colony"	"Oil-produced"	34	86.24		
+"Gambia, The"	17	1995	"Autocracy"	818	9.91	-6.83	"Military dictatorships"	2		"British colony"	"Not oil-producer"	43	109.87		
+"Ghana"	18	1995	"Democracy"	1144	5.59	1.69	"Presidential democracies"	3		"British colony"	"Not oil-producer"	44	52.57		
+"Guinea"	19	1995	"Autocracy"	521	8.11	1.36	"Military dictatorships"	12		"Not British colony"	"Not oil-producer"	41	43		
+"Guinea-Bissau"	20	1995	"Autocracy"	812	13.81	1.88	"Military dictatorships"	16		"Not British colony"	"Not oil-producer"	27	47.31		
+"Cote d'Ivoire"	21	1995	"Autocracy"	1259	5.59	3.71	"Civilian dictatorships"	36		"Not British colony"	"Not oil-producer"	20	77.06		
+"Kenya"	22	1995	"Autocracy"	1029	7.64	2.08	"Civilian dictatorships"	33		"British colony"	"Not oil-producer"	21	70.45		
+"Lesotho"	23	1995	"Democracy"	1435	39.6	11.59	"Parliamentary democracies"	3		"British colony"	"Not oil-producer"	90	130.22		
+"Liberia"	24	1995	"Autocracy"	1259	-999	6.79	"Civilian dictatorships"	6		"Not British colony"	"Not oil-producer"	27			
+"Madagascar"	25	1995	"Democracy"	680	2.53	-1.31	"Mixed democracies"	3		"Not British colony"	"Not oil-producer"	26	45.1		
+"Malawi"	26	1995	"Democracy"	617	4.82	18.2	"Presidential democracies"	2		"British colony"	"Not oil-producer"	59	47.61	"Minority govt"	.48
+"Mali"	27	1995	"Democracy"	759	7.1	4.12	"Mixed democracies"	4		"Not British colony"	"Not oil-producer"	33	53.27	"Majority govt"	.67
+"Mauritania"	28	1995	"Autocracy"	939	8.38	1.84	"Military dictatorships"	18		"Not British colony"	"Not oil-producer"	80	111.87		
+"Mauritius"	29	1995	"Democracy"	8716	10.48	2.52	"Parliamentary democracies"	28		"British colony"	"Not oil-producer"	68	124.35	"Majority govt"	.91
+"Morocco"	30	1995	"Autocracy"	2446	11.17	-8.46	"Monarchical dictatorships"	40		"Not British colony"	"Not oil-producer"	99	59.26		
+"Mozambique"	31	1995	"Autocracy"	1068	4.3	-1.48	"Civilian dictatorships"	21		"Not British colony"	"Not oil-producer"	52	51.78		
+"Niger"	32	1995	"Democracy"	504	2.96	-.59	"Mixed democracies"	3		"Not British colony"	"Not oil-producer"	52	40.19	"Minority govt"	.42
+"Nigeria"	33	1995	"Autocracy"	1134	9.1	-.35	"Military dictatorships"	13		"British colony"	"Oil-produced"	29	70.39		
+"Rwanda"	34	1995	"Autocracy"	674	3.13	52.14	"Military dictatorships"	23		"Not British colony"	"Not oil-producer"	88	33.56		
+"Senegal"	35	1995	"Autocracy"	1268	6.32	2.18	"Civilian dictatorships"	36		"Not British colony"	"Not oil-producer"	35	74.74		
+"Seychelles"	36	1995	"Autocracy"	5458	16.51	-.35	"Civilian dictatorships"	20		"British colony"	"Not oil-producer"	94	111.1		
+"Sierra Leone"	37	1995	"Autocracy"	746	3.23	-13.46	"Military dictatorships"	11		"British colony"	"Not oil-producer"	34	56.33		
+"Somalia"	38	1995	"Autocracy"	933	-999	1.08	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	95			
+"South Africa"	39	1995	"Democracy"	3824	8.49	1.84	"Parliamentary democracies"	2		"Not British colony"	"Not oil-producer"	72	46.24	"Majority govt"	.94
+"Sudan"	40	1995	"Autocracy"	787	-999	.25	"Military dictatorships"	7		"Not British colony"	"Not oil-producer"	46			
+"Swaziland"	41	1995	"Autocracy"	2467	-999	3.01	"Monarchical dictatorships"	28		"British colony"	"Not oil-producer"	95			
+"Tanzania"	42	1995	"Autocracy"	505	9.71	.4	"Civilian dictatorships"	35		"British colony"	"Not oil-producer"	21	57.79		
+"Togo"	43	1995	"Autocracy"	664	9.69	1.22	"Military dictatorships"	29		"Not British colony"	"Not oil-producer"	46	68.04		
+"Tunisia"	44	1995	"Autocracy"	3692	12.51	.79	"Military dictatorships"	9		"Not British colony"	"Not oil-producer"	98	93.84		
+"Uganda"	45	1995	"Autocracy"	671	3.61	8.93	"Civilian dictatorships"	10		"British colony"	"Not oil-producer"	18	32.9		
+"Zaire"	46	1995	"Autocracy"	299	2.7	-4.78	"Military dictatorships"	31		"Not British colony"	"Not oil-producer"	18	47.09		
+"Zambia"	47	1995	"Democracy"	647	10.61	-4.57	"Presidential democracies"	5		"British colony"	"Not oil-producer"	34	77.56	"Majority govt"	.83
+"Zimbabwe"	48	1995	"Autocracy"	1263	14.93	-.79	"Civilian dictatorships"	31		"British colony"	"Not oil-producer"	80	80.31		
+"Bahamas, The"	49	1995	"Democracy"		-999		"Parliamentary democracies"	23		"British colony"	"Not oil-producer"	70		"Majority govt"	.63
+"Barbados"	50	1995	"Democracy"		3.52		"Parliamentary democracies"	30		"British colony"	"Not oil-producer"	92	129.13	"Majority govt"	.68
+"Belize"	51	1995	"Democracy"		11.49		"Parliamentary democracies"	15		"British colony"	"Not oil-producer"	40	103.54	"Majority govt"	.55
+"Canada"	52	1995	"Democracy"	19293	23.5	1.5	"Parliamentary democracies"	76		"Not British colony"	"Not oil-producer"	61	70.87	"Majority govt"	.6
+"Costa Rica"	53	1995	"Democracy"	5242	16.36	.1	"Presidential democracies"	47		"Not British colony"	"Not oil-producer"	85	84.45	"Minority govt"	.49
+"Dominican Republic"	54	1995	"Democracy"	2703	12.31	2.81	"Presidential democracies"	30		"Not British colony"	"Not oil-producer"	75	65.44	"Minority govt"	.42
+"El Salvador"	55	1995	"Democracy"	2564	10.36	4.27	"Presidential democracies"	12		"Not British colony"	"Not oil-producer"	94	57.26	"Minority govt"	.46
+"Grenada"	56	1995	"Democracy"		19.07		"Parliamentary democracies"	12		"British colony"	"Not oil-producer"	84	99.42	"Majority govt"	.53
+"Guatemala"	57	1995	"Democracy"	3229	7.58	2.05	"Presidential democracies"	10		"Not British colony"	"Not oil-producer"	50	42.47		
+"Haiti"	58	1995	"Democracy"	777	3.23	3.19	"Mixed democracies"	2		"Not British colony"	"Not oil-producer"	95	39.62	"Majority govt"	.82
+"Honduras"	59	1995	"Democracy"	1935	18.5	.83	"Presidential democracies"	14		"Not British colony"	"Not oil-producer"	90	100.12	"Majority govt"	.55
+"Jamaica"	60	1995	"Democracy"	3753	21.02	.83	"Parliamentary democracies"	34		"British colony"	"Not oil-producer"	76	122.94	"Majority govt"	.88
+"Mexico"	61	1995	"Autocracy"	6027	14.26	-7.79	"Civilian dictatorships"	38		"Not British colony"	"Not oil-producer"	55	53.8		
+"Nicaragua"	62	1995	"Democracy"	1348	11.54	1.81	"Presidential democracies"	12		"Not British colony"	"Not oil-producer"	69	89.66	"Majority govt"	.55
+"Panama"	63	1995	"Democracy"	5333	25.62	.08	"Presidential democracies"	7		"Not British colony"	"Not oil-producer"	70	77.68	"Minority govt"	.42
+"Trinidad and Tobago"	64	1995	"Democracy"	10503	9.85	4.69	"Parliamentary democracies"	34		"British colony"	"Oil-produced"	41	98.47	"Majority govt"	.53
+"United States"	65	1995	"Democracy"	24484	20.8	1.47	"Presidential democracies"	126		"Not British colony"	"Not oil-producer"	83	22.68	"Minority govt"	.47
+"Argentina"	66	1995	"Democracy"	8005	15.23	-4.33	"Presidential democracies"	13		"Not British colony"	"Not oil-producer"	97	20.1	"Majority govt"	.51
+"Bolivia"	67	1995	"Democracy"	2400	8.42	2.43	"Presidential democracies"	14		"Not British colony"	"Not oil-producer"	45	48.57	"Minority govt"	.49
+"Brazil"	68	1995	"Democracy"	5296	17.14	2.58	"Presidential democracies"	17		"Not British colony"	"Not oil-producer"	53	15.85	"Majority govt"	.56
+"Chile"	69	1995	"Democracy"	8612	24.21	7.52	"Presidential democracies"	6		"Not British colony"	"Not oil-producer"	90	56.1	"Majority govt"	.58
+"Colombia"	70	1995	"Democracy"	5418	15.47	3.4	"Presidential democracies"	38		"Not British colony"	"Not oil-producer"	50	33.03	"Majority govt"	.8
+"Ecuador"	71	1995	"Democracy"	4126	16.05	.66	"Presidential democracies"	17		"Not British colony"	"Not oil-producer"	50	54.51	"Minority govt"	.12
+"Guyana"	72	1995	"Democracy"		15.16		"Presidential democracies"	4		"British colony"	"Not oil-producer"	51	218.63	"Majority govt"	.53
+"Paraguay"	73	1995	"Autocracy"	3331	12.71	1.65	"Civilian dictatorships"	3		"Not British colony"	"Not oil-producer"	90	100.89		
+"Peru"	74	1995	"Autocracy"	3505	21.94	6.34	"Civilian dictatorships"	6		"Not British colony"	"Not oil-producer"	54	27.63		
+"Suriname"	75	1995	"Democracy"		-999		"Presidential democracies"	5		"Not British colony"	"Not oil-producer"	35		"Majority govt"	.59
+"Uruguay"	76	1995	"Democracy"	7365	12.54	-2.67	"Presidential democracies"	11		"Not British colony"	"Not oil-producer"	90	40.62	"Majority govt"	.64
+"Venezuela"	77	1995	"Democracy"	8950	13.1	3.83	"Presidential democracies"	37		"Not British colony"	"Oil-produced"	69	56.63	"Minority govt"	.12
+"Bangladesh"	78	1995	"Democracy"	733	9.7	3.24	"Parliamentary democracies"	5		"Not British colony"	"Not oil-producer"	85	27.71	"Majority govt"	.51
+"China"	79	1995	"Autocracy"	2653	22.22	7.19	"Civilian dictatorships"	47		"Not British colony"	"Not oil-producer"	94	37.46		
+"India"	80	1995	"Democracy"	1538	13.19	5.13	"Parliamentary democracies"	49		"British colony"	"Not oil-producer"	40	24.5	"Minority govt"	.44
+"Indonesia"	81	1995	"Autocracy"	3348	23.58	6.42	"Military dictatorships"	30		"Not British colony"	"Not oil-producer"	40	50.39		
+"Iran, Islamic Rep."	82	1995	"Autocracy"	4085	20.49	1.97	"Civilian dictatorships"	17		"Not British colony"	"Oil-produced"	45	32.47		
+"Iraq"	83	1995	"Autocracy"	945	-999	-11.68	"Civilian dictatorships"	17		"British colony"	"Oil-produced"	77			
+"Israel"	84	1995	"Democracy"	14932	30.25	4.38	"Parliamentary democracies"	48		"British colony"	"Not oil-producer"	83	74.99	"Majority govt"	.53
+"Japan"	85	1995	"Democracy"	19849	31.47	1.26	"Parliamentary democracies"	49		"Not British colony"	"Not oil-producer"	99	17.86	"Minority govt"	.48
+"Jordan"	86	1995	"Autocracy"	4164	19.92	3.35	"Monarchical dictatorships"	50		"British colony"	"Not oil-producer"	98	135.61		
+"Korea, South (Rep.)"	87	1995	"Democracy"	11818	40.89	7.78	"Presidential democracies"	8		"Not British colony"	"Not oil-producer"	100	59.71	"Minority govt"	.5
+"Laos PDR"	88	1995	"Autocracy"	1079	-999	2.37	"Military dictatorships"	4		"Not British colony"	"Not oil-producer"	56			
+"Malaysia"	89	1995	"Autocracy"	6965	33.78	7.39	"Civilian dictatorships"	39		"British colony"	"Not oil-producer"	44	183.62		
+"Mongolia"	90	1995	"Democracy"	1058	-999	4.75	"Mixed democracies"	4		"Not British colony"	"Not oil-producer"	84		"Majority govt"	.92
+"Myanmar"	91	1995	"Autocracy"	1015	-999	6.06	"Military dictatorships"	34		"British colony"	"Not oil-producer"	68			
+"Nepal"	92	1995	"Democracy"	917	17.94	.88	"Parliamentary democracies"	5		"Not British colony"	"Not oil-producer"	54	58.48	"Majority govt"	.52
+"Pakistan"	93	1995	"Democracy"	1830	11.05	2.58	"Parliamentary democracies"	8		"British colony"	"Not oil-producer"	66	38.59		
+"Philippines"	94	1995	"Democracy"	2221	15.4	2.35	"Presidential democracies"	10		"Not British colony"	"Not oil-producer"	93	81.57	"Majority govt"	.75
+"Singapore"	95	1995	"Autocracy"	19225	42.94	4.46	"Civilian dictatorships"	31		"British colony"	"Not oil-producer"	77	341.03		
+"Sri Lanka"	96	1995	"Democracy"	2997	11.69	4.21	"Mixed democracies"	7		"British colony"	"Not oil-producer"	74	80.5	"Majority govt"	.53
+"Syrian Arab Republic"	97	1995	"Autocracy"	7177	10.25	3.33	"Military dictatorships"	33		"Not British colony"	"Not oil-producer"	89	79.53		
+"Taiwan"	98	1995	"Autocracy"	13104	21.19	5.42	"Civilian dictatorships"	21		"Not British colony"	"Not oil-producer"	98	91.35		
+"Thailand"	99	1995	"Democracy"	6573	41.65	7.86	"Parliamentary democracies"	4		"Not British colony"	"Not oil-producer"	54	90.33	"Majority govt"	.6
+"Austria"	101	1995	"Democracy"	17887	25.63	1.8	"Parliamentary democracies"	51		"Not British colony"	"Not oil-producer"	96	74.59	"Majority govt"	.68
+"Belgium"	102	1995	"Democracy"	18255	23.12	2.41	"Parliamentary democracies"	77		"Not British colony"	"Not oil-producer"	58	134.86	"Minority govt"	.41
+"Bulgaria"	103	1995	"Democracy"	5272	3.25	3.98	"Parliamentary democracies"	6		"Not British colony"	"Not oil-producer"	87	100.87	"Majority govt"	.66
+"Denmark"	105	1995	"Democracy"	20585	21.92	3.15	"Parliamentary democracies"	95		"Not British colony"	"Not oil-producer"	99	65.64	"Minority govt"	.42
+"Finland"	106	1995	"Democracy"	15925	20.08	3.42	"Mixed democracies"	52		"Not British colony"	"Not oil-producer"	94	66.25	"Majority govt"	.73
+"France"	107	1995	"Democracy"	18558	22.9	1.23	"Mixed democracies"	38		"Not British colony"	"Not oil-producer"	93	43.78	"Majority govt"	.81
+"Greece"	110	1995	"Democracy"	10290	19.3	1.83	"Parliamentary democracies"	22		"Not British colony"	"Not oil-producer"	95	41.76	"Majority govt"	.57
+"Hungary"	111	1995	"Democracy"	5772	19.2	1.66	"Parliamentary democracies"	6		"Not British colony"	"Not oil-producer"	99	73.78	"Majority govt"	.72
+"Iceland"	112	1995	"Democracy"		19.16		"Mixed democracies"	50		"Not British colony"	"Not oil-producer"	97	67.48	"Majority govt"	.63
+"Ireland"	113	1995	"Democracy"	14445	18.62	9.45	"Parliamentary democracies"	50		"British colony"	"Not oil-producer"	96	137.69	"Minority govt"	.49
+"Italy"	114	1995	"Democracy"	17215	20.39	2.75	"Parliamentary democracies"	50		"Not British colony"	"Not oil-producer"	98	47.12		
+"Luxembourg"	115	1995	"Democracy"		23.66		"Parliamentary democracies"	126		"Not British colony"	"Not oil-producer"	74	207.44	"Majority govt"	.63
+"Malta"	116	1995	"Democracy"		21.36		"Parliamentary democracies"	32		"British colony"	"Not oil-producer"	94	204.57	"Majority govt"	.53
+"Netherlands"	117	1995	"Democracy"	18527	21.77	1.75	"Parliamentary democracies"	126		"Not British colony"	"Not oil-producer"	36	108.6	"Majority govt"	.61
+"Norway"	118	1995	"Democracy"	21536	26.44	3.31	"Parliamentary democracies"	111		"Not British colony"	"Not oil-producer"	98	70.39	"Minority govt"	.41
+"Poland"	119	1995	"Democracy"	5623	17.33	6.88	"Mixed democracies"	7		"Not British colony"	"Not oil-producer"	99	44.39	"Majority govt"	.66
+"Portugal"	120	1995	"Democracy"	11700	23.86	2.77	"Mixed democracies"	20		"Not British colony"	"Not oil-producer"	99	64.81	"Minority govt"	.49
+"Romania"	121	1995	"Democracy"	3174	12.65	7.34	"Mixed democracies"	6		"Not British colony"	"Not oil-producer"	89	66.51	"Minority govt"	.43
+"Spain"	122	1995	"Democracy"	12756	21.73	2.56	"Parliamentary democracies"	19		"Not British colony"	"Not oil-producer"	73	41.24	"Minority govt"	.45
+"Sweden"	123	1995	"Democracy"	17658	19.41	3.03	"Parliamentary democracies"	78		"Not British colony"	"Not oil-producer"	95	69.83	"Minority govt"	.46
+"Switzerland"	124	1995	"Democracy"	20421	26.77	-.15	"Presidential democracies"	126		"Not British colony"	"Not oil-producer"	65	66.14	"Majority govt"	.81
+"Turkey"	125	1995	"Democracy"	5846	21.75	5.5	"Parliamentary democracies"	13		"Not British colony"	"Not oil-producer"	87	43.57	"Minority govt"	.33
+"United Kingdom"	126	1995	"Democracy"	17495	18.02	2.42	"Parliamentary democracies"	85		"Not British colony"	"Not oil-producer"	94	55.68	"Majority govt"	.52
+"Australia"	129	1995	"Democracy"	18602	22.88	3.1	"Parliamentary democracies"	95		"Not British colony"	"Not oil-producer"	96	37.1	"Majority govt"	.54
+"Fiji"	130	1995	"Autocracy"		10.17		"Military dictatorships"	9		"British colony"	"Not oil-producer"	50	113.93		
+"New Zealand"	131	1995	"Democracy"	15031	23.13	2.55	"Parliamentary democracies"	89		"Not British colony"	"Not oil-producer"	90	55.03	"Majority govt"	.51
+"Papua New Guinea"	132	1995	"Democracy"		9.06		"Parliamentary democracies"	21		"British colony"	"Not oil-producer"	83	98.51	"Minority govt"	.28
+"Solomon Islands"	133	1995	"Democracy"		-999		"Parliamentary democracies"	18		"British colony"	"Not oil-producer"	93		"Minority govt"	.45
+"Vanuatu"	134	1995	"Democracy"		-999		"Parliamentary democracies"	16		"Not British colony"	"Not oil-producer"	94			
+"Western Samoa"	135	1995	"Autocracy"		-999		"Monarchical dictatorships"	34		"Not British colony"	"Not oil-producer"	89			
+"Bahrain"	136	1995	"Autocracy"	4540	-999	1.32	"Monarchical dictatorships"	25		"British colony"	"Oil-produced"	67.1			
+"Kuwait"	137	1995	"Autocracy"	12454	-999	-3.25	"Monarchical dictatorships"	35		"British colony"	"Oil-produced"	78			
+"Oman"	138	1995	"Autocracy"	7161	-999	1.27	"Monarchical dictatorships"	45		"British colony"	"Oil-produced"	73.5			
+"Qatar"	139	1995	"Autocracy"	6103	-999	-1.72	"Monarchical dictatorships"	25		"British colony"	"Oil-produced"	40			
+"Saudi Arabia"	140	1995	"Autocracy"	8671	-999	-3.11	"Monarchical dictatorships"	50		"Not British colony"	"Oil-produced"	90			
+"United Arab Emirates"	141	1995	"Autocracy"	13995	-999	5.89	"Monarchical dictatorships"	25		"British colony"	"Oil-produced"	25			
+"Afghanistan"	142	1995	"Autocracy"	498	-999	19.42	"Civilian dictatorships"	23		"Not British colony"	"Not oil-producer"	38			
+"Albania"	143	1995	"Democracy"	2256	13	11.96	"Mixed democracies"	4		"Not British colony"	"Not oil-producer"	98	45.41	"Majority govt"	.87
+"Antigua"	144	1995	"Democracy"		18.38		"Parliamentary democracies"	15		"British colony"	"Not oil-producer"	91.3	185.32	"Majority govt"	.65
+"Armenia"	145	1995	"Democracy"	3169	10.67	7.72	"Mixed democracies"	1		"Not British colony"	"Not oil-producer"	93.3	81.93		
+"Nauru"	146	1995	"Democracy"		-999		"Parliamentary democracies"	28		"British colony"	"Not oil-producer"				
+"Azerbaijan"	147	1995	"Autocracy"	1832	11.22	-12.47	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	89	63.57		
+"Bhutan"	148	1995	"Autocracy"		-999		"Monarchical dictatorships"	101		"British colony"	"Not oil-producer"	50			
+"Belarus"	149	1995	"Autocracy"	4749	17.24	-10.53	"Civilian dictatorships"	5	28.53	"Not British colony"	"Not oil-producer"	65.6	80.78		
+"Bosnia-Herzegovina"	150	1995	"Autocracy"	2364	-999	16.97	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	49.2			
+"Brunei"	151	1995	"Autocracy"		-999		"Monarchical dictatorships"	12		"British colony"	"Oil-produced"	67.1			
+"Cambodia"	152	1995	"Autocracy"	973	4.69	3.84	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	88.6	84.58		
+"Croatia"	153	1995	"Democracy"	5392	12.08	7.58	"Mixed democracies"	5		"Not British colony"	"Not oil-producer"	78.1	86.28	"Majority govt"	.59
+"Cuba"	154	1995	"Autocracy"	1925	1.3	2.89	"Civilian dictatorships"	37		"Not British colony"	"Not oil-producer"	51	29.07		
+"Czech Republic"	155	1995	"Democracy"	8464	24.78	5.96	"Parliamentary democracies"	3		"Not British colony"	"Not oil-producer"	81.2	104.69	"Majority govt"	.53
+"Slovak Republic"	156	1995	"Democracy"	6571	22.4	6.17	"Parliamentary democracies"	3		"Not British colony"	"Not oil-producer"	85.7	118.43	"Majority govt"	.55
+"Dominica"	157	1995	"Democracy"		13.94		"Parliamentary democracies"	18		"British colony"	"Not oil-producer"	89.1	114.19	"Majority govt"	.52
+"Equatorial Guinea"	158	1995	"Autocracy"	2036	33.65	11.38	"Military dictatorships"	17		"Not British colony"	"Not oil-producer"	82.9	128.36		
+"Estonia"	159	1995	"Democracy"	8274	12.95	5.4	"Parliamentary democracies"	5	40.37	"Not British colony"	"Not oil-producer"	63.9	133.76	"Majority govt"	.59
+"Eritrea"	160	1995	"Autocracy"		-999		"Civilian dictatorships"	3		"Not British colony"	"Not oil-producer"	49			
+"Georgia"	161	1995	"Autocracy"	2209	-999	4	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	70.1	30.23		
+"Kazakhstan"	162	1995	"Autocracy"	4429	10.63	-8.05	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	47.4	58.56		
+"Kiribati"	163	1995	"Democracy"		-999		"Parliamentary democracies"	17		"British colony"	"Not oil-producer"	97.4			
+"Korea, North (Dem. Rep.)"	164	1995	"Autocracy"	1519	-999	-17.85	"Civilian dictatorships"	2		"Not British colony"	"Not oil-producer"	99.8			
+"Kyrgyzstan"	165	1995	"Autocracy"	1772	7.95	-5.19	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	59.7	84.69		
+"Latvia"	166	1995	"Democracy"	5189	10.08	.35	"Parliamentary democracies"	5		"Not British colony"	"Not oil-producer"	55.1	90.54	"Majority govt"	.73
+"Lebanon"	167	1995	"Autocracy"	3251	16.86	5.11	"Civilian dictatorships"	7		"Not British colony"	"Not oil-producer"	93	68.13		
+"Lithuania"	168	1995	"Democracy"	5055	13.46	3.56	"Mixed democracies"	5		"Not British colony"	"Not oil-producer"	81.6	117.07	"Majority govt"	.52
+"Macedonia"	169	1995	"Democracy"	2930	13.06	-1.25	"Parliamentary democracies"	5		"Not British colony"	"Not oil-producer"	66.5	75.71	"Majority govt"	.88
+"Maldive Islands"	170	1995	"Autocracy"		-999		"Civilian dictatorships"	28		"British colony"	"Not oil-producer"	100			
+"Moldova"	171	1995	"Autocracy"	2398	10.15	-1.32	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	62	99.51		
+"Namibia"	172	1995	"Democracy"	3604	10.45	1.44	"Presidential democracies"	6		"Not British colony"	"Not oil-producer"	50.7	109.06	"Majority govt"	.74
+"Russia"	173	1995	"Democracy"	4773	17.32	-4.08	"Mixed democracies"	5		"Not British colony"	"Not oil-producer"	86.6	44.28		
+"St. Lucia"	174	1995	"Democracy"		10.63		"Parliamentary democracies"	17		"British colony"	"Not oil-producer"	90.5	135.62	"Majority govt"	.65
+"Sao Tome and Principe"	175	1995	"Democracy"	1284	17.32	-1.15	"Mixed democracies"	5		"Not British colony"	"Not oil-producer"		128.62		
+"Slovenia"	176	1995	"Democracy"	10987	23.05	3.75	"Parliamentary democracies"	5		"Not British colony"	"Not oil-producer"	87.8	112.83	"Majority govt"	.61
+"Somaliland"	177	1995	"Autocracy"		-999		"Civilian dictatorships"	5		"British colony"	"Not oil-producer"				
+"St. Kitts and Nevis"	179	1995	"Democracy"		18.21		"Parliamentary democracies"	13		"British colony"	"Not oil-producer"	94.9	126.43	"Majority govt"	.64
+"St. Vincent"	180	1995	"Democracy"		9.66		"Parliamentary democracies"	17		"British colony"	"Not oil-producer"	82	119.71	"Majority govt"	.8
+"Tajikistan"	181	1995	"Autocracy"	967	-999	-13.89	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	62.2			
+"Turkmenistan"	182	1995	"Autocracy"	2046	-999	-9.07	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	77			
+"Ukraine"	183	1995	"Democracy"	2895	10.95	-11.52	"Mixed democracies"	5		"Not British colony"	"Not oil-producer"	64.7	84.35		
+"Tonga"	184	1995	"Autocracy"		-999		"Monarchical dictatorships"	26		"British colony"	"Not oil-producer"	95.5			
+"Uzbekistan"	185	1995	"Autocracy"	3071	13.75	-4.72	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	75.8	61.84		
+"Vietnam"	186	1995	"Autocracy"	1397	13.65	7.71	"Civilian dictatorships"	20		"Not British colony"	"Not oil-producer"	87.1	78.2		
+"Greek Cyprus"	188	1995	"Democracy"		20.34		"Presidential democracies"	13		"British colony"	"Not oil-producer"	95.1	96.37		
+"Micronesia, Federated States of"	189	1995	"Democracy"		-999		"Presidential democracies"	5		"Not British colony"	"Not oil-producer"	46.7			
+"Republic of Yemen"	190	1995	"Autocracy"	2328	6.19	7.38	"Military dictatorships"	6		"British colony"	"Not oil-producer"	100	49.79		
+"Germany"	191	1995	"Democracy"	-1725	23.98	1.43	"Parliamentary democracies"	47		"Not British colony"	"Not oil-producer"	91.1	47.96	"Majority govt"	.51
+"Yugoslavia2"	192	1995	"Autocracy"	2311	-999	4.33	"Civilian dictatorships"	5		"Not British colony"	"Not oil-producer"	62.6			
+"Libya"	193	1995	"Autocracy"	2321	-999	-1.78	"Military dictatorships"	27		"Not British colony"	"Oil-produced"	79			
+"Ethiopia2"	194	1995	"Autocracy"		4.77		"Civilian dictatorships"	126		"Not British colony"	"Not oil-producer"		37.77		
+"Andorra"	195	1995	"Democracy"		-999		"Parliamentary democracies"	3		"Not British colony"	"Not oil-producer"	44.4		"Minority govt"	.5
+"Liechtenstein"	196	1995	"Democracy"		-999		"Parliamentary democracies"	6		"Not British colony"	"Not oil-producer"	62.4		"Majority govt"	.96
+"Marshall Islands"	197	1995	"Democracy"		-999		"Presidential democracies"	5		"Not British colony"	"Not oil-producer"	96.9			
+"Palau"	198	1995	"Democracy"		-999		"Presidential democracies"	2		"Not British colony"	"Not oil-producer"				
+"San Marino"	199	1995	"Democracy"		-999		"Presidential democracies"	80		"Not British colony"	"Not oil-producer"	83.1			
